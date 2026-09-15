@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genevieve Puglissi — Product Designer &amp; UX Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080B10;
+    --bg-panel: #0D131A;
+    --ink: #DCE6ED;
+    --accent: #8FD6FF;
+    --accent-soft: rgba(143, 214, 255, 0.10);
+    --line: #1F2B35;
+    --muted: #64737D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif;
+    line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; position: relative;
+  }
+
+  .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+  .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
+  .crt::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 120%); }
+  .grain { position: fixed; inset: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 49; opacity: 0.035; }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  @keyframes flicker { 0%,96%,100% { opacity: 1; } 97% { opacity: 0.85; } 98% { opacity: 1; } 99% { opacity: 0.9; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  nav { border-bottom: 1px solid var(--line); padding: 20px 0; position: relative; z-index: 2; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .nav-name { flex-shrink: 0; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; }
+  .nav-links { display: flex; gap: 26px; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .nav-links a { color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Hero — ID card, closely modeled on a personnel-badge layout */
+  header.hero { padding: 40px 0 0; position: relative; z-index: 2; }
+  .status-line { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
+  .status-line::before { content: "● "; }
+
+  .id-card { border: 1px solid var(--accent); background: var(--bg); }
+
+  .id-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid var(--line); gap: 20px; }
+  .id-logo { display: flex; align-items: center; gap: 12px; flex: 1; }
+  .id-logo .mark { font-size: 16px; color: var(--accent); letter-spacing: -3px; transform: scaleY(1.3); }
+  .id-logo .wordmark { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 0.02em; white-space: nowrap; }
+  .id-logo .rule { flex: 1; height: 1px; background: var(--line); margin-left: 6px; }
+  .id-hexes { display: flex; gap: 7px; flex-shrink: 0; }
+  .id-hexes .hexdot { width: 13px; height: 13px; }
+
+  .id-body { display: grid; grid-template-columns: 280px 1fr; border-bottom: 1px solid var(--line); }
+  .id-photo { border-right: 1px solid var(--line); background: #05080B; position: relative; overflow: hidden; aspect-ratio: 3/4; }
+  .id-photo .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 9px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 9px); }
+  .id-photo .ascii-fit { position: absolute; top: 0; left: 0; transform-origin: top left; }
+  .id-photo pre { font-family: 'IBM Plex Mono', monospace; font-size: 7px; line-height: 8px; color: rgba(143,214,255,0.55); white-space: pre; margin: 0; padding: 0; animation: flowerglitch 7s infinite; }
+  @keyframes flowerglitch {
+    0%, 90%, 100% { transform: translate(0,0) skew(0deg); text-shadow: none; opacity: 1; }
+    91% { transform: translate(-2px,1px) skewX(1deg); text-shadow: 2px 0 rgba(255,90,90,0.45), -2px 0 rgba(90,200,255,0.45); opacity: 0.85; }
+    92% { transform: translate(2px,-1px); opacity: 0.55; }
+    92.5% { transform: translate(-3px,0); text-shadow: 2px 0 rgba(255,90,90,0.4), -2px 0 rgba(90,200,255,0.4); }
+    93% { transform: translate(1px,1px); opacity: 1; text-shadow: none; }
+    96% { transform: translate(0,0); }
+    96.4% { transform: translate(2px,0); opacity: 0.7; }
+    96.8% { transform: translate(0,0); opacity: 1; }
+  }
+
+  .id-fields { padding: 22px 26px 20px; }
+  .id-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 0.005em; }
+  .id-role { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); margin-top: 4px; letter-spacing: 0.04em; }
+  .id-callsign { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .id-tagline { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 14.5px; color: #B7C4CD; margin-top: 14px; max-width: 40ch; }
+
+  .id-divider { border-top: 1px solid var(--line); margin: 18px 0; }
+  .id-row-2 { display: flex; gap: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-bottom: 22px; }
+  .id-row-2 b { color: var(--ink); font-weight: 500; display: block; margin-top: 2px; }
+
+  .id-coords { font-family: 'IBM Plex Mono', monospace; font-size: 27px; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 4px; }
+  .id-email { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-bottom: 20px; }
+
+  .id-hexcluster { display: flex; flex-wrap: wrap; width: 46px; gap: 3px; margin: 4px 0 20px; }
+  .id-hexcluster .hexdot { width: 13px; height: 13px; }
+  .id-hexcluster .hexdot:nth-child(2n) { transform: translateY(7px); }
+
+  .id-tags-row { display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); line-height: 1.9; }
+  .id-tags-row .right { text-align: right; }
+
+  .id-contact-row { padding: 20px 26px 22px; }
+
+  .hero-below { display: flex; justify-content: space-between; align-items: center; padding: 18px 0 44px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; }
+  .hero-below a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 480px) {
+    nav .wrap { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .nav-links { gap: 18px; }
+  }
+
+  @media (max-width: 700px) {
+    .id-body { grid-template-columns: 1fr; }
+    .id-photo { border-right: none; border-bottom: 1px solid var(--line); }
+    .id-row-2 { flex-wrap: wrap; gap: 20px; }
+    .id-tags-row { flex-direction: column; gap: 10px; }
+    .id-tags-row .right { text-align: left; }
+  }
+
+  .section-label { padding: 56px 0 20px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); }
+
+  @media (max-width: 480px) {
+    .section-label { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .drawer-toggle { flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+
+
+  /* Selected work — compact, collapsed by default, click to expand */
+  .project-row { border-bottom: 1px solid var(--line); }
+  .row-head { display: grid; grid-template-columns: 72px 40px 1fr auto; gap: 18px; align-items: center; padding: 18px 0; cursor: pointer; }
+  .row-thumb { width: 72px; height: 54px; border: 1px solid var(--line); background: var(--bg-panel); position: relative; }
+  .row-thumb svg { width: 100%; height: 100%; }
+  .project-row.open .row-thumb { border-color: var(--accent); }
+  .row-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); }
+  .row-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; }
+  .row-org { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .row-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 18px; color: var(--muted); transition: transform 0.3s; }
+  .project-row.open .row-toggle { transform: rotate(45deg); color: var(--accent); }
+
+  .row-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .project-row.open .row-body { max-height: 300px; }
+  .row-body-inner { padding: 0 0 26px 148px; }
+  .row-desc { font-size: 15px; color: #C7D2D9; max-width: 62ch; margin-bottom: 12px; }
+  .row-list { list-style: none; font-size: 13.5px; color: #AEBBC4; margin-bottom: 12px; }
+  .row-list li { padding-left: 16px; position: relative; margin-bottom: 4px; }
+  .row-list li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
+  .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .tag { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--accent); border: 1px solid var(--line); background: var(--accent-soft); padding: 5px 11px; }
+  .case-link { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .row-head { grid-template-columns: 50px 1fr auto; }
+    .row-index { display: none; }
+    .row-body-inner { padding-left: 0; }
+  }
+
+  /* Other work drawer */
+  .drawer { border-bottom: 1px solid var(--line); }
+  .drawer-toggle { width: 100%; background: none; border: none; color: var(--muted); cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 22px 0; display: flex; justify-content: space-between; align-items: center; }
+  .drawer-toggle:hover { color: var(--accent); }
+  .drawer-toggle .plus { font-size: 16px; transition: transform 0.3s; }
+  .drawer.open .drawer-toggle .plus { transform: rotate(45deg); }
+  .drawer-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .drawer.open .drawer-content { max-height: 900px; }
+  .drawer-inner { padding-bottom: 40px; }
+  .drawer-group-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.05em; margin: 18px 0 12px; }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; }
+  .mini-card { border-top: 1px solid var(--line); padding-top: 14px; display: flex; gap: 14px; }
+  .mini-thumb { width: 48px; height: 48px; flex-shrink: 0; border: 1px solid var(--line); background: var(--bg-panel); }
+  .mini-thumb svg { width: 100%; height: 100%; }
+  .mini-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16.5px; }
+  .mini-org { font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); margin: 3px 0 6px; }
+  .mini-desc { font-size: 13px; color: #AEBBC4; max-width: 38ch; }
+  .mini-tag { display: inline-block; margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); border: 1px solid var(--line); padding: 2px 7px; }
+  .role-line { border-top: 1px solid var(--line); padding: 14px 0; font-size: 14px; color: #B0BEC7; }
+  .role-line b { color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+  .role-line .mono { color: var(--muted); font-size: 11.5px; display: block; margin-top: 2px; }
+
+  .about { padding: 56px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .about h2 { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 13px; color: var(--accent); margin-bottom: 14px; letter-spacing: 0.05em; }
+  .about p { font-size: 15.5px; color: #C7D2D9; }
+  .about-tools { font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; color: var(--muted); margin-top: 16px; line-height: 2; }
+
+  footer { padding: 44px 0 60px; display: flex; justify-content: space-between; align-items: baseline; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); position: relative; z-index: 2; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 0 20px; }
+    .id-name { font-size: 22px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .about { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="crt"></div>
+<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name">GENEVIEVE PUGLISSI</div>
+    <div class="nav-links"><a href="#work">WORK</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="id-card">
+
+      <div class="id-header">
+        <div class="id-logo">
+          <span class="mark">▲▲</span>
+          <span class="wordmark">GEN PUG</span>
+          <span class="rule"></span>
+        </div>
+        <div class="id-hexes"><svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg><svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg><svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg></div>
+      </div>
+
+      <div class="id-body">
+        <div class="id-photo">
+          <div class="hatch"></div>
+          <div class="ascii-fit" id="asciiFit"><pre id="asciiField">++:.=-+#+#%*#-.=#**####+*+=*+++***++==-:
+=--.=+=**%%%::=#%#%@%%##*++*+++*#**++-::
+:=*--++:###::*+%%#*%%@%@%++-=**+++**+===
+:-+*=++-++-:*#+++--=--++*##==*#++=**++==
+::-##===+.:##%= :::--:----++****#*=++++-
+:-=*%=*-.:***=...::.:-::----*##*****++==
+-++=@+*+:*+:::::. .:.::::-=--#%#*=+++++=
+-+=+@*+==+-:.::......::::.--:=%%##+=#**+
+-#*+#:+=:...-:.......::..::-:-+##+=*+***
+=+=#+.+-   -+=-.....:-....::::-+*+=**=**
+=*++-:*-. -***+-.....:......::-=*===+-==
+-=++::*- .**##*+=:..... ......--##==-:--
+*==*::*: -######*: .... ......:-=+=-:-::
++*#=::=: =#*#%%##: .... .....::-=+++=--:
+**+-:::: ***+-:-=... . .. ...::-=++=---.
+*=-=-.:..-++:.-==... . ......:::-+#+-:=-
+-*--=::...-*+-:--... ....  ...::-=+++:-=
+:=-++-:..:-%#-.:--.. ....  ....::-+*-.::
++.:=*-:.. *@#*=+**:.  .. .  ...::-=*=..-
+==::-::. -@%#%%##*:.. .....  ..:::==-:.:
+*%-:-:-. %%%%*###*-.   .. .....:::-+:::.
+#%=.-:=:.++**+*##*=:. . .. .....::-+-..:
+%%=:::-:.+--=****++-:.   .  .....::=-:.:
++==-::-:.***##**+++=-:.     ...:..:=+-..
+-+*=::-- =+-===+++++=:.    . ..::::-=-..
+++*=-:-+ :--===+++++=:...    ...::::=-..
+=+#%*:-#: ===**+++++-:.   .  ....:::--:.
+:-*#=-:*+ -++***+++=:...      ...:::--::
+=++%=.:*# .*****+==:......   .....:::-::
+-==+*::**..==+++--:.... .    ......:::::
+--+=+#-+-. .-::::::::.... .  ... ...::::
+:--+*=:=:..    .----:...   . .......::.:
+--:+#*--:-.    .---::. .        ......:.
+=*=+++=:-..    .----:.       .   ...:::.
+:=**-::--..    .----: .          ...:-:.
+===--===.      .----:.      .    .:.:=-.
+**===+#=.  ..  .----:.            ...---
+=****+-:   :. ..----:.     .     ....-=-
+--=++...   :: ..:----:           ..:.-==
+--==...    -:..::-=--:.   .      ....:-:
+-==....    :-.:==:==--:         ...:--::
+-=-...    . -:--=:-=---. .      ..-:-:::
+:-:...   .. .--::::=---:       ..:-:::::
+::.     ::...:-:-::---- .      ..:-:::::
+-.  .  .:.:::::----:-:...    ....:::::::
+-:     .::----------::::.    ...::::::::
+:. .  .::::---=--------:.  . ...::::::::
+:.    :----------------.   .  .:::::::::
+...  .::------:-------:     . ..::::::::
+..  .:::::---:------:-.       ..::::::::
+..  :::::::-::-:::::::.    .   ..:::::::
+.. .::::::::::::::::::. .      ..:::::::
+...::::::::::::::::::::.  .     .:::::::
+..::::::::::::::::::::..    .. ..:::::::</pre></div>
+        </div>
+
+        <div class="id-fields">
+          <div class="id-name">GENEVIEVE PUGLISSI</div>
+          <div class="id-role">PRODUCT DESIGNER &amp; UX RESEARCHER</div>
+          <div class="id-callsign">CXO.SERIYOKU_ZENYO_LABS</div>
+          <p class="id-tagline">Exploring emerging technologies, storytelling, and human-centered design.</p>
+
+          <div class="id-divider"></div>
+
+          <div class="id-row-2">
+            <div>PRACTICING SINCE<b>2018</b></div>
+            <div>STATUS<b>BUILDING</b></div>
+          </div>
+
+          <div class="id-coords">40.71 · 73.99</div>
+          <div class="id-hexcluster">
+            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
+            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
+            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
+            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
+            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
+            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="id-contact-row">
+        <div class="id-email">genpugdesign@gmail.com</div>
+        <div class="id-tags-row">
+          <div>&gt;GP<br>&gt;NYC<br>&gt;FIT '24</div>
+          <div class="right">&gt;ROLE.PRODUCT + RESEARCH<br>&gt;BASE.NEW YORK, NY</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-below"><a href="#work">→ View Selected Work</a></div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-label"><span>// SELECTED WORK — TAP TO EXPAND</span><span>05 PROJECTS</span></div>
+
+    <!-- 01 Magi Vision -->
+    <div class="project-row">
+      <div class="row-head" data-toggle>
+        <div class="row-thumb">
+          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">A</text></svg>
+        </div>
+        <div class="row-index">01</div>
+        <div><div class="row-title">Magi Vision</div><div class="row-org">SERIYOKU ZENYO LABS — CO-FOUNDER &amp; CXO</div></div>
+        <div class="row-toggle">+</div>
+      </div>
+      <div class="row-body"><div class="row-body-inner">
+        <p class="row-desc">A computer-vision platform for combat-sports gyms, built from concept through launch.</p>
+        <ul class="row-list"><li>Own product and experience design direction end to end</li><li>Design across hardware and software surfaces</li></ul>
+        <div class="tags"><span class="tag">0 → 1</span><span class="tag">HARDWARE × SOFTWARE</span><span class="tag">DESIGN LEADERSHIP</span></div>
+        <div class="case-link"><a href="magi-vision-case-study.html" style="color:var(--accent);">View full case study →</a></div>
+      </div></div>
+    </div>
+
+    <!-- 02 Medusa -->
+    <div class="project-row">
+      <div class="row-head" data-toggle>
+        <div class="row-thumb">
+          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">B</text></svg>
+        </div>
+        <div class="row-index">02</div>
+        <div><div class="row-title">Medusa Solutions Inc.</div><div class="row-org">FOUNDING DESIGNER — SEP 2024–MAY 2025</div></div>
+        <div class="row-toggle">+</div>
+      </div>
+      <div class="row-body"><div class="row-body-inner">
+        <div class="tags"><span class="tag">PRODUCT SCREENS</span><span class="tag">ART DIRECTION</span><span class="tag">RESEARCH</span></div>
+        <div class="case-link">Full case study — coming soon</div>
+      </div></div>
+    </div>
+
+    <!-- 03 PayApp -->
+    <div class="project-row">
+      <div class="row-head" data-toggle>
+        <div class="row-thumb">
+          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">C</text></svg>
+        </div>
+        <div class="row-index">03</div>
+        <div><div class="row-title">PayApp</div><div class="row-org">JUSTWORKS — PRODUCT DESIGN INTERN — B2B</div></div>
+        <div class="row-toggle">+</div>
+      </div>
+      <div class="row-body"><div class="row-body-inner">
+        <p class="row-desc">An internal B2B fintech platform used across an 11-person cross-functional team.</p>
+        <ul class="row-list"><li>Led end-to-end design: user flows, site maps, high-fidelity prototypes</li><li>Partnered with PMs to define MVP scope and evaluate future opportunities</li></ul>
+        <div class="tags"><span class="tag">ENTERPRISE UX</span><span class="tag">FINTECH</span><span class="tag">DESIGN SYSTEMS</span></div>
+        <div class="case-link">Full case study — coming soon</div>
+      </div></div>
+    </div>
+
+    <!-- 04 New Payments Experience -->
+    <div class="project-row">
+      <div class="row-head" data-toggle>
+        <div class="row-thumb">
+          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">D</text></svg>
+        </div>
+        <div class="row-index">04</div>
+        <div><div class="row-title">New Payments Experience</div><div class="row-org">JUSTWORKS — PRODUCT DESIGN INTERN — B2C</div></div>
+        <div class="row-toggle">+</div>
+      </div>
+      <div class="row-body"><div class="row-body-inner">
+        <p class="row-desc">The consumer-facing counterpart to PayApp, built on the same underlying platform.</p>
+        <ul class="row-list"><li>Redesigned UI and flow for a non-technical, self-serve audience</li><li>Extended the Milo Design System for a consistent cross-product experience</li></ul>
+        <div class="tags"><span class="tag">B2C</span><span class="tag">UI DESIGN</span><span class="tag">DESIGN SYSTEMS</span></div>
+        <div class="case-link">Full case study — coming soon</div>
+      </div></div>
+    </div>
+
+    <!-- 05 LIFECYCLE -->
+    <div class="project-row">
+      <div class="row-head" data-toggle>
+        <div class="row-thumb">
+          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">E</text></svg>
+        </div>
+        <div class="row-index">05</div>
+        <div><div class="row-title">LIFECYCLE</div><div class="row-org">CASE STUDY — CREATIVE CONSCIENCE GOLD AWARD</div></div>
+        <div class="row-toggle">+</div>
+      </div>
+      <div class="row-body"><div class="row-body-inner">
+        <p class="row-desc">[Placeholder — add the problem, your process, and what earned the Gold.]</p>
+        <div class="tags"><span class="tag">CASE STUDY</span><span class="tag">AWARD-WINNING</span></div>
+        <div class="case-link">Full case study — coming soon</div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="drawer" id="other-drawer">
+  <div class="wrap">
+    <button class="drawer-toggle" data-drawer><span>// OTHER WORK &amp; PROTOTYPES — TAP TO EXPAND</span><span class="plus mono">+</span></button>
+    <div class="drawer-content"><div class="drawer-inner">
+
+      <div class="drawer-group-label">OTHER PROJECTS</div>
+      <div class="card-grid">
+        <div class="mini-card">
+          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
+          <div><div class="mini-title">AIEdu</div><div class="mini-org">FIT CAPSTONE — ADVERTISING &amp; MOTION</div><p class="mini-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p></div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
+          <div><div class="mini-title">Compliance &amp; Packaging</div><div class="mini-org">HADDAD BRANDS — ASST. PACKAGING DESIGNER</div><p class="mini-desc">Re-engineered packaging systems for Levi's, Lacoste, Nike, Converse, Ralph Lauren, Abercrombie &amp; Hurley.</p></div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
+          <div><div class="mini-title">[Arduino project name]</div><div class="mini-org">HARDWARE PROTOTYPE</div><p class="mini-desc">[Placeholder — what it does, what it shows about your hardware/software thinking.]</p><span class="mini-tag">PROTOTYPE</span></div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
+          <div><div class="mini-title">[3D print project name]</div><div class="mini-org">PHYSICAL PROTOTYPE</div><p class="mini-desc">[Placeholder — the object, the constraint, what it proves about tangible product thinking.]</p><span class="mini-tag">PROTOTYPE</span></div>
+        </div>
+      </div>
+
+      <div class="drawer-group-label">ALSO WORKED WITH</div>
+      <div class="role-line"><b>Kano Martial Arts</b> — Logistics &amp; Media Manager, Jun 2025–Present<span class="mono">Marketing across social, print, and event channels — 34% visibility increase, 25% follower growth, $3,000+ in program enrollments secured.</span></div>
+
+    </div></div>
+  </div>
+</section>
+
+<section id="about" class="about wrap">
+  <div>
+    <h2>// ABOUT</h2>
+    <p>Product design and UX research, with a pull toward emerging technology, storytelling, and human-centered work. Trained at FIT, freelancing since 2018, currently building Magi Vision as Co-Founder &amp; CXO of Seriyoku Zenyo Labs. Judo and BJJ outside of work — same approach either way: put in the reps, test against what you thought was possible.</p>
+  </div>
+  <div>
+    <h2>// TOOLS</h2>
+    <div class="about-tools">Figma · Adobe CC · Framer · Webflow<br>Miro · Notion · Jira<br>Basic HTML / CSS</div>
+  </div>
+</section>
+
+<footer id="contact" class="wrap">
+  <div class="nav-name">GENEVIEVE PUGLISSI</div>
+  <div><a href="#">LINKEDIN</a> &nbsp;·&nbsp; <a href="#">EMAIL</a></div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-toggle]').forEach(function(head){
+    head.addEventListener('click', function(){
+      var row = head.closest('.project-row');
+      var isOpen = row.classList.contains('open');
+      document.querySelectorAll('.project-row.open').forEach(function(r){ if (r !== row) r.classList.remove('open'); });
+      row.classList.toggle('open', !isOpen);
+    });
+  });
+  document.querySelectorAll('[data-drawer]').forEach(function(btn){
+    btn.addEventListener('click', function(){ btn.closest('.drawer').classList.toggle('open'); });
+  });
+
+  function fitAsciiToBox(){
+    var fit = document.getElementById('asciiFit');
+    var box = fit.parentElement;
+    fit.style.transform = 'none';
+    var fitRect = fit.getBoundingClientRect();
+    var boxRect = box.getBoundingClientRect();
+    if (fitRect.width === 0 || fitRect.height === 0) return;
+    var sx = boxRect.width / fitRect.width;
+    var sy = boxRect.height / fitRect.height;
+    fit.style.transform = 'scale(' + sx + ',' + sy + ')';
+  }
+  fitAsciiToBox();
+  window.addEventListener('resize', fitAsciiToBox);
+</script>
+
+</body>
+</html>

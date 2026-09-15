@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayApp — Genevieve Puglissi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080B10; --bg-panel: #0D131A; --ink: #DCE6ED; --accent: #8FD6FF;
+    --accent-soft: rgba(143,214,255,0.10); --line: #1F2B35; --muted: #64737D;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+  .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
+  .crt::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 120%); }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .head { font-family: 'Space Grotesk', sans-serif; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+
+  nav { border-bottom: 1px solid var(--line); padding: 20px 0; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; }
+  .back-link { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .back-link:hover { color: var(--accent); }
+
+  header.proj-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+  .proj-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 46px; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .proj-role { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+
+  .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; margin-bottom: 36px; }
+  .meta-item .mono.label { font-size: 10.5px; color: var(--muted); letter-spacing: 0.06em; display: block; margin-bottom: 5px; }
+  .meta-item .value { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; }
+
+  .hero-visual, .img-block { border: 1px solid var(--line); background: var(--bg-panel); position: relative; overflow: hidden; }
+  .hero-visual { aspect-ratio: 16/9; }
+  .hero-visual img, .img-block img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-visual .hatch, .img-block .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px); }
+  .hero-visual .ph-label, .img-block .ph-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; padding: 20px; }
+  .hero-visual .corner { position: absolute; width: 18px; height: 18px; border: 1.5px solid var(--accent); opacity: 0.6; z-index: 2; }
+  .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .hero-caption { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 10px; }
+
+  section.block { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section.block:last-of-type { border-bottom: none; }
+  .block-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 16px; }
+  .block h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 27px; margin-bottom: 18px; max-width: 30ch; }
+  .block h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 18px; margin: 28px 0 12px; }
+  .block p { font-size: 16.5px; color: #C7D2D9; max-width: 68ch; margin-bottom: 16px; }
+  .block ul { list-style: none; margin-bottom: 16px; }
+  .block ul li { font-size: 16px; color: #AEBBC4; padding-left: 20px; position: relative; margin-bottom: 8px; max-width: 60ch; }
+  .block ul li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
+
+  .img-block.wide { aspect-ratio: 16/8; }
+  .img-block.tall { aspect-ratio: 4/3; }
+  .img-block.free { aspect-ratio: auto; }
+  .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+  .img-block + .hero-caption, .img-grid + .hero-caption { margin-bottom: 20px; }
+
+  /* Methodology stepper */
+  .methodology { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 8px 0 30px; }
+  .method-step { border: 1px solid var(--line); background: var(--bg-panel); padding: 10px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink); white-space: nowrap; }
+  .method-step.active { border-color: var(--accent); color: var(--accent); }
+  .method-arrow { color: var(--accent); padding: 0 10px; font-family: 'IBM Plex Mono', monospace; }
+
+  /* Two-column challenge/solution */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 8px; }
+  .two-col h4 { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 8px; }
+  .two-col p { font-size: 15px; margin-bottom: 0; }
+
+  /* Persona cards */
+  .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
+  .persona-card { border: 1px solid var(--line); padding: 18px; }
+  .persona-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--bg-panel); border: 1px solid var(--line); margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--accent); font-size: 16px; }
+  .persona-quote { font-style: italic; color: #B7C4CD; font-size: 13px; margin-bottom: 12px; }
+  .persona-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15.5px; }
+  .persona-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin: 3px 0 12px; }
+  .persona-needs { list-style: none; font-size: 12.5px; color: #AEBBC4; }
+  .persona-needs li { padding-left: 14px; position: relative; margin-bottom: 4px; }
+  .persona-needs li::before { content: "·"; position: absolute; left: 0; color: var(--accent); }
+
+  /* HMW grid */
+  .hmw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .hmw-card { border: 1px solid var(--line); background: var(--accent-soft); padding: 14px 16px; font-size: 13px; color: #C7D2D9; }
+  .hmw-card b { color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; display: block; margin-bottom: 6px; letter-spacing: 0.04em; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 8px; }
+  .stat { border: 1px solid var(--line); padding: 20px; }
+  .stat .lbl-top { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent); letter-spacing: 0.05em; display: block; margin-bottom: 8px; }
+  .stat p { font-size: 14.5px; color: #C7D2D9; margin: 0; }
+
+  .closing-quote { padding: 60px 0 50px; text-align: center; border-top: 1px solid var(--line); }
+  .closing-quote p { font-family: 'Space Grotesk', sans-serif; font-style: italic; font-weight: 500; font-size: 20px; color: var(--ink); max-width: 40ch; margin: 0 auto; line-height: 1.4; }
+
+  .next-proj { padding: 56px 0 60px; display: flex; justify-content: space-between; align-items: center; }
+  .next-proj a { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: var(--ink); text-decoration: none; }
+  .next-proj a:hover { color: var(--accent); }
+  .next-proj .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); display: block; margin-bottom: 6px; }
+
+  @media (max-width: 700px) {
+    .wrap { padding: 0 20px; }
+    h1 { font-size: 32px; }
+    .meta-row { grid-template-columns: 1fr 1fr; row-gap: 16px; }
+    .img-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 14px; }
+    .persona-grid { grid-template-columns: 1fr; }
+    .hmw-grid { grid-template-columns: 1fr; }
+    .methodology { gap: 6px; }
+    .method-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="crt"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name">GENEVIEVE PUGLISSI</div>
+    <a class="back-link" href="portfolio-crt-landing.html">← ALL WORK</a>
+  </div>
+</nav>
+
+<header class="proj-hero">
+  <div class="wrap">
+    <div class="proj-index">PROJECT 03 / 05 — SELECTED WORK</div>
+    <h1 class="head">PayApp</h1>
+    <div class="proj-role mono">Justworks — Product Design Intern · Internship / Deployed / Fintech</div>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="mono label">DURATION</span><span class="value head">2 Months</span></div>
+      <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Product Designer, Researcher</span></div>
+      <div class="meta-item"><span class="mono label">PLATFORM</span><span class="value head">Web · B2B</span></div>
+      <div class="meta-item"><span class="mono label">STATUS</span><span class="value head">Deployed</span></div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="corner tl"></div><div class="corner br"></div>
+      <img src="assets/img_payapp_hero.png" alt="PayApp member management screen on a laptop">
+    </div>
+    <div class="hero-caption">PayApp's Member Management screen — roles and permissions for internal Justworks users.</div>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// OVERVIEW</div>
+    <h2 class="head">An internal tool for Justworks</h2>
+    <p>PayApp is an internal tool that was deployed in 2025. The API is growing due to PayApp being added as an additional functionality for internal users. This led Justworks to needing the appropriate risks and controls to a select group due to the risk surrounded the money movement capabilities of the platform.</p>
+
+    <div class="two-col">
+      <div><h4>CHALLENGE</h4><p>PayApp currently allows full access to all users that are added to the platform. This creates risk of control on the platform which is increasing as more money movement capabilities are added.</p></div>
+      <div><h4>SOLUTION</h4><p>Build roles and permissions in a way that internal teams can manage their own provisioning through a ticketing service without needing PAY to intervene.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// MY ROLE</div>
+    <ul>
+      <li>Skills: Design Thinking, Data Analysis, Usability Testing, Empathy Interviewing, Competitor Analysis, Qualitative &amp; Quantitative Analysis</li>
+      <li>Team: 1 Product Designer, 1 Staff Product Designer, 2 Product Managers, 7 Software Engineers, 1 Content Designer</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// METHODOLOGY</div>
+    <div class="methodology">
+      <div class="method-step active">Discover</div><div class="method-arrow">→</div>
+      <div class="method-step">Define</div><div class="method-arrow">→</div>
+      <div class="method-step">Ideate</div><div class="method-arrow">→</div>
+      <div class="method-step">Design &amp; Development</div><div class="method-arrow">→</div>
+      <div class="method-step">Deliver!</div>
+    </div>
+    <p>This project utilized a heuristic non-linear approach due to new information and changes actively happening within the company.</p>
+
+    <h3>Discover</h3>
+    <p>Going through this phase meant listening to many different perspectives within PayOps and IT to get a general grasp on their day-to-day tasks along with interruptions and how they sit with themselves. This also included a competitive analysis of how other FinTech companies were provisioning roles and permissions for users to have access to finances where large sums of money are involved. I was unfamiliar with the financial world but made it my mission to understand all moving parts from ACH to Plaid and even penny tests.</p>
+    <p>I became proficient in understanding the perspective of the Justworks employees' workflows by organizing unstructured interviews to allow the conversation to flow. Starting off without a rigid interview script allowed the interviewees to speak more openly and freely about their work which not only offered me technical insight into their day-to-days but emotional as well. This allowed me to observe which tasks they found the most joy in and which duties were not as enjoyable.</p>
+    <p>The Project Manager, Staff Product Designer, Software Engineers, and I sat in on a demo of the competitor Modern Treasury to see how they provision roles and permissions access as well as for whom. This showed us their internal UI perspective which utilizes drawers and modals to maintain a simplified process.</p>
+
+    <h3>Site Map Iterations</h3>
+    <div class="img-block free"><img src="assets/img_payapp_sitemap2.png" alt="PayApp permissions and roles sitemap iterations"></div>
+    <p>Multiple site maps were created simultaneously when wireframing to develop both the interface and users experience. This process also helped determine where the Roles and Permissions feature will reside within PayApp.</p>
+    <p>After the site map iterations were developed, user flows were generated alongside low and mid-fidelity wireframes.</p>
+
+    <h3>Qualitative Personas</h3>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-avatar">LJ</div>
+        <div class="persona-name">Lady Jessica</div>
+        <div class="persona-meta">PRIMARY USER — JUSTWORKS I.T.</div>
+        <ul class="persona-needs"><li>Add and manage member roles</li><li>Reduce risk on the platform</li></ul>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar">PA</div>
+        <div class="persona-name">Paul Atredies</div>
+        <div class="persona-meta">SECONDARY USER — JUSTWORKS FINANCE</div>
+        <ul class="persona-needs"><li>Be assigned the correct role quickly</li><li>Clear visibility into permissions</li></ul>
+      </div>
+    </div>
+    <p class="hero-caption" style="margin-top:-6px;">Persona names are a deliberate creative choice from the original research deck — kept here as a stand-in for real portraits.</p>
+
+    <h3>MVPs</h3>
+    <div class="two-col">
+      <div><h4>ADD TEAM MEMBER WITH ROLES</h4><p>The member list will never be created in an empty state because a Justworks I.T. user will be the first user manually added by engineering.</p></div>
+      <div><h4>CREATE NEW ROLES</h4><p>Justworks I.T. and admins should be able to create roles encompassing a set of permissions. These roles can then be assigned to users to provide them with the appropriate access.</p></div>
+    </div>
+    <p>To add a user to the system, a role must be created with permission sets within first. If no currently added role fits the newly added member, a new role can be created from the "create new role" link. However, information added to the drawer will not be saved if a role without provisions is assigned — halting the task and re-verifying the information helps confirm that the user is assigning the correct role to the intended member.</p>
+
+    <h3>Ideate — Sketches</h3>
+    <p>In conjunction with performing empathy interviews and gaining insight, low-fidelity sketches were drafted to explore possible user flows and screens with a clear end goal of the user being able to add a role while consistently questioning other design solutions.</p>
+
+    <h3>Wireframe Iterations</h3>
+    <p>Low to mid-fidelity wireframes was an exploratory and iterative process. There were consistent touch bases with cross-functional stakeholders and the software engineering team to gain feedback and have visibility as early as possible.</p>
+
+    <h3>Design &amp; Development — High Fidelity</h3>
+    <p>High-fidelity prototypes were presented to the affected stakeholders in PayOps and IT to gather feedback. This was not the first time that they had seen these screens. Throughout the scope of this project, the team and I had regular check-ins with the users to continue gathering quantitative and qualitative data to ensure PayApp will be a scalable product. The software engineering team was also present to give comments to remain active within the design process from the ground up.</p>
+    <p>This then led to the flow of Lady Jessica giving Paul Atredies his rightful role.</p>
+
+    <h3>Deliver — Prototypes and Handoff</h3>
+    <p>Lady Jessica has the power to not only add a new admin but to dictate their role within the internal tool of PayApp. But she must remain vigilant and make sure not to add a member without first granting their role within the system.</p>
+    <div class="img-block free"><img src="assets/img_payapp_deliver3.png" alt="Add member and Create New Role flows in PayApp"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// OUTCOME</div>
+    <div class="stat-row">
+      <div class="stat"><span class="lbl-top">OUTCOMES</span><p>It was a fulfilling project to be able to go from 0 to 1 with a hard-stop deadline — and being notified after handoff that it was deployed.</p></div>
+      <div class="stat"><span class="lbl-top">REFLECTION</span><p>A feature added to allow only specific users to be able to transfer a certain amount of money would be beneficial to track both internal and external transfers.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="closing-quote">
+  <p class="head">"Whimsy is the magic that turns the ordinary into the extraordinary."</p>
+</div>
+
+<div class="wrap">
+  <div class="next-proj">
+    <div><span class="lbl mono">NEXT PROJECT</span><a href="new-payments-experience-case-study.html">New Payments Experience →</a></div>
+    <a href="portfolio-crt-landing.html">All Work</a>
+  </div>
+</div>
+
+</body>
+</html>
