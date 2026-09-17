@@ -82,6 +82,8 @@
      heights below actually resolve and the image scales instead of overflowing */
   .lb-stage { position: relative; flex: 1 1 0; height: 0; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 48px 72px 12px; overflow: hidden; }
   .lb-stage #lbMedia { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .lb-stage .lb-video { width: min(100%, 1100px); aspect-ratio: 16/9; max-height: 100%; }
+  .lb-stage .lb-video iframe { width: 100%; height: 100%; border: 0; display: block; background: #000; }
   .lb-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; border: 1px solid var(--line); background: #05080B; }
   .lb-panel { flex: 0 0 auto; }
   .lb-stage .lb-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1px dashed var(--line); background: var(--bg-panel); padding: 70px 50px; }
@@ -210,36 +212,10 @@
       <div class="group-meta">STRUCTURAL · COMPLIANCE · PHYSICAL PROTOTYPES</div>
     </div>
     <div class="tile-grid">
-      <button class="tile" type="button">
+      <button class="tile" type="button" data-vimeo="944954743">
         <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">packaging system or compliance artwork</div></div></div>
-        <div class="tile-info"><div class="t-title">Compliance &amp; Packaging</div><div class="t-org">HADDAD BRANDS — ASST. PACKAGING DESIGNER</div><p class="t-desc">Re-engineered packaging systems for Levi's, Lacoste, Nike, Converse, Ralph Lauren, Abercrombie and Hurley.</p><div class="badges"><span class="badge">FASHION</span></div></div>
-      </button>
-      <button class="tile" type="button">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">3D print photo</div></div></div>
-        <div class="tile-info"><div class="t-title">[3D print project name]</div><div class="t-org">PHYSICAL PROTOTYPE</div><p class="t-desc">[Placeholder — the object, the constraint, what it proves about tangible product thinking.]</p><div class="badges"><span class="badge">PROTOTYPE</span><span class="badge">3D PRINTING</span></div></div>
-      </button>
-      <button class="tile" type="button">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">Arduino build photo</div></div></div>
-        <div class="tile-info"><div class="t-title">[Arduino project name]</div><div class="t-org">HARDWARE PROTOTYPE</div><p class="t-desc">[Placeholder — what it does, and what it shows about your hardware and software thinking.]</p><div class="badges"><span class="badge">PROTOTYPE</span><span class="badge">ARDUINO</span></div></div>
-      </button>
-    </div>
-  </div>
-</section>
-
-<section class="group" data-cat="motion">
-  <div class="wrap">
-    <div class="group-head">
-      <div class="group-name">Motion Design</div>
-      <div class="group-meta">CAMPAIGN MOTION · ANIMATION</div>
-    </div>
-    <div class="tile-grid">
-      <button class="tile" type="button">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">AIEdu motion frame or campaign still</div></div></div>
-        <div class="tile-info"><div class="t-title">AIEdu</div><div class="t-org">FIT CAPSTONE — ADVERTISING &amp; MOTION</div><p class="t-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p><div class="badges"><span class="badge">CASE STUDY</span></div></div>
+        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 8 6 4-6 4Z"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg><div class="bt">PLAY REEL</div><div class="bs">opens the AIEdu film</div></div></div>
+        <div class="tile-info"><div class="t-title">AIEdu</div><div class="t-org">FIT CAPSTONE — ADVERTISING &amp; MOTION</div><p class="t-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p><div class="badges"><span class="badge">CASE STUDY</span><span class="badge">MOTION</span></div></div>
       </button>
       <button class="tile" type="button">
         <div class="corner tl"></div><div class="corner br"></div>
@@ -357,8 +333,13 @@
       var t = items[idx];
       if (!t) return;
       var full = t.getAttribute('data-full');
+      var vimeo = t.getAttribute('data-vimeo');
       var img = t.querySelector('.tile-media img');
-      if (full) {
+      if (vimeo) {
+        media.innerHTML = '<div class="lb-video"><iframe src="https://player.vimeo.com/video/' + vimeo +
+          '?title=0&byline=0&portrait=0" title="Vimeo player" frameborder="0" ' +
+          'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
+      } else if (full) {
         media.innerHTML = '<img src="' + full + '" alt="' + (img ? img.getAttribute('alt') || '' : '') + '">';
       } else {
         media.innerHTML = '<div class="lb-empty">' + ICON + '<div class="bt">CURRENTLY BUILDING</div></div>';
