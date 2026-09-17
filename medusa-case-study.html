@@ -555,9 +555,15 @@
 (function(){
   var items = [];
   document.querySelectorAll('section.block').forEach(function(sec){
+    function shorten(s){
+      s = s.replace(/^\/\/\s*/, '').replace(/\s*↗\s*$/, '').trim();
+      s = s.split(/\s+[—–]\s+/)[0];        // drop the clause after an em dash
+      s = s.split(/\s+·\s+/)[0];           // drop the clause after a middot
+      return s.trim();
+    }
     var lab = sec.querySelector('.block-label');
-    if (lab) items.push({ el: sec, text: lab.textContent.replace(/^\/\/\s*/, ''), sub: false });
-    sec.querySelectorAll('h3').forEach(function(h){ items.push({ el: h, text: h.textContent, sub: true }); });
+    if (lab) items.push({ el: sec, text: shorten(lab.textContent), sub: false });
+    sec.querySelectorAll('h3').forEach(function(h){ items.push({ el: h, text: shorten(h.textContent), sub: true }); });
   });
   if (items.length < 3) return;
   var nav = document.createElement('nav');
