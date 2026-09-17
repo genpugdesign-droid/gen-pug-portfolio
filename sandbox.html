@@ -67,28 +67,17 @@
   .ext-link { display: inline-block; margin-bottom: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 6px 11px; }
   .ext-link:hover { border-color: var(--accent); background: var(--accent-soft); }
 
-  .tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-  .tile { display: block; width: 100%; text-align: left; font: inherit; color: inherit; border: 1px solid var(--line); background: var(--bg-panel); position: relative; cursor: pointer; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; }
-  .tile:hover { transform: translateY(-5px) rotate(-0.35deg); border-color: var(--accent); box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
-  .tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .tile .corner { position: absolute; width: 14px; height: 14px; border: 1.5px solid var(--accent); opacity: 0; transition: opacity 0.18s ease; z-index: 2; }
-  .tile:hover .corner { opacity: 0.8; }
   .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
   .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-  .tile-media { aspect-ratio: 4/3; overflow: hidden; background: #05080B; position: relative; }
-  .tile-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .tile-media.contain img { object-fit: contain; background: #fff; }
-  .tile-media .tile-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--accent); background: rgba(8,11,16,0.62); color: var(--accent); display: flex; align-items: center; justify-content: center; transition: background 0.2s ease, transform 0.2s ease; }
-  .tile-media .tile-play svg { width: 22px; height: 22px; margin-left: 2px; }
-  .tile:hover .tile-media .tile-play { background: rgba(143,214,255,0.2); transform: translate(-50%, -50%) scale(1.08); }
-  .tile-media .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px); }
-  .tile-info { padding: 14px 16px 18px; }
+  .slide-media .tile-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--accent); background: rgba(8,11,16,0.62); color: var(--accent); display: flex; align-items: center; justify-content: center; transition: background 0.2s ease, transform 0.2s ease; }
+  .slide-media .tile-play svg { width: 22px; height: 22px; margin-left: 2px; }
+  .slide:hover .slide-media .tile-play { background: rgba(143,214,255,0.2); transform: translate(-50%, -50%) scale(1.08); }
+  .slide-media .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px); }
   .t-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16.5px; }
   .t-org { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin: 4px 0 8px; letter-spacing: 0.03em; }
   .t-desc { font-size: 13.5px; color: #AEBBC4; }
   .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; min-width: 0; }
   .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.05em; color: var(--accent); border: 1px solid var(--line); background: var(--accent-soft); padding: 3px 7px; white-space: nowrap; }
-  .tile:hover .t-title { color: var(--accent); }
 
 
   /* Brand cards — one card per company, its work on a carousel */
@@ -109,15 +98,18 @@
   .car-track::-webkit-scrollbar { display: none; }
   .slide { flex: 0 0 100%; scroll-snap-align: start; display: block; width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
   .slide:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .slide-media { aspect-ratio: 4/3; max-height: 340px; overflow: hidden; background: #05080B; position: relative; border: 1px solid var(--line); }
+  .slide-media { aspect-ratio: 4/3; max-height: 340px; margin: 0 auto; overflow: hidden; background: #05080B; position: relative; border: 1px solid var(--line); }
   .slide-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .slide-media.contain img { object-fit: contain; background: #fff; }
+  .slide-media.fit-dark { background: #05080B; }
   .slide-media.fit-dark img { object-fit: contain; background: #05080B; }
+  /* portrait clips get a frame the same shape as the footage, centred */
+  .slide.portrait .slide-media { aspect-ratio: 3/4; max-width: 340px; margin: 0 auto; }
   .slide:hover .slide-media { border-color: var(--accent); }
-  .slide-info { padding: 12px 2px 4px; }
-  .s-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15.5px; }
-  .slide:hover .s-title { color: var(--accent); }
-  .s-desc { font-size: 13px; color: #AEBBC4; margin-top: 5px; }
+  /* one caption under the carousel, updating as you page - like a post */
+  .car-caption { padding: 13px 2px 2px; min-height: 62px; }
+  .cap-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15.5px; }
+  .cap-desc { font-size: 13px; color: #AEBBC4; margin-top: 5px; max-width: 70ch; }
 
   .car-nav { position: absolute; top: 0; height: 0; padding-bottom: 0; transform: none; width: 42px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); background: rgba(8,11,16,0.82); color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 20px; cursor: pointer; z-index: 3; transition: border-color 0.18s ease, background 0.18s ease; }
   .car-nav:hover { border-color: var(--accent); background: var(--accent-soft); }
@@ -131,9 +123,7 @@
 
 
   @media (min-width: 900px) {
-    /* two-up only when there is actually more than one item to page through */
-    .car-track[data-many="1"] .slide { flex-basis: calc(50% - 7px); }
-    .slide-media { max-height: 300px; }
+    .slide-media { max-height: 420px; }
   }
   @media (max-width: 480px) {
     .slide-media { max-height: 260px; }
@@ -211,7 +201,6 @@
     .nav-links { gap: 13px; font-size: 11px; }
     h1 { font-size: 26px; }
     .page-intro { font-size: 15px; }
-    .tile-grid { grid-template-columns: 1fr; gap: 16px; }
     .group-name { font-size: 17px; }
     .chip { font-size: 10.5px; padding: 6px 10px; }
   }
@@ -280,22 +269,23 @@
       <div class="carousel">
         <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
         <div class="car-track">
-        <button class="slide" type="button" data-full="assets/kano/kano-kids-2026.jpg">
+        <button class="slide portrait" type="button" data-video="assets/kano/kano-reel.mp4" data-poster="assets/kano/kano-video-poster.jpg" data-title="Mat Side" data-desc="Competition-day footage cut for the feed — coaching in the moment before a match, shot and edited to run as a reel.">
+          <div class="slide-media fit-dark"><img src="assets/kano/kano-video-poster.jpg" alt="A Kano Martial Arts competitor in a blue gi being coached mat-side before a match" loading="lazy"><span class="tile-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+        </button>
+        <button class="slide" type="button" data-full="assets/kano/kano-kids-2026.jpg" data-title="Kano Kids 2026–27" data-desc="Registration poster for the fall kids judo season.">
           <div class="slide-media"><img src="assets/kano/kano-kids-2026.jpg" alt="Kano Kids 2026–2027 poster: judo kids classes are back September 15th" loading="lazy"></div>
-          <div class="slide-info"><div class="s-title">Kano Kids 2026–27</div><p class="s-desc">Registration poster for the fall kids judo season.</p></div>
         </button>
-        <button class="slide" type="button" data-full="assets/kano/get-your-grips.jpg">
+<button class="slide" type="button" data-full="assets/kano/get-your-grips.jpg" data-title="Get Your Grips" data-desc="High-contrast mat photography with a single red accent.">
           <div class="slide-media"><img src="assets/kano/get-your-grips.jpg" alt="Get your grips, control the chaos: black-and-white judo poster with red grip detail" loading="lazy"></div>
-          <div class="slide-info"><div class="s-title">Get Your Grips</div><p class="s-desc">High-contrast mat photography with a single red accent.</p></div>
         </button>
-        <button class="slide" type="button" data-full="assets/kano/kano-storefront-sign.jpg">
+<button class="slide" type="button" data-full="assets/kano/kano-storefront-sign.jpg" data-title="Storefront Sign" data-desc="Window signage for the Manhattan dojo at 149 W 27th St.">
           <div class="slide-media"><img src="assets/kano/kano-storefront-sign.jpg" alt="Kano Martial Arts storefront window sign at 149 W 27th St" loading="lazy"></div>
-          <div class="slide-info"><div class="s-title">Storefront Sign</div><p class="s-desc">Window signage for the Manhattan dojo at 149 W 27th St.</p></div>
         </button>
-        </div>
+</div>
         <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
         <div class="car-dots" aria-hidden="true"></div>
       </div>
+      <div class="car-caption"><div class="cap-title"></div><p class="cap-desc"></p></div>
     </article>
     <article class="brand-card">
       <div class="card-head">
@@ -305,14 +295,14 @@
       <div class="carousel">
         <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
         <div class="car-track">
-        <button class="slide" type="button" data-video="assets/mushin/mushin-try-jiujitsu.mp4" data-poster="assets/mushin/mushin-poster.jpg">
+        <button class="slide portrait" type="button" data-video="assets/mushin/mushin-try-jiujitsu.mp4" data-poster="assets/mushin/mushin-poster.jpg" data-title="Try Jiu Jitsu" data-desc="Promotional film inviting newcomers onto the mat — shot and cut to carry the feel of a first class rather than a highlight reel.">
           <div class="slide-media fit-dark"><img src="assets/mushin/mushin-poster.jpg" alt="Mushin Jiu Jitsu promotional film, opening frame" loading="lazy"><span class="tile-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-          <div class="slide-info"><div class="s-title">Try Jiu Jitsu</div><p class="s-desc">Promotional film inviting newcomers onto the mat — shot and cut to carry the feel of a first class rather than a highlight reel.</p></div>
         </button>
-        </div>
+</div>
         <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
         <div class="car-dots" aria-hidden="true"></div>
       </div>
+      <div class="car-caption"><div class="cap-title"></div><p class="cap-desc"></p></div>
     </article>
     <article class="brand-card">
       <div class="card-head">
@@ -322,14 +312,14 @@
       <div class="carousel">
         <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
         <div class="car-track">
-        <button class="slide" type="button" data-vimeo="944954743">
+        <button class="slide" type="button" data-vimeo="944954743" data-title="aiEDU - You Create The Future" data-desc="Advertising capstone campaign built around AI literacy, featuring original motion design work.">
           <div class="slide-media"><img src="assets/video/aiedu-poster.jpg" alt="aiEDU - You Create The Future campaign film, opening frame" loading="lazy"><span class="tile-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-          <div class="slide-info"><div class="s-title">aiEDU - You Create The Future</div><p class="s-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p></div>
         </button>
-        </div>
+</div>
         <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
         <div class="car-dots" aria-hidden="true"></div>
       </div>
+      <div class="car-caption"><div class="cap-title"></div><p class="cap-desc"></p></div>
     </article>
     </div>
   </div>
@@ -350,18 +340,17 @@
       <div class="carousel">
         <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
         <div class="car-track">
-        <button class="slide" type="button" data-full="assets/haddad/beltloop-flasher-p1.jpg">
+        <button class="slide" type="button" data-full="assets/haddad/beltloop-flasher-p1.jpg" data-title="Levi's Belt Loop Flasher — Canada" data-desc="Mechanicals for a bilingual Canadian belt loop flasher, sized for 2T–7X and 8–20. Worked cross-functionally with the Haddad Brands Canada team to meet Bill 96 language requirements, and annotated every dieline, live area and feature variable so overseas factory teams and non-designers could read the file without ambiguity.">
           <div class="slide-media contain"><img src="assets/haddad/beltloop-flasher-p1.jpg" alt="Levi's boys Canada belt loop flasher mechanical: front and rear dielines with live-area callouts and bilingual copy" loading="lazy"></div>
-          <div class="slide-info"><div class="s-title">Levi's Belt Loop Flasher — Canada</div><p class="s-desc">Mechanicals for a bilingual Canadian belt loop flasher, sized for 2T–7X and 8–20. Worked cross-functionally with the Haddad Brands Canada team to meet Bill 96 language requirements, and annotated every dieline, live area and feature variable so overseas factory teams and non-designers could read the file without ambiguity.</p></div>
         </button>
-        <button class="slide" type="button" data-full="assets/haddad/beltloop-flasher-p3.jpg">
+<button class="slide" type="button" data-full="assets/haddad/beltloop-flasher-p3.jpg" data-title="Feature Variable Matrix" data-desc="Sixteen icon combinations — moisture wicking, stretch, adjustable waistband, all-seasons tech — each drawn for both size options in English and French, so the factory could pull the right variant without interpreting the design.">
           <div class="slide-media contain"><img src="assets/haddad/beltloop-flasher-p3.jpg" alt="Feature variable matrix: sixteen icon combinations specced for both size options" loading="lazy"></div>
-          <div class="slide-info"><div class="s-title">Feature Variable Matrix</div><p class="s-desc">Sixteen icon combinations — moisture wicking, stretch, adjustable waistband, all-seasons tech — each drawn for both size options in English and French, so the factory could pull the right variant without interpreting the design.</p></div>
         </button>
-        </div>
+</div>
         <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
         <div class="car-dots" aria-hidden="true"></div>
       </div>
+      <div class="car-caption"><div class="cap-title"></div><p class="cap-desc"></p></div>
     </article>
     <article class="brand-card">
       <div class="card-head">
@@ -371,18 +360,17 @@
       <div class="carousel">
         <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
         <div class="car-track">
-        <button class="slide" type="button">
+        <button class="slide" type="button" data-title="[3D print project name]" data-desc="[Placeholder — the object, the constraint, what it proves about tangible product thinking.]">
           <div class="slide-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">3D print photo</div></div></div>
-          <div class="slide-info"><div class="s-title">[3D print project name]</div><p class="s-desc">[Placeholder — the object, the constraint, what it proves about tangible product thinking.]</p></div>
         </button>
-        <button class="slide" type="button">
+<button class="slide" type="button" data-title="[Arduino project name]" data-desc="[Placeholder — what it does, and what it shows about your hardware and software thinking.]">
           <div class="slide-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">Arduino build photo</div></div></div>
-          <div class="slide-info"><div class="s-title">[Arduino project name]</div><p class="s-desc">[Placeholder — what it does, and what it shows about your hardware and software thinking.]</p></div>
         </button>
-        </div>
+</div>
         <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
         <div class="car-dots" aria-hidden="true"></div>
       </div>
+      <div class="car-caption"><div class="cap-title"></div><p class="cap-desc"></p></div>
     </article>
     </div>
   </div>
@@ -405,18 +393,17 @@
       <div class="carousel">
         <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
         <div class="car-track">
-        <button class="slide" type="button" data-full="assets/playground/good-omens-gold-key.jpg">
+        <button class="slide" type="button" data-full="assets/playground/good-omens-gold-key.jpg" data-title="Good Omens" data-desc="Graphite study of two kingfishers, one tagged like a specimen. Awarded a Scholastic Gold Key and exhibited at the Metropolitan Museum of Art.">
           <div class="slide-media"><img src="assets/playground/good-omens-gold-key.jpg" alt="Good Omens: graphite drawing of two kingfishers, one tagged, rendered in fine detail" loading="lazy"></div>
-          <div class="slide-info"><div class="s-title">Good Omens</div><p class="s-desc">Graphite study of two kingfishers, one tagged like a specimen. Awarded a Scholastic Gold Key and exhibited at the Metropolitan Museum of Art.</p></div>
         </button>
-        <button class="slide" type="button">
+<button class="slide" type="button" data-title="[Sketchbook series]" data-desc="[Placeholder — what you draw when nobody's briefing you.]">
           <div class="slide-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">sketchbook spread</div></div></div>
-          <div class="slide-info"><div class="s-title">[Sketchbook series]</div><p class="s-desc">[Placeholder — what you draw when nobody's briefing you.]</p></div>
         </button>
-        </div>
+</div>
         <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
         <div class="car-dots" aria-hidden="true"></div>
       </div>
+      <div class="car-caption"><div class="cap-title"></div><p class="cap-desc"></p></div>
     </article>
     </div>
   </div>
@@ -471,11 +458,20 @@
   document.querySelectorAll('.carousel').forEach(function(car){
     var track = car.querySelector('.car-track');
     var slides = Array.prototype.slice.call(car.querySelectorAll('.slide'));
-    if (slides.length > 1) track.setAttribute('data-many', '1');
     var prev = car.querySelector('.car-prev');
     var next = car.querySelector('.car-next');
     var dots = car.querySelector('.car-dots');
+    var cap = car.parentNode.querySelector('.car-caption');
+    var capT = cap ? cap.querySelector('.cap-title') : null;
+    var capD = cap ? cap.querySelector('.cap-desc') : null;
     var i = 0;
+
+    function paint(){
+      var sl = slides[i];
+      if (!sl || !capT) return;
+      capT.textContent = sl.getAttribute('data-title') || '';
+      capD.textContent = sl.getAttribute('data-desc') || '';
+    }
 
     if (slides.length < 2) { prev.hidden = true; next.hidden = true; }
     else {
@@ -505,6 +501,7 @@
       sync();
     }
     function sync(){
+      paint();
       if (!dots.children.length) return;
       Array.prototype.forEach.call(dots.children, function(d, n){ d.classList.toggle('on', n === i); });
       prev.hidden = (i === 0);
@@ -563,9 +560,9 @@
         media.innerHTML = '<div class="lb-empty">' + ICON + '<div class="bt">CURRENTLY BUILDING</div></div>';
       }
       var card = t.closest('.brand-card');
-      elTitle.textContent = t.querySelector('.s-title').textContent;
+      elTitle.textContent = t.getAttribute('data-title') || '';
       elOrg.textContent = card ? card.querySelector('.c-brand').textContent + ' — ' + card.querySelector('.c-meta').textContent : '';
-      elDesc.textContent = t.querySelector('.s-desc').textContent;
+      elDesc.textContent = t.getAttribute('data-desc') || '';
       elCount.textContent = (idx + 1) + ' / ' + items.length;
       var many = items.length > 1;
       document.getElementById('lbPrev').hidden = !many;
