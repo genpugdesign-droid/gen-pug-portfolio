@@ -86,9 +86,68 @@
   .t-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16.5px; }
   .t-org { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin: 4px 0 8px; letter-spacing: 0.03em; }
   .t-desc { font-size: 13.5px; color: #AEBBC4; }
-  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; min-width: 0; }
   .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.05em; color: var(--accent); border: 1px solid var(--line); background: var(--accent-soft); padding: 3px 7px; white-space: nowrap; }
   .tile:hover .t-title { color: var(--accent); }
+
+
+  /* Brand cards — one card per company, its work on a carousel */
+  .card-stack { display: grid; gap: 22px; }
+  .brand-card { border: 1px solid var(--line); background: var(--bg-panel); padding: 18px 18px 14px; }
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; min-width: 0; }
+  .card-head > * { min-width: 0; }
+  .brand-card { min-width: 0; }
+  .c-brand, .c-meta { overflow-wrap: anywhere; }
+  .c-brand { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 18px; }
+  .c-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 4px; letter-spacing: 0.04em; }
+  .card-note { font-size: 13.5px; color: #AEBBC4; max-width: 70ch; margin-bottom: 12px; }
+  .card-link { display: inline-block; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 6px 10px; }
+  .card-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+  .carousel { position: relative; }
+  .car-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
+  .car-track::-webkit-scrollbar { display: none; }
+  .slide { flex: 0 0 100%; scroll-snap-align: start; display: block; width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .slide:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .slide-media { aspect-ratio: 4/3; max-height: 340px; overflow: hidden; background: #05080B; position: relative; border: 1px solid var(--line); }
+  .slide-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slide-media.contain img { object-fit: contain; background: #fff; }
+  .slide-media.fit-dark img { object-fit: contain; background: #05080B; }
+  .slide:hover .slide-media { border-color: var(--accent); }
+  .slide-info { padding: 12px 2px 4px; }
+  .s-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15.5px; }
+  .slide:hover .s-title { color: var(--accent); }
+  .s-desc { font-size: 13px; color: #AEBBC4; margin-top: 5px; }
+
+  .car-nav { position: absolute; top: 0; height: 0; padding-bottom: 0; transform: none; width: 42px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); background: rgba(8,11,16,0.82); color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 20px; cursor: pointer; z-index: 3; transition: border-color 0.18s ease, background 0.18s ease; }
+  .car-nav:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .car-nav[hidden] { display: none; }
+  .car-prev { left: 8px; }
+  .car-next { right: 8px; }
+  .car-dots { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+  .car-dots span { width: 6px; height: 6px; border: 1px solid var(--muted); background: transparent; }
+  .car-dots span.on { background: var(--accent); border-color: var(--accent); }
+  .car-dots:empty { display: none; }
+
+
+  @media (min-width: 900px) {
+    /* two-up only when there is actually more than one item to page through */
+    .car-track[data-many="1"] .slide { flex-basis: calc(50% - 7px); }
+    .slide-media { max-height: 300px; }
+  }
+  @media (max-width: 480px) {
+    .slide-media { max-height: 260px; }
+  }
+
+
+  @media (max-width: 360px) {
+    .brand-card { padding: 14px 12px 12px; }
+    .badge { white-space: normal; }
+    .card-head { gap: 8px; }
+  }
+
+  .lb-stage .lb-video.native { width: auto; height: 100%; aspect-ratio: auto; display: flex; align-items: center; justify-content: center; }
+  .lb-stage .lb-video.native video { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; background: #000; border: 1px solid var(--line); }
 
   /* Currently-building empty state */
   .building { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; background: radial-gradient(ellipse at center, rgba(143,214,255,0.07), transparent 70%); }
@@ -199,7 +258,6 @@
       <button class="chip on" data-filter="all">ALL</button>
       <button class="chip" data-filter="art">ART DIRECTION</button>
       <button class="chip" data-filter="packaging">PACKAGING</button>
-      <button class="chip" data-filter="branding">BRANDING</button>
       <button class="chip" data-filter="drawing">DRAWING</button>
     </div>
   </div>
@@ -209,24 +267,70 @@
   <div class="wrap">
     <div class="group-head">
       <div class="group-name">Art Direction</div>
-      <div class="group-meta">SHOOTS · CAMPAIGNS · STYLING</div>
+      <div class="group-meta">SHOOTS · CAMPAIGNS · STYLING · MOTION</div>
     </div>
-    <div class="tile-grid">
-      <button class="tile" type="button" data-vimeo="944954743">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><img src="assets/video/aiedu-poster.jpg" alt="aiEDU - You Create The Future campaign film, opening frame" loading="lazy"><span class="tile-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-        <div class="tile-info"><div class="t-title">aiEDU - You Create The Future</div><div class="t-org">FIT CAPSTONE — ADVERTISING &amp; MOTION</div><p class="t-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p><div class="badges"><span class="badge">MOTION DESIGN</span><span class="badge">CASE STUDY</span></div></div>
-      </button>
-      <button class="tile" type="button" data-full="assets/kano/kano-kids-2026.jpg">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><img src="assets/kano/kano-kids-2026.jpg" alt="Kano Kids 2026–2027 poster: judo kids classes are back September 15th" loading="lazy"></div>
-        <div class="tile-info"><div class="t-title">Kano Kids 2026–27</div><div class="t-org">KANO MARTIAL ARTS — ENROLLMENT CAMPAIGN</div><p class="t-desc">Registration poster for the fall kids judo season.</p><div class="badges"><span class="badge">MARTIAL ARTS</span></div></div>
-      </button>
-      <button class="tile" type="button" data-full="assets/kano/get-your-grips.jpg">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><img src="assets/kano/get-your-grips.jpg" alt="Get your grips, control the chaos: black-and-white judo poster with red grip detail" loading="lazy"></div>
-        <div class="tile-info"><div class="t-title">Get Your Grips</div><div class="t-org">KANO MARTIAL ARTS — BRAND CAMPAIGN</div><p class="t-desc">High-contrast mat photography with a single red accent.</p><div class="badges"><span class="badge">MARTIAL ARTS</span></div></div>
-      </button>
+    <div class="card-stack">
+    <article class="brand-card">
+      <div class="card-head">
+        <div><div class="c-brand">Kano Martial Arts</div><div class="c-meta">SOCIAL &amp; MARKETING DIRECTION — 2025 &rarr; PRESENT</div></div>
+        <div class="badges"><span class="badge">MARTIAL ARTS</span><span class="badge">ART DIRECTION</span><span class="badge">SOCIAL</span></div>
+      </div>
+      <p class="card-note">Ongoing social and marketing direction for the Manhattan dojo — enrollment campaigns, belt promotions, competition team features, event flyers, class launches, schedule announcements and community work like the City Harvest food drive. I also run back of house, so the feed and the operation stay in step.</p>
+      <a class="card-link" href="https://www.instagram.com/kanomartialarts/" target="_blank" rel="noopener">@KANOMARTIALARTS ON INSTAGRAM ↗</a>
+      <div class="carousel">
+        <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
+        <div class="car-track">
+        <button class="slide" type="button" data-full="assets/kano/kano-kids-2026.jpg">
+          <div class="slide-media"><img src="assets/kano/kano-kids-2026.jpg" alt="Kano Kids 2026–2027 poster: judo kids classes are back September 15th" loading="lazy"></div>
+          <div class="slide-info"><div class="s-title">Kano Kids 2026–27</div><p class="s-desc">Registration poster for the fall kids judo season.</p></div>
+        </button>
+        <button class="slide" type="button" data-full="assets/kano/get-your-grips.jpg">
+          <div class="slide-media"><img src="assets/kano/get-your-grips.jpg" alt="Get your grips, control the chaos: black-and-white judo poster with red grip detail" loading="lazy"></div>
+          <div class="slide-info"><div class="s-title">Get Your Grips</div><p class="s-desc">High-contrast mat photography with a single red accent.</p></div>
+        </button>
+        <button class="slide" type="button" data-full="assets/kano/kano-storefront-sign.jpg">
+          <div class="slide-media"><img src="assets/kano/kano-storefront-sign.jpg" alt="Kano Martial Arts storefront window sign at 149 W 27th St" loading="lazy"></div>
+          <div class="slide-info"><div class="s-title">Storefront Sign</div><p class="s-desc">Window signage for the Manhattan dojo at 149 W 27th St.</p></div>
+        </button>
+        </div>
+        <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
+        <div class="car-dots" aria-hidden="true"></div>
+      </div>
+    </article>
+    <article class="brand-card">
+      <div class="card-head">
+        <div><div class="c-brand">Mushin Jiu Jitsu</div><div class="c-meta">PROMOTIONAL FILM — TRY JIU JITSU</div></div>
+        <div class="badges"><span class="badge">MARTIAL ARTS</span><span class="badge">MOTION DESIGN</span><span class="badge">ART DIRECTION</span></div>
+      </div>
+      <div class="carousel">
+        <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
+        <div class="car-track">
+        <button class="slide" type="button" data-video="assets/mushin/mushin-try-jiujitsu.mp4" data-poster="assets/mushin/mushin-poster.jpg">
+          <div class="slide-media fit-dark"><img src="assets/mushin/mushin-poster.jpg" alt="Mushin Jiu Jitsu promotional film, opening frame" loading="lazy"><span class="tile-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+          <div class="slide-info"><div class="s-title">Try Jiu Jitsu</div><p class="s-desc">Promotional film inviting newcomers onto the mat — shot and cut to carry the feel of a first class rather than a highlight reel.</p></div>
+        </button>
+        </div>
+        <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
+        <div class="car-dots" aria-hidden="true"></div>
+      </div>
+    </article>
+    <article class="brand-card">
+      <div class="card-head">
+        <div><div class="c-brand">aiEDU</div><div class="c-meta">FIT CAPSTONE — ADVERTISING &amp; MOTION</div></div>
+        <div class="badges"><span class="badge">MOTION DESIGN</span><span class="badge">CASE STUDY</span></div>
+      </div>
+      <div class="carousel">
+        <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
+        <div class="car-track">
+        <button class="slide" type="button" data-vimeo="944954743">
+          <div class="slide-media"><img src="assets/video/aiedu-poster.jpg" alt="aiEDU - You Create The Future campaign film, opening frame" loading="lazy"><span class="tile-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+          <div class="slide-info"><div class="s-title">aiEDU - You Create The Future</div><p class="s-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p></div>
+        </button>
+        </div>
+        <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
+        <div class="car-dots" aria-hidden="true"></div>
+      </div>
+    </article>
     </div>
   </div>
 </section>
@@ -237,44 +341,49 @@
       <div class="group-name">Packaging</div>
       <div class="group-meta">STRUCTURAL · COMPLIANCE · PHYSICAL PROTOTYPES</div>
     </div>
-    <div class="tile-grid">
-      <button class="tile" type="button" data-full="assets/haddad/beltloop-flasher-p1.jpg">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media contain"><img src="assets/haddad/beltloop-flasher-p1.jpg" alt="Levi's boys Canada belt loop flasher mechanical: front and rear dielines with live-area callouts and bilingual copy" loading="lazy"></div>
-        <div class="tile-info"><div class="t-title">Levi's Belt Loop Flasher — Canada</div><div class="t-org">HADDAD BRANDS — LEVI'S BOYS, SP26</div><p class="t-desc">Mechanicals for a bilingual Canadian belt loop flasher, sized for 2T–7X and 8–20. Worked cross-functionally with the Haddad Brands Canada team to meet Bill 96 language requirements, and annotated every dieline, live area and feature variable so overseas factory teams and non-designers could read the file without ambiguity.</p><div class="badges"><span class="badge">FASHION</span><span class="badge">COMPLIANCE</span><span class="badge">PRODUCTION</span></div></div>
-      </button>
-      <button class="tile" type="button" data-full="assets/haddad/beltloop-flasher-p3.jpg">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media contain"><img src="assets/haddad/beltloop-flasher-p3.jpg" alt="Feature variable matrix: sixteen icon combinations specced for both size options" loading="lazy"></div>
-        <div class="tile-info"><div class="t-title">Feature Variable Matrix</div><div class="t-org">HADDAD BRANDS — LEVI'S BOYS, SP26</div><p class="t-desc">Sixteen icon combinations — moisture wicking, stretch, adjustable waistband, all-seasons tech — each drawn for both size options in English and French, so the factory could pull the right variant without interpreting the design.</p><div class="badges"><span class="badge">FASHION</span><span class="badge">PRODUCTION</span></div></div>
-      </button>
-      <button class="tile" type="button">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">3D print photo</div></div></div>
-        <div class="tile-info"><div class="t-title">[3D print project name]</div><div class="t-org">PHYSICAL PROTOTYPE</div><p class="t-desc">[Placeholder — the object, the constraint, what it proves about tangible product thinking.]</p><div class="badges"><span class="badge">PROTOTYPE</span><span class="badge">3D PRINTING</span></div></div>
-      </button>
-      <button class="tile" type="button">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">Arduino build photo</div></div></div>
-        <div class="tile-info"><div class="t-title">[Arduino project name]</div><div class="t-org">HARDWARE PROTOTYPE</div><p class="t-desc">[Placeholder — what it does, and what it shows about your hardware and software thinking.]</p><div class="badges"><span class="badge">PROTOTYPE</span><span class="badge">ARDUINO</span></div></div>
-      </button>
-    </div>
-  </div>
-</section>
-
-
-<section class="group" data-cat="branding">
-  <div class="wrap">
-    <div class="group-head">
-      <div class="group-name">Branding</div>
-      <div class="group-meta">IDENTITY · APPAREL · ENVIRONMENTAL</div>
-    </div>
-    <div class="tile-grid">
-      <button class="tile" type="button" data-full="assets/kano/kano-storefront-sign.jpg">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><img src="assets/kano/kano-storefront-sign.jpg" alt="Kano Martial Arts storefront window sign mockup at 149 W 27th St" loading="lazy"></div>
-        <div class="tile-info"><div class="t-title">Storefront Sign</div><div class="t-org">KANO MARTIAL ARTS — 149 W 27TH ST</div><p class="t-desc">Window signage for the Manhattan dojo.</p><div class="badges"><span class="badge">MARTIAL ARTS</span></div></div>
-      </button>
+    <div class="card-stack">
+    <article class="brand-card">
+      <div class="card-head">
+        <div><div class="c-brand">Haddad Brands</div><div class="c-meta">LEVI'S BOYS, SP26 — CANADA</div></div>
+        <div class="badges"><span class="badge">FASHION</span><span class="badge">COMPLIANCE</span><span class="badge">PRODUCTION</span></div>
+      </div>
+      <div class="carousel">
+        <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
+        <div class="car-track">
+        <button class="slide" type="button" data-full="assets/haddad/beltloop-flasher-p1.jpg">
+          <div class="slide-media contain"><img src="assets/haddad/beltloop-flasher-p1.jpg" alt="Levi's boys Canada belt loop flasher mechanical: front and rear dielines with live-area callouts and bilingual copy" loading="lazy"></div>
+          <div class="slide-info"><div class="s-title">Levi's Belt Loop Flasher — Canada</div><p class="s-desc">Mechanicals for a bilingual Canadian belt loop flasher, sized for 2T–7X and 8–20. Worked cross-functionally with the Haddad Brands Canada team to meet Bill 96 language requirements, and annotated every dieline, live area and feature variable so overseas factory teams and non-designers could read the file without ambiguity.</p></div>
+        </button>
+        <button class="slide" type="button" data-full="assets/haddad/beltloop-flasher-p3.jpg">
+          <div class="slide-media contain"><img src="assets/haddad/beltloop-flasher-p3.jpg" alt="Feature variable matrix: sixteen icon combinations specced for both size options" loading="lazy"></div>
+          <div class="slide-info"><div class="s-title">Feature Variable Matrix</div><p class="s-desc">Sixteen icon combinations — moisture wicking, stretch, adjustable waistband, all-seasons tech — each drawn for both size options in English and French, so the factory could pull the right variant without interpreting the design.</p></div>
+        </button>
+        </div>
+        <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
+        <div class="car-dots" aria-hidden="true"></div>
+      </div>
+    </article>
+    <article class="brand-card">
+      <div class="card-head">
+        <div><div class="c-brand">Physical Prototypes</div><div class="c-meta">SELF-DIRECTED — OBJECT &amp; HARDWARE</div></div>
+        <div class="badges"><span class="badge">PROTOTYPE</span><span class="badge">3D PRINTING</span><span class="badge">ARDUINO</span></div>
+      </div>
+      <div class="carousel">
+        <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
+        <div class="car-track">
+        <button class="slide" type="button">
+          <div class="slide-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">3D print photo</div></div></div>
+          <div class="slide-info"><div class="s-title">[3D print project name]</div><p class="s-desc">[Placeholder — the object, the constraint, what it proves about tangible product thinking.]</p></div>
+        </button>
+        <button class="slide" type="button">
+          <div class="slide-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">Arduino build photo</div></div></div>
+          <div class="slide-info"><div class="s-title">[Arduino project name]</div><p class="s-desc">[Placeholder — what it does, and what it shows about your hardware and software thinking.]</p></div>
+        </button>
+        </div>
+        <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
+        <div class="car-dots" aria-hidden="true"></div>
+      </div>
+    </article>
     </div>
   </div>
 </section>
@@ -286,18 +395,29 @@
       <div class="group-meta">ILLUSTRATION · SKETCHBOOK · PERSONAL</div>
     </div>
     <p class="group-note">The thread that runs through everything else — drawing came first and still feeds the rest of the work.</p>
-    <a class="ext-link" href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">@GENPUGDESIGN ON INSTAGRAM ↗</a>
-    <div class="tile-grid">
-      <button class="tile" type="button" data-full="assets/playground/good-omens-gold-key.jpg">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><img src="assets/playground/good-omens-gold-key.jpg" alt="Good Omens: graphite drawing of two kingfishers, one tagged, rendered in fine detail" loading="lazy"></div>
-        <div class="tile-info"><div class="t-title">Good Omens</div><div class="t-org">SCHOLASTIC ART &amp; WRITING — GOLD KEY, EXHIBITED AT THE MET</div><p class="t-desc">Graphite study of two kingfishers, one tagged like a specimen. Awarded a Scholastic Gold Key and exhibited at the Metropolitan Museum of Art.</p><div class="badges"><span class="badge">ILLUSTRATION</span><span class="badge">AWARD</span></div></div>
-      </button>
-      <button class="tile" type="button">
-        <div class="corner tl"></div><div class="corner br"></div>
-        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">sketchbook spread</div></div></div>
-        <div class="tile-info"><div class="t-title">[Sketchbook series]</div><div class="t-org">PERSONAL — ONGOING</div><p class="t-desc">[Placeholder — what you draw when nobody's briefing you.]</p><div class="badges"><span class="badge">ILLUSTRATION</span></div></div>
-      </button>
+    <div class="card-stack">
+    <article class="brand-card">
+      <div class="card-head">
+        <div><div class="c-brand">Personal Work</div><div class="c-meta">ILLUSTRATION — ONGOING</div></div>
+        <div class="badges"><span class="badge">ILLUSTRATION</span><span class="badge">AWARD</span></div>
+      </div>
+      <a class="card-link" href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">@GENPUGDESIGN ON INSTAGRAM ↗</a>
+      <div class="carousel">
+        <button class="car-nav car-prev" type="button" aria-label="Previous item">‹</button>
+        <div class="car-track">
+        <button class="slide" type="button" data-full="assets/playground/good-omens-gold-key.jpg">
+          <div class="slide-media"><img src="assets/playground/good-omens-gold-key.jpg" alt="Good Omens: graphite drawing of two kingfishers, one tagged, rendered in fine detail" loading="lazy"></div>
+          <div class="slide-info"><div class="s-title">Good Omens</div><p class="s-desc">Graphite study of two kingfishers, one tagged like a specimen. Awarded a Scholastic Gold Key and exhibited at the Metropolitan Museum of Art.</p></div>
+        </button>
+        <button class="slide" type="button">
+          <div class="slide-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">sketchbook spread</div></div></div>
+          <div class="slide-info"><div class="s-title">[Sketchbook series]</div><p class="s-desc">[Placeholder — what you draw when nobody's briefing you.]</p></div>
+        </button>
+        </div>
+        <button class="car-nav car-next" type="button" aria-label="Next item">›</button>
+        <div class="car-dots" aria-hidden="true"></div>
+      </div>
+    </article>
     </div>
   </div>
 </section>
@@ -347,7 +467,69 @@
     });
   });
 
-  // lightbox — walks every visible tile, across section boundaries
+  // per-brand carousels
+  document.querySelectorAll('.carousel').forEach(function(car){
+    var track = car.querySelector('.car-track');
+    var slides = Array.prototype.slice.call(car.querySelectorAll('.slide'));
+    if (slides.length > 1) track.setAttribute('data-many', '1');
+    var prev = car.querySelector('.car-prev');
+    var next = car.querySelector('.car-next');
+    var dots = car.querySelector('.car-dots');
+    var i = 0;
+
+    if (slides.length < 2) { prev.hidden = true; next.hidden = true; }
+    else {
+      slides.forEach(function(_, n){
+        var d = document.createElement('span');
+        if (n === 0) d.className = 'on';
+        dots.appendChild(d);
+      });
+    }
+
+    // arrows sit centred on the media, not the whole card
+    function placeArrows(){
+      var m = slides[0] && slides[0].querySelector('.slide-media');
+      if (!m) return;
+      var h = m.getBoundingClientRect().height;
+      [prev, next].forEach(function(b){
+        b.style.height = '42px';
+        b.style.top = Math.max(0, (h / 2) - 21) + 'px';
+      });
+    }
+    placeArrows();
+    window.addEventListener('resize', placeArrows);
+
+    function go(n){
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      sync();
+    }
+    function sync(){
+      if (!dots.children.length) return;
+      Array.prototype.forEach.call(dots.children, function(d, n){ d.classList.toggle('on', n === i); });
+      prev.hidden = (i === 0);
+      next.hidden = (i === slides.length - 1);
+    }
+    prev.addEventListener('click', function(e){ e.stopPropagation(); go(i - 1); });
+    next.addEventListener('click', function(e){ e.stopPropagation(); go(i + 1); });
+
+    // keep state in step when swiped
+    var t;
+    track.addEventListener('scroll', function(){
+      clearTimeout(t);
+      t = setTimeout(function(){
+        var best = 0, min = Infinity;
+        slides.forEach(function(sl, n){
+          var d = Math.abs(sl.offsetLeft - track.offsetLeft - track.scrollLeft);
+          if (d < min) { min = d; best = n; }
+        });
+        i = best; sync();
+      }, 90);
+    });
+    sync();
+  });
+
+  // lightbox — arrows walk the slides of the brand you opened
   (function(){
     var lb = document.getElementById('lightbox');
     var media = document.getElementById('lbMedia');
@@ -359,20 +541,19 @@
 
     var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg>';
 
-    function visibleTiles(){
-      return Array.prototype.filter.call(document.querySelectorAll('.tile'), function(t){
-        var g = t.closest('.group');
-        return !(g && g.hidden);
-      });
-    }
-
     function render(){
       var t = items[idx];
       if (!t) return;
       var full = t.getAttribute('data-full');
       var vimeo = t.getAttribute('data-vimeo');
-      var img = t.querySelector('.tile-media img');
-      if (vimeo) {
+      var video = t.getAttribute('data-video');
+      var poster = t.getAttribute('data-poster');
+      var img = t.querySelector('.slide-media img');
+      if (video) {
+        media.innerHTML = '<div class="lb-video native"><video src="' + video + '"' +
+          (poster ? ' poster="' + poster + '"' : '') +
+          ' controls autoplay playsinline preload="metadata"></video></div>';
+      } else if (vimeo) {
         media.innerHTML = '<div class="lb-video"><iframe src="https://player.vimeo.com/video/' + vimeo +
           '?autoplay=1&muted=0&title=0&byline=0&portrait=0" title="Vimeo player" frameborder="0" ' +
           'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
@@ -381,14 +562,19 @@
       } else {
         media.innerHTML = '<div class="lb-empty">' + ICON + '<div class="bt">CURRENTLY BUILDING</div></div>';
       }
-      elTitle.textContent = t.querySelector('.t-title').textContent;
-      elOrg.textContent = t.querySelector('.t-org').textContent;
-      elDesc.textContent = t.querySelector('.t-desc').textContent;
+      var card = t.closest('.brand-card');
+      elTitle.textContent = t.querySelector('.s-title').textContent;
+      elOrg.textContent = card ? card.querySelector('.c-brand').textContent + ' — ' + card.querySelector('.c-meta').textContent : '';
+      elDesc.textContent = t.querySelector('.s-desc').textContent;
       elCount.textContent = (idx + 1) + ' / ' + items.length;
+      var many = items.length > 1;
+      document.getElementById('lbPrev').hidden = !many;
+      document.getElementById('lbNext').hidden = !many;
     }
 
     function open(t){
-      items = visibleTiles();
+      var card = t.closest('.brand-card');
+      items = card ? Array.prototype.slice.call(card.querySelectorAll('.slide')) : [t];
       idx = items.indexOf(t);
       if (idx < 0) idx = 0;
       render();
@@ -406,7 +592,7 @@
       render();
     }
 
-    document.querySelectorAll('.tile').forEach(function(t){
+    document.querySelectorAll('.slide').forEach(function(t){
       t.addEventListener('click', function(){ open(t); });
     });
     document.getElementById('lbClose').addEventListener('click', close);
