@@ -47,9 +47,9 @@
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
 
   nav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); padding: 16px 0; background: rgba(8,11,16,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; }
-  .nav-links { display: flex; gap: 22px; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: nowrap; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; flex-shrink: 0; white-space: nowrap; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
   .nav-links a { color: var(--muted); text-decoration: none; }
   .nav-links a:hover, .nav-links a.on { color: var(--accent); }
   @media (max-width: 400px) {
