@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Medusa Solutions — Genevieve Puglissi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080B10; --bg-panel: #0D131A; --ink: #DCE6ED; --accent: #8FD6FF;
+    --accent-soft: rgba(143,214,255,0.10); --line: #1F2B35; --muted: #64737D;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 90px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Floating stage nav */
+  .stage-nav { position: fixed; left: 18px; top: 50%; transform: translateY(-50%); z-index: 35; display: flex; flex-direction: column; gap: 2px; max-height: 76vh; overflow-y: auto; padding: 10px 0; }
+  .stage-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; padding: 5px 10px 5px 14px; border-left: 2px solid var(--line); white-space: nowrap; max-width: 190px; overflow: hidden; text-overflow: clip; transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease; }
+  .stage-nav a:hover { color: var(--accent); border-left-color: var(--accent); padding-left: 18px; }
+  .stage-nav a.on { color: var(--accent); border-left-color: var(--accent); }
+  .stage-nav a.sub { padding-left: 24px; font-size: 10px; opacity: 0.85; }
+  .stage-nav a.sub:hover { padding-left: 28px; }
+  @media (max-width: 1240px) { .stage-nav { display: none; } }
+
+  /* Global footer */
+  footer#contact { border-top: 1px solid var(--line); margin-top: 20px; padding: 56px 0 64px; }
+  footer#contact .footer-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .footer-cta { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; color: var(--ink); letter-spacing: -0.01em; }
+  .footer-sub { font-size: 15px; color: #AEBBC4; margin-top: 8px; max-width: 46ch; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; }
+  .footer-links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 400px) { .footer-cta { font-size: 23px; } footer#contact { padding: 40px 0 48px; } }
+  body { background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { max-width: 100%; }
+  .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+  .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
+  .crt::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 120%); }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .head { font-family: 'Space Grotesk', sans-serif; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+
+  nav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); padding: 16px 0; background: rgba(8,11,16,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .nav-links a { color: var(--muted); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.on { color: var(--accent); }
+  @media (max-width: 400px) {
+    nav { padding: 12px 0; }
+    .nav-name { font-size: 14px; }
+    .nav-links { gap: 13px; font-size: 11px; }
+  }
+
+  header.proj-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+  .proj-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 46px; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .proj-role { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .site-link { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 7px 12px; margin-bottom: 28px; }
+  .site-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .block p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(143,214,255,0.35); }
+  .block p a:hover { border-bottom-color: var(--accent); }
+
+  .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; margin-bottom: 36px; }
+  .meta-item .mono.label { font-size: 10.5px; color: var(--muted); letter-spacing: 0.06em; display: block; margin-bottom: 5px; }
+  .meta-item .value { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; }
+
+  /* Hero device mockup — sized in container units so it scales as one image */
+  .mock-stage { --mint: #05E7C3; container-type: inline-size; position: relative; aspect-ratio: 16/10; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(ellipse 45% 55% at 12% 8%, rgba(120,100,255,0.55), transparent 70%), radial-gradient(ellipse 40% 50% at 92% 18%, rgba(5,231,195,0.28), transparent 70%), radial-gradient(ellipse 70% 40% at 50% 100%, rgba(40,60,90,0.45), transparent 70%), #05060A; }
+  .mock-laptop { position: absolute; left: 5%; top: 12%; width: 68%; -webkit-box-reflect: below 1px linear-gradient(transparent 72%, rgba(255,255,255,0.10)); }
+  .mock-lid { background: #0c0c0e; border: 1px solid #2c2d31; border-radius: 1.3cqw 1.3cqw 0 0; padding: 0.9cqw 0.9cqw 1.1cqw; }
+  .mock-lid img { display: block; width: 100%; height: auto; border-radius: 0.3cqw; }
+  .mock-base { height: 1.5cqw; margin: 0 -6%; background: linear-gradient(#d9dde2, #8b9098); border-radius: 0 0 1.4cqw 1.4cqw; }
+  .mock-phone { position: absolute; right: 8%; top: 21%; width: 16.5%; background: #000; border: 0.35cqw solid #2b2c30; border-radius: 2.6cqw; padding: 0.6cqw; box-shadow: 0 2cqw 4cqw rgba(0,0,0,0.6); -webkit-box-reflect: below 1px linear-gradient(transparent 78%, rgba(255,255,255,0.10)); }
+  .mock-phone img { display: block; width: 100%; height: auto; border-radius: 2cqw; }
+  .glass { position: absolute; width: 17cqw; padding: 1cqw 1.3cqw; border-radius: 1.1cqw; background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.12)); border: 1px solid rgba(255,255,255,0.28); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1.5cqw 3cqw rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35); z-index: 3; }
+  .glass .g-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.35cqw; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 0.6cqw; }
+  .glass .g-dot { width: 1.1cqw; height: 1.1cqw; border-radius: 50%; background: var(--mint); box-shadow: 0 0 1cqw var(--mint); flex-shrink: 0; }
+  .glass .g-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.9cqw; color: rgba(255,255,255,0.72); margin-top: 0.4cqw; line-height: 1.45; }
+  .glass.g1 { left: 1.5%; top: 57%; }
+  .glass.g2 { left: 10%; top: 79%; }
+  .glass.g3 { right: 3%; top: 8%; }
+  .glass.g4 { right: 1.5%; top: 60%; width: 18cqw; }
+  .corner { position: absolute; width: 18px; height: 18px; border: 1.5px solid var(--accent); opacity: 0.6; z-index: 1; }
+  .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .caption { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 10px; }
+
+  section.block { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section.block:last-of-type { border-bottom: none; }
+  .block-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 16px; }
+  .block h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 27px; margin-bottom: 18px; max-width: 26ch; }
+  .block h3 { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; color: var(--muted); letter-spacing: 0.06em; margin: 36px 0 12px; }
+  .block p { font-size: 17px; color: #C7D2D9; max-width: 66ch; margin-bottom: 16px; }
+  .block ul { list-style: none; margin-bottom: 16px; }
+  .block ul li { font-size: 16px; color: #AEBBC4; padding-left: 20px; position: relative; margin-bottom: 8px; max-width: 60ch; }
+  .block ul li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
+
+  .timeline { border-left: 1px solid var(--line); margin: 24px 0 8px 6px; }
+  .tl-item { position: relative; padding: 0 0 18px 24px; }
+  .tl-item::before { content: ""; position: absolute; left: -4px; top: 8px; width: 7px; height: 7px; background: var(--accent); }
+  .tl-date { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--accent); letter-spacing: 0.04em; }
+  .tl-text { font-size: 15.5px; color: #C7D2D9; }
+
+  .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 24px 0; }
+  .persona { border: 1px solid var(--line); background: var(--bg-panel); padding: 22px 20px; display: flex; flex-direction: column; }
+  .persona-top { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+  .persona .p-avatar { width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%; border: 1px solid rgba(143,214,255,0.5); background: var(--accent-soft); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; color: var(--accent); }
+  .persona .p-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; line-height: 1.2; }
+  .persona .p-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.03em; margin-top: 3px; }
+  .persona .p-tag { align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); border: 1px solid var(--line); padding: 2px 8px; margin-bottom: 12px; }
+  .persona .p-quote { font-style: italic; font-size: 14.5px; color: var(--ink); border-left: 2px solid var(--accent); padding-left: 10px; margin-bottom: 14px; }
+  .persona .p-h { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.06em; margin: 10px 0 6px; }
+  .block .persona ul { margin-bottom: 4px; }
+  .block .persona ul li { font-size: 13.5px; color: #AEBBC4; margin-bottom: 5px; padding-left: 14px; }
+  .persona .p-help { font-size: 13.5px; color: #C7D2D9; margin: 0; }
+
+  .figure { margin: 24px 0; }
+  .figure .frame { border: 1px solid var(--line); background: var(--bg-panel); position: relative; }
+  .figure .frame img { display: block; width: 100%; height: auto; }
+  .figure.diagram .frame { padding: 16px; background: #7d7d7d; }
+  .figure.diagram .frame img { width: auto; max-width: 100%; margin: 0 auto; image-rendering: auto; }
+
+  .phone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 24px 0; align-items: start; }
+  .phone-grid.two { grid-template-columns: repeat(2, minmax(0, 240px)); }
+  .phone { margin: 0; }
+  .phone img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
+  .phone figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 8px; }
+
+  .pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; align-items: start; }
+  .trio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 24px 0; }
+  .trio-grid .frame img { aspect-ratio: 4/5; object-fit: cover; }
+
+  .img-block { border: 1px solid var(--line); background: var(--bg-panel); position: relative; overflow: hidden; margin: 24px 0; }
+  .img-block.wide { aspect-ratio: 16/8; }
+  .img-block .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.04) 0, rgba(143,214,255,0.04) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.04) 0, rgba(143,214,255,0.04) 1px, transparent 1px, transparent 10px); }
+  .img-block .ph-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; padding: 20px; }
+
+  .other { background: var(--bg-panel); border-top: 1px solid var(--line); }
+  .copy-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 16px; }
+  .copy-chip { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: var(--ink); border: 1px solid var(--line); background: var(--bg); padding: 8px 14px; }
+
+  .next-proj { padding: 56px 0 60px; display: flex; justify-content: space-between; align-items: center; }
+  .next-proj a { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: var(--ink); text-decoration: none; }
+  .next-proj a:hover { color: var(--accent); }
+  .next-proj .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); display: block; margin-bottom: 6px; }
+  .prev-proj { display: block; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); text-decoration: none; }
+  .prev-proj:hover { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .wrap { padding: 0 20px; }
+    h1 { font-size: 32px; }
+    .meta-row { grid-template-columns: 1fr 1fr; row-gap: 16px; }
+    .persona-top { flex-wrap: wrap; }
+    .phone-grid { grid-template-columns: 1fr 1fr; }
+    .persona-grid, .pair-grid, .trio-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Site map */
+  .sitemap { border: 1px solid var(--line); background: var(--bg-panel); padding: 26px 22px; margin: 24px 0; }
+  .sm-root { display: inline-block; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: #06231d; background: var(--accent); padding: 7px 14px; border-radius: 4px; }
+  .sm-branches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-top: 22px; position: relative; }
+  .sm-branch { border-top: 2px solid var(--accent); padding-top: 14px; }
+  .sm-branch .sm-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 8px; }
+  .sm-branch ul { list-style: none; margin: 0; }
+  .sm-branch li { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); padding: 3px 0 3px 12px; position: relative; line-height: 1.5; }
+  .sm-branch li::before { content: "└"; position: absolute; left: 0; color: var(--line); }
+  .sm-note { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+
+  /* Interaction model */
+  .flow-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 24px 0; }
+  .flow-step { border: 1px solid var(--line); background: var(--bg-panel); padding: 16px 15px; position: relative; }
+  .flow-step .fs-n { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; }
+  .flow-step .fs-t { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; margin: 6px 0 6px; }
+  .flow-step .fs-d { font-size: 12.5px; color: #AEBBC4; line-height: 1.5; }
+  .flow-step .fs-screen { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted); margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--line); }
+
+  /* Tasteful screen shelf */
+  .shelf { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 22px; margin: 26px 0; }
+  .shelf .device { background: #0a0a0c; border: 7px solid #17181c; border-radius: 26px; padding: 0; overflow: hidden; box-shadow: 0 14px 34px rgba(0,0,0,0.5); }
+  .shelf .device img { display: block; width: 100%; height: auto; }
+  .shelf figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 10px; line-height: 1.55; }
+  .shelf figcaption b { display: block; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 13.5px; color: var(--ink); margin-bottom: 3px; letter-spacing: 0; }
+  .shelf figure { margin: 0; }
+
+  /* Currently-building empty state */
+  .building { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; background: radial-gradient(ellipse at center, rgba(143,214,255,0.07), transparent 70%); }
+  .building svg { width: 34px; height: 34px; filter: drop-shadow(0 0 8px rgba(143,214,255,0.65)); animation: buildpulse 2.6s ease-in-out infinite; }
+  .building .bt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); text-shadow: 0 0 10px rgba(143,214,255,0.5); }
+  .building .bs { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); max-width: 30ch; line-height: 1.5; }
+  @keyframes buildpulse { 0%, 100% { opacity: 0.75; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+  @media (prefers-reduced-motion: reduce) { .building svg { animation: none; } }
+
+  /* Mobile hardening — smallest iOS & Android screens */
+  body { -webkit-text-size-adjust: 100%; overflow-wrap: break-word; }
+  img, svg, video { max-width: 100%; height: auto; }
+  a, button { overflow-wrap: break-word; }
+  @supports (padding: max(0px)) {
+    .wrap { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+    footer#contact { padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 32px)); }
+  }
+  @media (max-width: 340px) {
+    .wrap { padding-left: 12px; padding-right: 12px; }
+    h1 { font-size: 23px; }
+    .nav-links { gap: 10px; font-size: 10px; }
+    .nav-name { font-size: 12.5px; }
+    .footer-cta { font-size: 20px; }
+    .footer-links a { font-size: 10.5px; padding: 7px 9px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="crt"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="nav-name" href="portfolio-crt-landing.html">GEN PUG</a>
+    <div class="nav-links">
+      <a href="portfolio-crt-landing.html#work" class="on">WORK</a>
+      <a href="sandbox.html">SANDBOX</a>
+      <a href="portfolio-crt-landing.html#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </div>
+</nav>
+
+<header class="proj-hero">
+  <div class="wrap">
+    <div class="proj-index">PROJECT 02 / 05 — SELECTED WORK</div>
+    <h1 class="head">Medusa Solutions Inc.</h1>
+    <div class="proj-role mono">Founding Designer — Brand, Product &amp; Art Direction</div>
+    <a class="site-link" href="https://www.medusa.so/" target="_blank" rel="noopener">VISIT MEDUSA.SO ↗</a>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Founding Designer</span></div>
+      <div class="meta-item"><span class="mono label">TIMELINE</span><span class="value head">Sep 2024 — May 2025</span></div>
+      <div class="meta-item"><span class="mono label">PRODUCT</span><span class="value head">iOS App · Website</span></div>
+      <div class="meta-item"><span class="mono label">MARKETS</span><span class="value head">21+, Arizona &amp; NYC</span></div>
+    </div>
+
+    <div class="mock-stage" role="img" aria-label="Mockup of the Medusa website on a laptop and the Medusa iOS community tab on a phone, with floating cards for a 4/20 pre-order offer, community stats, open hours, and a new comment">
+      <div class="corner tl"></div><div class="corner br"></div>
+      <div class="mock-laptop">
+        <div class="mock-lid"><img src="assets/medusa/website-desktop-home.jpg" alt=""></div>
+        <div class="mock-base"></div>
+      </div>
+      <div class="mock-phone"><img src="assets/medusa/community-hifi.png" alt=""></div>
+      <div class="glass g1"><div class="g-title">Pre-Order for 4/20 <span class="g-dot"></span></div><div class="g-sub">Enjoy 30% off with code FIRST</div></div>
+      <div class="glass g2"><div class="g-title">Medusa Dispo. ★ 4.9</div><div class="g-sub">1,658 members · 87 online</div></div>
+      <div class="glass g3"><div class="g-title">Open now <span class="g-dot"></span></div><div class="g-sub">10am – 12am · 2 miles away</div></div>
+      <div class="glass g4"><div class="g-title">New comment</div><div class="g-sub">"Delivery was fast and the owners are responsive."</div></div>
+    </div>
+    <div class="caption">Medusa across web and iOS — dispensary discovery on the site, community in the app.</div>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// OVERVIEW</div>
+    <h2 class="head">Making cannabis discovery feel like a community</h2>
+    <p>Medusa Solutions Inc. is a startup building a cannabis delivery and discovery platform for adults 21 and up in Arizona and New York City. Finding a dispensary means comparing distance, hours, deals, delivery options, payment methods, and a deep product catalog — strain, potency, effects, weight — across stores that all look the same online.</p>
+    <p>My job was to make that simple. The iOS app and website turn each dispensary into a community people can find, trust, and talk to, with the complexity tucked behind a map, clear badges, and filters that read like a conversation: <em>"How far do you want your dispensary to be?"</em> <em>"How much you got?"</em> The platform is live at <a href="https://www.medusa.so/" target="_blank" rel="noopener">medusa.so</a>.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// MY ROLE</div>
+    <h2 class="head">In the room from conception to launch</h2>
+    <p>I joined Medusa at its conception as founding designer. Beyond building the brand identity, I led across every touchpoint that shaped the business — the brief that framed the launch, the apparel and shoots that carried the brand before there was product to sell, and the app and website customers would actually use. My through-line was turning complex ideas into something a customer understands in a glance, and showing up in person to make it happen — including flying from NYC to Miami to lead a shoot.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">09.10.24</div><div class="tl-text">First apparel concepts — "Turn To Stone" kanji, snakes, "Not For Minors"</div></div>
+      <div class="tl-item"><div class="tl-date">09.19.24</div><div class="tl-text">Art directed the first studio photoshoot as lead freelance designer</div></div>
+      <div class="tl-item"><div class="tl-date">10.16.24</div><div class="tl-text">Wrote the project brief, channels, and deliverables for the launch</div></div>
+      <div class="tl-item"><div class="tl-date">12.22.24</div><div class="tl-text">Moodboards for The Uncanny Pt 2 shoot, styling and makeup</div></div>
+      <div class="tl-item"><div class="tl-date">03.12.25</div><div class="tl-text">Low-fidelity flows for the app and website</div></div>
+      <div class="tl-item"><div class="tl-date">04.10.25</div><div class="tl-text">High-fidelity iOS screens and component library</div></div>
+      <div class="tl-item"><div class="tl-date">4/20</div><div class="tl-text">Launch — site live</div></div>
+      <div class="tl-item"><div class="tl-date">05.17.25</div><div class="tl-text">Flew NYC → Miami to lead the Medusa apparel shoot</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// PERSONAS</div>
+    <h2 class="head">Who Medusa is for</h2>
+    <p>Medusa's customers are adults 21 and up in Arizona and New York City. These proto-personas are composites built from that audience to guide design decisions. They're three different lives with one shared need: cannabis that fits around them, whether the barrier is mobility or a schedule that never lines up with store hours.</p>
+    <div class="persona-grid">
+      <div class="persona">
+        <div class="persona-top"><div class="p-avatar">MC</div><div><div class="p-name">Maya Castillo, 21</div><div class="p-meta">NURSING STUDENT · TEMPE, AZ</div></div></div>
+        <span class="p-tag">BUSY SCHEDULE · NO CAR</span>
+        <div class="p-quote">"Between clinicals and closing shifts, nothing's open when I'm free — and I don't have a car."</div>
+        <div class="p-h">NEEDS</div>
+        <ul><li>Pickup or delivery that fits around class and work</li><li>Student-budget deals and first-time discounts</li><li>Clear hours so she never makes a wasted trip</li></ul>
+        <div class="p-h">FRUSTRATIONS</div>
+        <ul><li>The closest dispensary is two bus rides away</li><li>Deals and hours are scattered across different sites</li></ul>
+        <div class="p-h">HOW MEDUSA HELPS</div>
+        <p class="p-help">Distance and price filters, first-time and daily-special deals, and open-now status on every store.</p>
+      </div>
+      <div class="persona">
+        <div class="persona-top"><div class="p-avatar">AW</div><div><div class="p-name">Andre Whitaker, 35</div><div class="p-meta">SOUS CHEF · BROOKLYN, NY</div></div></div>
+        <span class="p-tag">LATE SHIFTS · NO TIME</span>
+        <div class="p-quote">"I'm on my feet for twelve hours and off at midnight. The last thing I want is a line."</div>
+        <div class="p-h">NEEDS</div>
+        <ul><li>Late hours or delivery after service</li><li>Fast reorders of what already works for him</li><li>Honest word on delivery speed before he commits</li></ul>
+        <div class="p-h">FRUSTRATIONS</div>
+        <ul><li>Most stores close before his shift ends</li><li>Days off go to catching up, not errands</li></ul>
+        <div class="p-h">HOW MEDUSA HELPS</div>
+        <p class="p-help">Hours on every listing, a delivery filter, "ordered on" history for reorders, and community posts about how fast stores deliver.</p>
+      </div>
+      <div class="persona">
+        <div class="persona-top"><div class="p-avatar">LO</div><div><div class="p-name">Lorraine Okafor, 42</div><div class="p-meta">ARCHITECT · PHOENIX, AZ</div></div></div>
+        <span class="p-tag">MOBILITY · MEDICAL PATIENT</span>
+        <div class="p-quote">"On a bad back day, parking, walking the floor, and standing in line can take my whole afternoon."</div>
+        <div class="p-h">NEEDS</div>
+        <ul><li>Delivery or curbside pickup</li><li>Medical-friendly stores with clear potency and THC/CBD info</li><li>Reliable, repeatable orders she can plan around</li></ul>
+        <div class="p-h">FRUSTRATIONS</div>
+        <ul><li>Driving isn't an option during flare-ups</li><li>Product listings are vague about effects and dosage</li></ul>
+        <div class="p-h">HOW MEDUSA HELPS</div>
+        <p class="p-help">Curbside pickup and delivery filters, medical store type, and filters for THC/CBD percentage, potency, and effects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// USER JOURNEY</div>
+    <h2 class="head">Find a dispensary, join its community, post</h2>
+    <p>The core journey moves from discovery to belonging: search or browse the map, compare what's nearby, join a dispensary's community, and post to it. I mapped the flows between search, community, and posting before committing to screens.</p>
+    <figure class="figure diagram"><div class="frame"><img src="assets/medusa/journey-search-community-flow.png" alt="Low-fidelity flow diagram connecting search and community screens" loading="lazy"></div></figure>
+    <div class="caption">Search and community flow mapping, low fidelity.</div>
+
+    <h3>SITE MAP — WHERE EVERYTHING LIVES</h3>
+    <p>Before any screen got drawn, the architecture had to answer one question: how does someone go from "I want something" to "it's on its way" without learning a new vocabulary? The web experience resolved into a persistent sidebar — every destination one tap deep, nothing buried.</p>
+    <div class="sitemap">
+      <span class="sm-root">MEDUSA</span>
+      <div class="sm-branches">
+        <div class="sm-branch">
+          <div class="sm-name">Home</div>
+          <ul><li>Explore banner</li><li>Medusa Match</li><li>Nearby dispensaries</li><li>Category pills</li></ul>
+        </div>
+        <div class="sm-branch">
+          <div class="sm-name">Map</div>
+          <ul><li>Distance radius</li><li>Open / closed</li><li>Deals &amp; specials</li><li>Favorite a dispo</li></ul>
+        </div>
+        <div class="sm-branch">
+          <div class="sm-name">Match</div>
+          <ul><li>Popular</li><li>Evening picks</li><li>New arrivals</li></ul>
+        </div>
+        <div class="sm-branch">
+          <div class="sm-name">Strains</div>
+          <ul><li>Indica / Sativa</li><li>Hybrid / CBD</li><li>THC &amp; CBD %</li><li>Effects &amp; flavor</li></ul>
+        </div>
+        <div class="sm-branch">
+          <div class="sm-name">Community</div>
+          <ul><li>Dispensary feeds</li><li>Make a post</li><li>Discussions</li></ul>
+        </div>
+        <div class="sm-branch">
+          <div class="sm-name">Account</div>
+          <ul><li>Profile</li><li>Favorites</li><li>Orders</li><li>Learn &amp; support</li></ul>
+        </div>
+      </div>
+      <div class="sm-note">SIX DESTINATIONS · EVERY LEAF REACHABLE IN TWO TAPS FROM ANY SCREEN</div>
+    </div>
+
+    <h3>HOW THE iOS APP IS MEANT TO BEHAVE</h3>
+    <p>The website is for deciding; the app is for belonging. Where the site optimizes for finding a store fast, the app assumes you already have one and turns it into a place you check in on. That split drove the interaction model:</p>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="fs-n">01 — ORIENT</div>
+        <div class="fs-t">Set location</div>
+        <div class="fs-d">The app opens knowing where you are, so distance is context rather than a filter you apply.</div>
+        <div class="fs-screen">MAP · SEARCH</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-n">02 — NARROW</div>
+        <div class="fs-t">Filter in plain language</div>
+        <div class="fs-d">"How far do you want your dispensary to be?" — filters phrased as questions, not form labels.</div>
+        <div class="fs-screen">DISPO FILTERS</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-n">03 — COMMIT</div>
+        <div class="fs-t">Join the community</div>
+        <div class="fs-d">A store stops being a listing and becomes a feed with members, activity, and an order history.</div>
+        <div class="fs-screen">COMMUNITY TAB</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-n">04 — CONTRIBUTE</div>
+        <div class="fs-t">Post from inside</div>
+        <div class="fs-d">Posting starts within a community, so the post already knows where it belongs — one less decision.</div>
+        <div class="fs-screen">MAKE A POST</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-n">05 — RETURN</div>
+        <div class="fs-t">Reorder on memory</div>
+        <div class="fs-d">"Ordered on" pills and HOT / NEW badges make the second visit faster than the first.</div>
+        <div class="fs-screen">COMMUNITY CARDS</div>
+      </div>
+    </div>
+
+    <h3>THE SCREENS</h3>
+    <div class="shelf">
+      <figure>
+        <div class="device"><img src="assets/medusa/community-hifi.png" alt="Medusa community tab with dispensary cards, ratings, member counts and activity badges" loading="lazy"></div>
+        <figcaption><b>Community</b>Dispensary feeds with ratings, member and online counts, ordered-on history, and HOT / NEW badges.</figcaption>
+      </figure>
+      <figure>
+        <div class="device"><img src="assets/medusa/map-hifi.png" alt="Medusa dispensary map with distance, hours and deal badges" loading="lazy"></div>
+        <figcaption><b>Map</b>Distance, hours, open status, and deals — the decision layer before you commit to a store.</figcaption>
+      </figure>
+      <figure>
+        <div class="device"><img src="assets/medusa/make-post-hifi.png" alt="Medusa make a post screen with community selector" loading="lazy"></div>
+        <figcaption><b>Make a post</b>Composition starts inside a community, with the destination already resolved.</figcaption>
+      </figure>
+      <figure>
+        <div class="device"><img src="assets/medusa/web-preorder-popup.png" alt="4/20 pre-order pop-up offering 30% off with code FIRST" loading="lazy"></div>
+        <figcaption><b>Pre-order moment</b>Launch promotion surfaced in-product — copy written to sound like a person, not a banner.</figcaption>
+      </figure>
+    </div>
+
+    <h3>POSTING — TWO DIRECTIONS</h3>
+    <p>Posting went through two directions. <strong>V1</strong> put a global post button in front of everything: write first, then choose a community. <strong>V2</strong> starts inside a community, so the post already knows where it's going — one less decision for the user.</p>
+    <figure class="figure diagram"><div class="frame"><img src="assets/medusa/journey-v1-global-post.png" alt="V1 global post button flow, low fidelity" loading="lazy"></div></figure>
+    <div class="caption">V1 — global post button.</div>
+    <figure class="figure diagram"><div class="frame"><img src="assets/medusa/journey-v2-post-from-community.png" alt="V2 post from within community flow, low fidelity" loading="lazy"></div></figure>
+    <div class="caption">V2 — post from within a community.</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// iOS APP</div>
+    <h2 class="head">Screens, low fidelity to high</h2>
+    <p>Each dispensary gets its own feed with member and online counts, a record of when you last ordered, and badges for hot threads and new posts. The map surfaces distance, hours, open status, and deals like veterans' discounts and daily specials, backed by filters for delivery options, price, payment method, strain, potency, and effects.</p>
+
+    <h3>COMMUNITY TAB</h3>
+    <div class="phone-grid two">
+      <figure class="phone"><img src="assets/medusa/community-lofi.png" alt="Low-fidelity community tab wireframe" loading="lazy"><figcaption>Low fid</figcaption></figure>
+      <figure class="phone"><img src="assets/medusa/community-hifi.png" alt="High-fidelity community tab" loading="lazy"><figcaption>High fid</figcaption></figure>
+    </div>
+
+    <h3>POSTING</h3>
+    <div class="phone-grid two">
+      <figure class="phone"><img src="assets/medusa/select-dispo-lofi.png" alt="Low-fidelity select a dispensary screen" loading="lazy"><figcaption>Select a dispensary — low fid</figcaption></figure>
+      <figure class="phone"><img src="assets/medusa/make-post-hifi.png" alt="High-fidelity make a post screen" loading="lazy"><figcaption>Make a post — high fid</figcaption></figure>
+    </div>
+
+    <h3>MAP</h3>
+    <div class="phone-grid two">
+      <figure class="phone"><img src="assets/medusa/map-hifi.png" alt="High-fidelity dispensary map" loading="lazy"><figcaption>Dispensary map — high fid</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// WEBSITE REDESIGN</div>
+    <h2 class="head">A web front door for the marketplace</h2>
+    <p>The redesigned desktop site puts discovery first. Search for products or dispensaries sits at the top next to your location. Category pills cover flower through tinctures. A persistent sidebar holds Home, Map, Match, Strains, Profile, Favorites, Orders, and Learn. The home page opens on the brand, then helps people decide: <strong>Medusa Match</strong> offers collections to explore tonight (Popular, Evening Picks, New Arrivals). <strong>Nearby Dispensaries</strong> lists licensed shops within 25 miles, with distance and live-menu badges. Visitors can switch between light and dark appearance.</p>
+    <figure class="figure"><div class="frame"><div class="corner tl"></div><div class="corner br"></div><img src="assets/medusa/website-desktop-home.jpg" alt="Live Medusa desktop website home: sidebar navigation, product search, category pills, Explore Medusa banner, Medusa Match collections, and nearby dispensaries in Queens" loading="lazy"></div></figure>
+    <div class="caption">The live desktop home at <a href="https://www.medusa.so/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">medusa.so</a>.</div>
+
+    <h3>EARLIER EXPLORATIONS</h3>
+    <p>Before the redesign settled on a sidebar and Match, early web flows explored a deals-led home screen and launch promotions like the 4/20 pre-order offer. Today the site verifies each visitor's location and age before showing marketplace features where they're legally available.</p>
+    <div class="pair-grid">
+      <figure class="figure diagram" style="margin:0;"><div class="frame"><img src="assets/medusa/web-home-deals-lofi.png" alt="Low-fidelity home screen deals and menu tab explorations" loading="lazy"></div><div class="caption">Home screen deals — low fid.</div></figure>
+      <figure class="phone" style="max-width:240px;"><img src="assets/medusa/web-preorder-popup.png" alt="4/20 pre-order pop-up: enjoy 30% off with code FIRST" loading="lazy"><figcaption>4/20 pre-order pop-up</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// OUTCOME</div>
+    <h2 class="head">Launched on 4/20</h2>
+    <p>Medusa launched on 4/20 with the site live and a pre-order push leading into it, and the platform is live today at <a href="https://www.medusa.so/" target="_blank" rel="noopener">medusa.so</a>. [Placeholder — growth numbers you're comfortable sharing: sign-ups, first sales, community activity, or feedback from launch.]</p>
+  </div>
+</section>
+
+<section class="block other">
+  <div class="wrap">
+    <div class="block-label">// OTHER DELIVERABLES</div>
+    <h2 class="head">Art Direction / Social Media / Copywriting</h2>
+    <p>Before there was product to sell, the brand had to carry Medusa on its own. These pieces built awareness across apparel, shoots, social, and print.</p>
+
+    <h3>ART DIRECTION</h3>
+    <figure class="figure"><div class="frame"><img src="assets/medusa/moodboard-photoshoot-2024-09-19.jpg" alt="Photoshoot moodboard 9.19.2024: jewelry, red and green focus, poses that highlight shirt designs" loading="lazy"></div></figure>
+    <div class="caption">Photoshoot moodboard, 9.19.24 — red and green focus, jewelry, poses that highlight the shirts.</div>
+    <figure class="figure"><div class="frame"><img src="assets/medusa/shoot-studio-group.jpg" alt="Studio shoot: eight models in Medusa tees wearing gold laurel crowns and a snake headpiece" loading="lazy"></div></figure>
+    <div class="caption">Studio shoot, 9.19.24.</div>
+    <div class="pair-grid">
+      <figure class="figure" style="margin:0;"><div class="frame"><img src="assets/medusa/uncanny-pt2-moodboard-1.jpg" alt="The Uncanny Pt 2 styling moodboard" loading="lazy"></div><div class="caption">The Uncanny Pt 2 — styling.</div></figure>
+      <figure class="figure" style="margin:0;"><div class="frame"><img src="assets/medusa/uncanny-pt2-moodboard-2.jpg" alt="The Uncanny Pt 2 makeup moodboard" loading="lazy"></div><div class="caption">The Uncanny Pt 2 — makeup.</div></figure>
+    </div>
+    <figure class="figure"><div class="frame"><img src="assets/medusa/shoot-miami-boat.jpg" alt="Miami shoot: models on a boat off the Miami skyline holding a Medusa tee" loading="lazy"></div></figure>
+    <div class="caption">Miami shoot, 05.17.25 — flew in from NYC to lead it.</div>
+
+    <h3>SOCIAL MEDIA</h3>
+    <div class="trio-grid">
+      <figure class="figure" style="margin:0;"><div class="frame"><img src="assets/medusa/poster-turn-to-stone-green.jpg" alt="Turn To Stone poster, green and blue duotone" loading="lazy"></div></figure>
+      <figure class="figure" style="margin:0;"><div class="frame"><img src="assets/medusa/poster-turn-to-stone-pink.jpg" alt="Turn To Stone poster, pink and orange gradient" loading="lazy"></div></figure>
+      <figure class="figure" style="margin:0;"><div class="frame"><img src="assets/medusa/poster-420-launch.jpg" alt="4/20 Launch poster: site is now live" loading="lazy"></div></figure>
+    </div>
+    <div class="caption">Turn To Stone campaign and the 4/20 launch announcement.</div>
+
+    <h3>COPYWRITING</h3>
+    <div class="copy-list">
+      <span class="copy-chip">Turn To Stone</span>
+      <span class="copy-chip">You'll Get Stoned</span>
+      <span class="copy-chip">Turn to stone with us</span>
+      <span class="copy-chip">How much you got?</span>
+      <span class="copy-chip">They got what you need?</span>
+      <span class="copy-chip">I don't want 30% off</span>
+    </div>
+
+    <h3>PRINT &amp; PACKAGING</h3>
+    <div class="pair-grid">
+      <figure class="figure" style="margin:0;"><div class="frame"><img src="assets/medusa/packaging-rolling-papers-techpack.jpg" alt="Medusa king size rolling papers packaging tech pack: outside and inside templates, dielines, perspectives" loading="lazy"></div><div class="caption">King size rolling papers — tech pack.</div></figure>
+      <div>
+        <figure class="figure" style="margin:0 0 20px;"><div class="frame"><img src="assets/medusa/sketch-tshirt-designs-2024-09-10.jpg" alt="Sketchbook page of six Medusa t-shirt concepts" loading="lazy"></div><div class="caption">T-shirt concepts, 9.10.24.</div></figure>
+        <figure class="figure" style="margin:0;"><div class="frame"><img src="assets/medusa/sketch-tshirt-kanji-2024-09-10.jpg" alt="Sketchbook page: Turn To Stone kanji and bush viper illustration" loading="lazy"></div><div class="caption">"Turn To Stone" kanji and bush viper, 9.10.24.</div></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="next-proj">
+    <div><span class="lbl mono">NEXT PROJECT</span><a href="payapp-case-study.html">PayApp →</a>
+      <a class="prev-proj" href="magi-vision-case-study.html">← Previous: Magi Vision</a></div>
+    <a href="portfolio-crt-landing.html">All Work</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-cta">let's chat more! ^.^</div>
+      <div class="footer-sub">Always up for talking design, sports tech, or a good problem worth solving.</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:genpugdesign@gmail.com">EMAIL</a>
+      <a href="https://www.linkedin.com/in/gen-pug/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">INSTAGRAM</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var items = [];
+  document.querySelectorAll('section.block').forEach(function(sec){
+    var lab = sec.querySelector('.block-label');
+    if (lab) items.push({ el: sec, text: lab.textContent.replace(/^\/\/\s*/, ''), sub: false });
+    sec.querySelectorAll('h3').forEach(function(h){ items.push({ el: h, text: h.textContent, sub: true }); });
+  });
+  if (items.length < 3) return;
+  var nav = document.createElement('nav');
+  nav.className = 'stage-nav';
+  items.forEach(function(it, i){
+    if (!it.el.id) it.el.id = 'sec-' + i;
+    var a = document.createElement('a');
+    a.href = '#' + it.el.id;
+    a.textContent = it.text;
+    if (it.sub) a.className = 'sub';
+    nav.appendChild(a);
+    it.link = a;
+  });
+  document.body.appendChild(nav);
+  function sync(){
+    var y = window.scrollY + 140, cur = items[0];
+    items.forEach(function(it){ if (it.el.offsetTop <= y) cur = it; });
+    items.forEach(function(it){ it.link.classList.toggle('on', it === cur); });
+  }
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+})();
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Magi Vision — Genevieve Puglissi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
@@ -12,7 +12,27 @@
     --accent-soft: rgba(143,214,255,0.10); --line: #1F2B35; --muted: #64737D;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { background: var(--bg); }
+  html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 90px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Floating stage nav */
+  .stage-nav { position: fixed; left: 18px; top: 50%; transform: translateY(-50%); z-index: 35; display: flex; flex-direction: column; gap: 2px; max-height: 76vh; overflow-y: auto; padding: 10px 0; }
+  .stage-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; padding: 5px 10px 5px 14px; border-left: 2px solid var(--line); white-space: nowrap; max-width: 190px; overflow: hidden; text-overflow: clip; transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease; }
+  .stage-nav a:hover { color: var(--accent); border-left-color: var(--accent); padding-left: 18px; }
+  .stage-nav a.on { color: var(--accent); border-left-color: var(--accent); }
+  .stage-nav a.sub { padding-left: 24px; font-size: 10px; opacity: 0.85; }
+  .stage-nav a.sub:hover { padding-left: 28px; }
+  @media (max-width: 1240px) { .stage-nav { display: none; } }
+
+  /* Global footer */
+  footer#contact { border-top: 1px solid var(--line); margin-top: 20px; padding: 56px 0 64px; }
+  footer#contact .footer-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .footer-cta { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; color: var(--ink); letter-spacing: -0.01em; }
+  .footer-sub { font-size: 15px; color: #AEBBC4; margin-top: 8px; max-width: 46ch; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; }
+  .footer-links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 400px) { .footer-cta { font-size: 23px; } footer#contact { padding: 40px 0 48px; } }
   body { background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
   .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
@@ -21,22 +41,33 @@
   .head { font-family: 'Space Grotesk', sans-serif; }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
 
-  nav { border-bottom: 1px solid var(--line); padding: 20px 0; }
-  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; }
-  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; }
-  .back-link { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); text-decoration: none; }
-  .back-link:hover { color: var(--accent); }
+  nav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); padding: 16px 0; background: rgba(8,11,16,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .nav-links a { color: var(--muted); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.on { color: var(--accent); }
+  @media (max-width: 400px) {
+    nav { padding: 12px 0; }
+    .nav-name { font-size: 14px; }
+    .nav-links { gap: 13px; font-size: 11px; }
+  }
 
   header.proj-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
   .proj-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
   h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 46px; letter-spacing: -0.01em; margin-bottom: 12px; }
-  .proj-role { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+  .proj-role { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .site-link { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 7px 12px; margin-bottom: 28px; }
+  .site-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .block p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(143,214,255,0.35); }
+  .block p a:hover { border-bottom-color: var(--accent); }
 
   .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; margin-bottom: 36px; }
   .meta-item .mono.label { font-size: 10.5px; color: var(--muted); letter-spacing: 0.06em; display: block; margin-bottom: 5px; }
   .meta-item .value { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; }
 
   .hero-visual { border: 1px solid var(--line); background: var(--bg-panel); aspect-ratio: 16/9; position: relative; overflow: hidden; }
+  .hero-visual video, .img-block video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .hero-visual .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px); }
   .hero-visual .ph-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); text-align: center; }
   .hero-visual .corner { position: absolute; width: 18px; height: 18px; border: 1.5px solid var(--accent); opacity: 0.6; }
@@ -75,6 +106,8 @@
   .next-proj a { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: var(--ink); text-decoration: none; }
   .next-proj a:hover { color: var(--accent); }
   .next-proj .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); display: block; margin-bottom: 6px; }
+  .prev-proj { display: block; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); text-decoration: none; }
+  .prev-proj:hover { color: var(--accent); }
 
   @media (max-width: 700px) {
     .wrap { padding: 0 20px; }
@@ -82,6 +115,40 @@
     .meta-row { grid-template-columns: 1fr 1fr; row-gap: 16px; }
     .img-grid { grid-template-columns: 1fr; }
     .stat-row { grid-template-columns: 1fr; }
+  }
+
+  /* Desktop site mockup */
+  .site-mock { margin: 28px 0 10px; }
+  .browser { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #0c0c0e; box-shadow: 0 18px 40px rgba(0,0,0,0.5); }
+  .browser-bar { display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: #15171b; border-bottom: 1px solid var(--line); }
+  .browser-bar .dot { width: 9px; height: 9px; border-radius: 50%; background: #2c313a; flex-shrink: 0; }
+  .browser-url { flex: 1; margin-left: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); background: #0c0c0e; border: 1px solid var(--line); border-radius: 5px; padding: 4px 10px; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+  .browser img { display: block; width: 100%; height: auto; }
+  @media (max-width: 480px) { .browser-bar { padding: 7px 9px; } .browser-url { font-size: 9px; } }
+
+  /* Currently-building empty state */
+  .building { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; background: radial-gradient(ellipse at center, rgba(143,214,255,0.07), transparent 70%); }
+  .building svg { width: 34px; height: 34px; filter: drop-shadow(0 0 8px rgba(143,214,255,0.65)); animation: buildpulse 2.6s ease-in-out infinite; }
+  .building .bt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); text-shadow: 0 0 10px rgba(143,214,255,0.5); }
+  .building .bs { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); max-width: 30ch; line-height: 1.5; }
+  @keyframes buildpulse { 0%, 100% { opacity: 0.75; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+  @media (prefers-reduced-motion: reduce) { .building svg { animation: none; } }
+
+  /* Mobile hardening — smallest iOS & Android screens */
+  body { -webkit-text-size-adjust: 100%; overflow-wrap: break-word; }
+  img, svg, video { max-width: 100%; height: auto; }
+  a, button { overflow-wrap: break-word; }
+  @supports (padding: max(0px)) {
+    .wrap { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+    footer#contact { padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 32px)); }
+  }
+  @media (max-width: 340px) {
+    .wrap { padding-left: 12px; padding-right: 12px; }
+    h1 { font-size: 23px; }
+    .nav-links { gap: 10px; font-size: 10px; }
+    .nav-name { font-size: 12.5px; }
+    .footer-cta { font-size: 20px; }
+    .footer-links a { font-size: 10.5px; padding: 7px 9px; }
   }
 </style>
 </head>
@@ -91,8 +158,13 @@
 
 <nav>
   <div class="wrap">
-    <div class="nav-name">GENEVIEVE PUGLISSI</div>
-    <a class="back-link" href="portfolio-crt-landing.html">← ALL WORK</a>
+    <a class="nav-name" href="portfolio-crt-landing.html">GEN PUG</a>
+    <div class="nav-links">
+      <a href="portfolio-crt-landing.html#work" class="on">WORK</a>
+      <a href="sandbox.html">SANDBOX</a>
+      <a href="portfolio-crt-landing.html#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
   </div>
 </nav>
 
@@ -100,21 +172,21 @@
   <div class="wrap">
     <div class="proj-index">PROJECT 01 / 05 — SELECTED WORK</div>
     <h1 class="head">Magi Vision</h1>
-    <div class="proj-role mono">Seriyoku Zenyo Labs — Co-Founder &amp; CXO</div>
+    <div class="proj-role mono">Seiryoku Zenyo Labs — Co-Founder &amp; Design Chief</div>
+    <a class="site-link" href="https://magivision.io/" target="_blank" rel="noopener">VISIT MAGIVISION.IO ↗</a>
 
     <div class="meta-row">
       <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Product &amp; Experience Design</span></div>
-      <div class="meta-item"><span class="mono label">TIMELINE</span><span class="value head">2026 — Present</span></div>
-      <div class="meta-item"><span class="mono label">PLATFORM</span><span class="value head">Hardware × Software</span></div>
-      <div class="meta-item"><span class="mono label">STATUS</span><span class="value head">In Market</span></div>
+      <div class="meta-item"><span class="mono label">TIMELINE</span><span class="value head">May 2026 — Present</span></div>
+      <div class="meta-item"><span class="mono label">MODEL</span><span class="value head">B2B SaaS</span></div>
+      <div class="meta-item"><span class="mono label">STATUS</span><span class="value head">Pre-seed — seeking early-stage investors</span></div>
     </div>
 
     <div class="hero-visual">
-      <div class="hatch"></div>
       <div class="corner tl"></div><div class="corner br"></div>
-      <div class="ph-label">[ PLACEHOLDER — hero product shot or key screen ]</div>
+      <video src="assets/magi/magi-hero.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Magi Vision capture running on the mat"></video>
     </div>
-    <div class="hero-caption">Swap for the strongest single image of Magi Vision — a gym install shot, a key screen, or the hardware unit itself.</div>
+    <div class="hero-caption">Magi Vision running live — capture on the mat, no staging.</div>
   </div>
 </header>
 
@@ -122,8 +194,8 @@
   <div class="wrap">
     <div class="block-label">// OVERVIEW</div>
     <h2 class="head">A computer-vision platform for combat-sports gyms</h2>
-    <p>Magi Vision pairs computer vision with purpose-built gym hardware, giving coaches and athletes a way to see what's actually happening on the mat — in real time, without a camera crew or a manual tagging pipeline. As Co-Founder &amp; CXO of Seriyoku Zenyo Labs, I own product and experience design end to end: the hardware's physical presence in the gym, the software layer coaches and athletes actually use, and the story we tell investors and early partners.</p>
-    <p>[Placeholder — 2–3 sentences on the specific problem Magi Vision solves for a gym, and why now. What does a coach or athlete do today without it?]</p>
+    <p>Magi Vision pairs computer vision with purpose-built gym hardware, giving coaches and athletes a way to see what's actually happening on the mat — in real time, without a camera crew or a manual tagging pipeline. As Co-Founder &amp; Design Chief of Seiryoku Zenyo Labs, I own product and experience design end to end: the hardware's physical presence in the gym, the software layer coaches and athletes actually use, and the story we tell investors and early partners.</p>
+    <p>Every pose model in production assumes bodies stay separate. Grappling is the sport where they don't. Systems that can call a sprint split or a jump shot still can't tell you what just happened on the mat — Magi Vision is built for exactly that gap, from the camera on the wall to the event log.</p>
   </div>
 </section>
 
@@ -134,8 +206,10 @@
     <ul>
       <li>Set product and experience design direction across the full team</li>
       <li>Design across both hardware and software surfaces — the physical unit, the mounting and gym footprint, and the software coaches and athletes use</li>
-      <li>Build and present the deck that goes in front of investors, including the one prepared for Cooper</li>
-      <li>[Placeholder — add specifics: research method, who you worked with, how decisions got made]</li>
+      <li>Build and present the deck that goes in front of investors</li>
+      <li>Own the product surface — the capture software an operator runs and how the system reads from the mat side</li>
+      <li>Design the operator HUD hands-on, iterating against the live build rather than static mocks, and run the capture software myself on capture days</li>
+      <li>Partner with Shaker Zaman (CEO, Operations &amp; Engineering), who builds the capture side and reviews changes before they ship</li>
     </ul>
   </div>
 </section>
@@ -143,11 +217,17 @@
 <section class="block">
   <div class="wrap">
     <div class="block-label">// THE PROBLEM</div>
-    <h2 class="head">[Placeholder section heading]</h2>
-    <p>[Placeholder — what wasn't working before Magi Vision. Use a real anecdote or research finding if you have one — coach frustration, athlete blind spots, cost of existing solutions, etc.]</p>
+    <h2 class="head">Grappling breaks computer vision</h2>
+    <p>From the first grip, two athletes occupy one silhouette. Limbs vanish behind torsos, keypoints jump between people, and the tracker rebinds identities in the exact half-second the throw resolves. On the ground it inverts: almost no motion, almost all the meaning.</p>
+    <ul>
+      <li><strong>Occlusion</strong> — the decisive frames are the most hidden ones</li>
+      <li><strong>Identity swap</strong> — thrower and thrown trade skeletons mid-technique</li>
+      <li><strong>Ground phase</strong> — minimal movement, maximum consequence</li>
+      <li><strong>Ground truth</strong> — labels require someone who knows the sport</li>
+    </ul>
     <div class="img-block wide">
       <div class="hatch"></div>
-      <div class="ph-label">[ PLACEHOLDER — early sketch, whiteboard, or problem-framing artifact ]</div>
+      <div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">early sketch, whiteboard, or problem-framing artifact</div></div>
     </div>
   </div>
 </section>
@@ -156,15 +236,27 @@
   <div class="wrap">
     <div class="block-label">// DESIGN DIRECTION</div>
     <h2 class="head">Cyberpunk meets ritual</h2>
-    <p>The visual language draws on cyberpunk and religious motifs — high-contrast, ceremonial, built to feel like a tool an athlete respects rather than a consumer gadget. [Placeholder — expand on why this direction, and how it shows up in the actual product: typography, color, materials, sound, whatever applies.]</p>
-    <div class="swatch-row">
-      <div class="swatch"><div class="chip" style="background:#0A0D12;"></div><span class="mono">[HEX]</span></div>
-      <div class="swatch"><div class="chip" style="background:#8FD6FF;"></div><span class="mono">[HEX]</span></div>
-      <div class="swatch"><div class="chip" style="background:#3A2E1F;"></div><span class="mono">[HEX]</span></div>
-      <div class="swatch"><div class="chip" style="background:#8A1E1E;"></div><span class="mono">[HEX]</span></div>
-      <div class="swatch"><div class="chip" style="background:#DCE6ED;"></div><span class="mono">[HEX]</span></div>
+    <p>The visual language draws on cyberpunk and religious motifs — high-contrast, ceremonial, built to feel like a tool an athlete respects rather than a consumer gadget. The mark is a pentacle-derived medallion paired with a liquid-metal <em>magi</em> wordmark; brand moments are set in Unbounded, and everything the system reports is set in IBM Plex Mono so the interface reads like instrumentation. Color is near-black with two signals: cyan and red.</p>
+    <p>The company takes its name from the judo principle of <em>seiryoku zenyo</em> — maximum efficiency, minimal effort — and the product follows it: nothing spent on work that does not move the outcome.</p>
+    <h3 style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;color:var(--muted);letter-spacing:0.06em;margin:32px 0 12px;">THE SITE</h3>
+    <p>The public site is where the design direction gets its clearest statement: a chrome-and-liquid-metal <em>magi</em> lockup on near-black, the thesis line right under it — <em>"Grappling Software providing machine verification of human energy"</em> — and a scroll that walks from company to problem to team to demo to the dojos the footage comes from.</p>
+    <div class="site-mock">
+      <div class="browser">
+        <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="browser-url">magivision.io</span></div>
+        <img src="assets/magi/magivision-desktop-home.jpg" alt="The magivision.io desktop homepage: chrome liquid-metal magi lockup on black with the tagline Grappling Software providing machine verification of human energy" loading="lazy">
+      </div>
     </div>
-    <div class="hero-caption">Placeholder palette — swap in Magi Vision's real system colors.</div>
+    <div class="hero-caption">The live desktop site at <a href="https://magivision.io/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">magivision.io</a> — built and shipped by the team.</div>
+
+    <h3 style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;color:var(--muted);letter-spacing:0.06em;margin:32px 0 12px;">PALETTE</h3>
+    <div class="swatch-row">
+      <div class="swatch"><div class="chip" style="background:#030304;"></div><span class="mono">#030304</span></div>
+      <div class="swatch"><div class="chip" style="background:#00E5FF;"></div><span class="mono">#00E5FF</span></div>
+      <div class="swatch"><div class="chip" style="background:#FF2851;"></div><span class="mono">#FF2851</span></div>
+      <div class="swatch"><div class="chip" style="background:#1C2B2E;"></div><span class="mono">#1C2B2E</span></div>
+      <div class="swatch"><div class="chip" style="background:#C9F2FF;"></div><span class="mono">#C9F2FF</span></div>
+    </div>
+    <div class="hero-caption">Magi Vision system colors — background, signal cyan, signal red, border, text.</div>
   </div>
 </section>
 
@@ -172,12 +264,13 @@
   <div class="wrap">
     <div class="block-label">// PRODUCT</div>
     <h2 class="head">Screens &amp; hardware</h2>
-    <p>[Placeholder — walk through 2–4 key screens or hardware views. What is the coach looking at mid-session? What does an athlete see afterward?]</p>
+    <p>Magi Vision is the whole chain, from the camera on the wall to the event log. An operator starts a session and watches state commit as it happens — grip, kuzushi, the throw. The dashboard aggregates what came off the mat and hands back the highlights. The <a href="https://magivision.io/" target="_blank" rel="noopener">demo on magivision.io</a> is the build, running.</p>
+    <p>The clip below is me in a white gi and green belt throwing <em>harai goshi</em>, captured and tracked by the software — the exact case the system is built for: two bodies in one silhouette, resolved at the half-second the throw commits.</p>
     <div class="img-grid">
-      <div class="img-block tall"><div class="hatch"></div><div class="ph-label">[ PLACEHOLDER — screen 1 ]</div></div>
-      <div class="img-block tall"><div class="hatch"></div><div class="ph-label">[ PLACEHOLDER — screen 2 ]</div></div>
-      <div class="img-block tall"><div class="hatch"></div><div class="ph-label">[ PLACEHOLDER — hardware unit ]</div></div>
-      <div class="img-block tall"><div class="hatch"></div><div class="ph-label">[ PLACEHOLDER — gym install context shot ]</div></div>
+      <div class="img-block tall"><video src="assets/magi/magi-harai-goshi.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Harai goshi thrown in a white gi and green belt, tracked by the Magi Vision software"></video></div>
+      <div class="img-block tall"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">dashboard / highlights</div></div></div>
+      <div class="img-block tall"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">hardware unit</div></div></div>
+      <div class="img-block tall"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">capture at Kano Martial Arts</div></div></div>
     </div>
   </div>
 </section>
@@ -185,11 +278,11 @@
 <section class="block">
   <div class="wrap">
     <div class="block-label">// OUTCOME</div>
-    <h2 class="head">[Placeholder — results so far]</h2>
-    <p>[Placeholder — what's shipped, what's in pilot, any traction numbers you're comfortable sharing publicly.]</p>
+    <h2 class="head">Live, and capturing on real mats</h2>
+    <p>The public site and interactive demo are live at <a href="https://magivision.io/" target="_blank" rel="noopener">magivision.io</a>. Footage comes from three partner dojos that let us point cameras at their rounds: Kano Martial Arts in Manhattan, Krystek Martial Arts in Queens, and The Dojo in Brooklyn.</p>
     <div class="stat-row">
-      <div class="stat"><div class="num">[ ]</div><div class="lbl">[METRIC]</div></div>
-      <div class="stat"><div class="num">[ ]</div><div class="lbl">[METRIC]</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">PARTNER DOJOS, NYC</div></div>
+      <div class="stat"><div class="num">B2B</div><div class="lbl">SAAS FOR GRAPPLING GYMS</div></div>
       <div class="stat"><div class="num">[ ]</div><div class="lbl">[METRIC]</div></div>
     </div>
   </div>
@@ -197,10 +290,56 @@
 
 <div class="wrap">
   <div class="next-proj">
-    <div><span class="lbl mono">NEXT PROJECT</span><a href="#">Medusa Solutions Inc. →</a></div>
+    <div><span class="lbl mono">NEXT PROJECT</span><a href="medusa-case-study.html">Medusa Solutions Inc. →</a>
+      <a class="prev-proj" href="lifecycle-case-study.html">← Previous: LIFECYCLE</a></div>
     <a href="portfolio-crt-landing.html">All Work</a>
   </div>
 </div>
+
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-cta">let's chat more! ^.^</div>
+      <div class="footer-sub">Always up for talking design, sports tech, or a good problem worth solving.</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:genpugdesign@gmail.com">EMAIL</a>
+      <a href="https://www.linkedin.com/in/gen-pug/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">INSTAGRAM</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var items = [];
+  document.querySelectorAll('section.block').forEach(function(sec){
+    var lab = sec.querySelector('.block-label');
+    if (lab) items.push({ el: sec, text: lab.textContent.replace(/^\/\/\s*/, ''), sub: false });
+    sec.querySelectorAll('h3').forEach(function(h){ items.push({ el: h, text: h.textContent, sub: true }); });
+  });
+  if (items.length < 3) return;
+  var nav = document.createElement('nav');
+  nav.className = 'stage-nav';
+  items.forEach(function(it, i){
+    if (!it.el.id) it.el.id = 'sec-' + i;
+    var a = document.createElement('a');
+    a.href = '#' + it.el.id;
+    a.textContent = it.text;
+    if (it.sub) a.className = 'sub';
+    nav.appendChild(a);
+    it.link = a;
+  });
+  document.body.appendChild(nav);
+  function sync(){
+    var y = window.scrollY + 140, cur = items[0];
+    items.forEach(function(it){ if (it.el.offsetTop <= y) cur = it; });
+    items.forEach(function(it){ it.link.classList.toggle('on', it === cur); });
+  }
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+})();
+</script>
 
 </body>
 </html>

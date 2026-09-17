@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Genevieve Puglissi — Product Designer &amp; UX Researcher</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
@@ -18,7 +18,21 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { background: var(--bg); }
+  html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 90px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Global footer */
+  footer#contact { border-top: 1px solid var(--line); margin-top: 20px; padding: 56px 0 64px; }
+  footer#contact .footer-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .footer-cta { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; color: var(--ink); letter-spacing: -0.01em; }
+  .footer-sub { font-size: 15px; color: #AEBBC4; margin-top: 8px; max-width: 46ch; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; }
+  .footer-links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 400px) {
+    .footer-cta { font-size: 23px; }
+    footer#contact { padding: 40px 0 48px; }
+  }
   body {
     background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif;
     line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; position: relative;
@@ -27,7 +41,7 @@
   .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
   .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
   .crt::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 120%); }
-  .grain { position: fixed; inset: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 49; opacity: 0.035; }
+  .grain-tex { position: fixed; inset: 0; pointer-events: none; z-index: 49; opacity: 0.4; background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 2px), repeating-linear-gradient(90deg, rgba(255,255,255,0.010) 0px, rgba(255,255,255,0.010) 1px, transparent 1px, transparent 3px); }
 
   .mono { font-family: 'IBM Plex Mono', monospace; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
@@ -35,8 +49,8 @@
   @keyframes flicker { 0%,96%,100% { opacity: 1; } 97% { opacity: 0.85; } 98% { opacity: 1; } 99% { opacity: 0.9; } }
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
-  nav { border-bottom: 1px solid var(--line); padding: 20px 0; position: relative; z-index: 2; }
-  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  nav { border-bottom: 1px solid var(--line); padding: 16px 0; position: sticky; top: 0; z-index: 40; background: rgba(8,11,16,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
   .nav-name { flex-shrink: 0; }
   .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; }
   .nav-links { display: flex; gap: 26px; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
@@ -48,21 +62,14 @@
   .status-line { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
   .status-line::before { content: "● "; }
 
-  .id-card { border: 1px solid var(--accent); background: var(--bg); }
-
-  .id-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid var(--line); gap: 20px; }
-  .id-logo { display: flex; align-items: center; gap: 12px; flex: 1; }
-  .id-logo .mark { font-size: 16px; color: var(--accent); letter-spacing: -3px; transform: scaleY(1.3); }
-  .id-logo .wordmark { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 0.02em; white-space: nowrap; }
-  .id-logo .rule { flex: 1; height: 1px; background: var(--line); margin-left: 6px; }
-  .id-hexes { display: flex; gap: 7px; flex-shrink: 0; }
-  .id-hexes .hexdot { width: 13px; height: 13px; }
+  .id-card { border: 1px solid var(--accent); background: var(--bg); position: relative; }
 
   .id-body { display: grid; grid-template-columns: 280px 1fr; border-bottom: 1px solid var(--line); }
-  .id-photo { border-right: 1px solid var(--line); background: #05080B; position: relative; overflow: hidden; aspect-ratio: 3/4; }
+  .id-photo { border-right: 1px solid var(--line); background: #05080B; position: relative; overflow: hidden; min-height: 100%; }
   .id-photo .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 9px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 9px); }
-  .id-photo .ascii-fit { position: absolute; top: 0; left: 0; transform-origin: top left; }
-  .id-photo pre { font-family: 'IBM Plex Mono', monospace; font-size: 7px; line-height: 8px; color: rgba(143,214,255,0.55); white-space: pre; margin: 0; padding: 0; animation: flowerglitch 7s infinite; }
+  .id-photo .ascii-fit { position: absolute; top: 50%; left: 50%; transform-origin: center center; }
+  /* gradient is phone-only — added inside the mobile breakpoint below */
+  .id-photo pre { font-family: 'IBM Plex Mono', monospace; font-size: 7px; line-height: 6.6px; letter-spacing: 1.15px; color: rgba(143,214,255,0.55); white-space: pre; margin: 0; padding: 0; animation: flowerglitch 7s infinite; }
   @keyframes flowerglitch {
     0%, 90%, 100% { transform: translate(0,0) skew(0deg); text-shadow: none; opacity: 1; }
     91% { transform: translate(-2px,1px) skewX(1deg); text-shadow: 2px 0 rgba(255,90,90,0.45), -2px 0 rgba(90,200,255,0.45); opacity: 0.85; }
@@ -84,7 +91,29 @@
   .id-row-2 { display: flex; gap: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-bottom: 22px; }
   .id-row-2 b { color: var(--ink); font-weight: 500; display: block; margin-top: 2px; }
 
-  .id-coords { font-family: 'IBM Plex Mono', monospace; font-size: 27px; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 4px; }
+  /* location + live local time, pinned to the card's top-right */
+  .id-stamp { position: absolute; top: 12px; right: 16px; z-index: 6; text-align: right; pointer-events: none; }
+  .id-stamp .pl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--muted); }
+  .id-stamp .tm { font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; color: var(--accent); margin-top: 3px; text-shadow: 0 0 10px rgba(143,214,255,0.35); }
+
+  /* Dancing ASCII crew */
+  .coords-row { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; width: 100%; }
+  .dancers { display: flex; flex: 1; justify-content: space-evenly; align-items: center; gap: 20px; margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 23px; line-height: 1.2; color: var(--accent); }
+  .dancer { position: relative; width: 4.2em; height: 3.8em; }
+  .dancer pre { position: absolute; inset: 0; margin: 0; white-space: pre; opacity: 0; text-shadow: 0 0 6px rgba(143,214,255,0.55), 0 0 14px rgba(143,214,255,0.28); }
+  .dancer pre:nth-child(1) { animation: frameA 0.9s steps(1) infinite; }
+  .dancer pre:nth-child(2) { animation: frameB 0.9s steps(1) infinite; }
+  .dancer.d2 pre { animation-delay: 0.3s; }
+  .dancer.d3 pre { animation-delay: 0.6s; }
+  @keyframes frameA { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  @keyframes frameB { 0%, 49% { opacity: 0; } 50%, 100% { opacity: 1; } }
+  .dancers { animation: crewglow 2.8s ease-in-out infinite; }
+  @keyframes crewglow { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.45); } }
+  @media (prefers-reduced-motion: reduce) {
+    .dancer pre:nth-child(1) { opacity: 1; animation: none; }
+    .dancer pre:nth-child(2) { opacity: 0; animation: none; }
+    .dancers { animation: none; }
+  }
   .id-email { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-bottom: 20px; }
 
   .id-hexcluster { display: flex; flex-wrap: wrap; width: 46px; gap: 3px; margin: 4px 0 20px; }
@@ -106,7 +135,33 @@
 
   @media (max-width: 700px) {
     .id-body { grid-template-columns: 1fr; }
-    .id-photo { border-right: none; border-bottom: 1px solid var(--line); }
+    /* phones: portrait fills the card, identity overlays its lower area */
+    header.hero { padding-top: 14px; }
+    .id-photo { border-right: none; border-bottom: none; aspect-ratio: auto; height: min(46vh, 400px); min-height: 220px; }
+    .id-fields { padding-top: 0; padding-bottom: 14px; }
+    /* on phones the portrait runs to the card edges and fades into the text below */
+    .id-photo::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      background: linear-gradient(to bottom,
+        rgba(8,11,16,0.40) 0%,
+        rgba(8,11,16,0.08) 14%,
+        rgba(8,11,16,0.20) 45%,
+        rgba(8,11,16,0.80) 78%,
+        var(--bg) 100%);
+    }
+    .id-ident {
+      position: relative; z-index: 3;
+      margin: -150px 0 0; padding: 54px 0 14px;
+      background: linear-gradient(to bottom, transparent 0%, rgba(8,11,16,0.55) 30%, rgba(8,11,16,0.88) 62%, var(--bg) 100%);
+    }
+    .id-ident .id-tagline { max-width: 34ch; margin-top: 10px; }
+    /* the stamp sits over the portrait on phones — give it a soft backdrop so it stays readable */
+    .id-stamp { top: 10px; right: 12px; padding: 6px 10px; background: linear-gradient(to left, rgba(8,11,16,0.82), rgba(8,11,16,0.55) 70%, transparent); border-radius: 3px; }
+    .id-stamp .pl { color: #8E9BA4; }
+    .id-divider { margin: 10px 0; }
+    .id-row-2 { margin-bottom: 14px; }
+    .coords-row { gap: 18px; }
+    .hero-below { padding: 14px 0 32px; }
     .id-row-2 { flex-wrap: wrap; gap: 20px; }
     .id-tags-row { flex-direction: column; gap: 10px; }
     .id-tags-row .right { text-align: left; }
@@ -116,15 +171,16 @@
 
   @media (max-width: 480px) {
     .section-label { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .drawer-toggle { flex-direction: column; align-items: flex-start; gap: 6px; }
   }
 
 
   /* Selected work — compact, collapsed by default, click to expand */
   .project-row { border-bottom: 1px solid var(--line); }
   .row-head { display: grid; grid-template-columns: 72px 40px 1fr auto; gap: 18px; align-items: center; padding: 18px 0; cursor: pointer; }
-  .row-thumb { width: 72px; height: 54px; border: 1px solid var(--line); background: var(--bg-panel); position: relative; }
+  .row-thumb { width: 72px; height: 54px; border: 1px solid var(--line); background: var(--bg-panel); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .row-thumb svg { width: 100%; height: 100%; }
+  .row-thumb img { max-width: 62%; max-height: 72%; width: auto; height: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.25s ease, transform 0.25s ease; }
+  .project-row.open .row-thumb img, .row-head:hover .row-thumb img { opacity: 1; transform: scale(1.06); }
   .project-row.open .row-thumb { border-color: var(--accent); }
   .row-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); }
   .row-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; }
@@ -133,7 +189,7 @@
   .project-row.open .row-toggle { transform: rotate(45deg); color: var(--accent); }
 
   .row-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-  .project-row.open .row-body { max-height: 300px; }
+  .project-row.open .row-body { max-height: 520px; }
   .row-body-inner { padding: 0 0 26px 148px; }
   .row-desc { font-size: 15px; color: #C7D2D9; max-width: 62ch; margin-bottom: 12px; }
   .row-list { list-style: none; font-size: 13.5px; color: #AEBBC4; margin-bottom: 12px; }
@@ -147,34 +203,55 @@
     .row-head { grid-template-columns: 50px 1fr auto; }
     .row-index { display: none; }
     .row-body-inner { padding-left: 0; }
+    .project-row.open .row-body { max-height: 760px; }
   }
 
-  /* Other work drawer */
-  .drawer { border-bottom: 1px solid var(--line); }
-  .drawer-toggle { width: 100%; background: none; border: none; color: var(--muted); cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 22px 0; display: flex; justify-content: space-between; align-items: center; }
-  .drawer-toggle:hover { color: var(--accent); }
-  .drawer-toggle .plus { font-size: 16px; transition: transform 0.3s; }
-  .drawer.open .drawer-toggle .plus { transform: rotate(45deg); }
-  .drawer-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-  .drawer.open .drawer-content { max-height: 900px; }
-  .drawer-inner { padding-bottom: 40px; }
-  .drawer-group-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.05em; margin: 18px 0 12px; }
-  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; }
-  .mini-card { border-top: 1px solid var(--line); padding-top: 14px; display: flex; gap: 14px; }
-  .mini-thumb { width: 48px; height: 48px; flex-shrink: 0; border: 1px solid var(--line); background: var(--bg-panel); }
-  .mini-thumb svg { width: 100%; height: 100%; }
-  .mini-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16.5px; }
-  .mini-org { font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); margin: 3px 0 6px; }
-  .mini-desc { font-size: 13px; color: #AEBBC4; max-width: 38ch; }
-  .mini-tag { display: inline-block; margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); border: 1px solid var(--line); padding: 2px 7px; }
-  .role-line { border-top: 1px solid var(--line); padding: 14px 0; font-size: 14px; color: #B0BEC7; }
-  .role-line b { color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
-  .role-line .mono { color: var(--muted); font-size: 11.5px; display: block; margin-top: 2px; }
+  /* Other work — link card through to its own page */
+  .other-cta { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; transition: padding-left 0.2s ease; }
+  .other-cta:hover { padding-left: 8px; }
+  .other-cta .oc-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; }
+  .other-cta:hover .oc-title { color: var(--accent); }
+  .other-cta .oc-sub { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  .other-cta .oc-arrow { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: var(--accent); flex-shrink: 0; }
 
-  .about { padding: 56px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-  .about h2 { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 13px; color: var(--accent); margin-bottom: 14px; letter-spacing: 0.05em; }
-  .about p { font-size: 15.5px; color: #C7D2D9; }
-  .about-tools { font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; color: var(--muted); margin-top: 16px; line-height: 2; }
+  .about-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; padding: 56px 0 40px; border-top: 1px solid var(--line); align-items: stretch; }
+
+  /* Experience card — height driven by the About column, scrolls internally */
+  .xp-col { position: relative; min-height: 340px; }
+  .xp-card { position: absolute; inset: 0; border: 1px solid var(--line); background: var(--bg-panel); overflow: hidden; }
+  .xp-scroll { position: absolute; inset: 0; overflow-y: auto; padding: 18px 20px 52px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  .xp-scroll::-webkit-scrollbar { width: 8px; }
+  .xp-scroll::-webkit-scrollbar-track { background: transparent; }
+  .xp-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+  .xp-scroll::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+  .xp-scroll .xp-block h3 { position: sticky; top: -18px; background: var(--bg-panel); padding: 10px 0 8px; margin-bottom: 8px; z-index: 2; }
+  .xp-scroll .xp-block:first-child h3 { padding-top: 0; }
+  .xp-fade { position: absolute; left: 1px; right: 9px; bottom: 1px; height: 46px; pointer-events: none; background: linear-gradient(transparent, var(--bg-panel) 60%); z-index: 3; }
+  .xp-hint { position: absolute; left: 0; right: 9px; bottom: 0; padding: 8px 12px 10px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.06em; color: var(--muted); background: var(--bg-panel); border-top: 1px solid var(--line); pointer-events: none; z-index: 4; }
+  .about-grid h3 { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; color: var(--accent); margin-bottom: 14px; letter-spacing: 0.05em; }
+  .about-grid p { font-size: 16px; color: #C7D2D9; margin-bottom: 14px; }
+  .about-grid p:last-child { margin-bottom: 0; }
+  .about-grid p em { color: var(--ink); font-style: italic; }
+  .ig-link { display: inline-block; margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 6px 11px; }
+  .ig-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+  .xp-block { margin-bottom: 26px; }
+  .xp-item { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; padding: 9px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .xp-item:last-child { border-bottom: none; }
+  .xp-role { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; }
+  .xp-org { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 2px; letter-spacing: 0.03em; }
+  .xp-date { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent); white-space: nowrap; }
+  .xp-note { font-size: 13.5px; color: #8E9BA4; margin-top: 10px; }
+
+  .fun-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 10px 0 56px; }
+  .fun { border: 1px solid var(--line); background: var(--bg-panel); position: relative; overflow: hidden; }
+  .fun .fun-media { aspect-ratio: 4/5; position: relative; background: #05080B; }
+  .fun .fun-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .fun .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px); }
+  .fun .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); text-align: center; padding: 14px; }
+  .fun-cap { padding: 12px 14px 16px; }
+  .fun-cap .t { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; }
+  .fun-cap .s { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 3px; }
 
   footer { padding: 44px 0 60px; display: flex; justify-content: space-between; align-items: baseline; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); position: relative; z-index: 2; }
   footer a { color: var(--accent); text-decoration: none; }
@@ -182,34 +259,80 @@
   @media (max-width: 760px) {
     .wrap { padding: 0 20px; }
     .id-name { font-size: 22px; }
-    .card-grid { grid-template-columns: 1fr; }
-    .about { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 34px; padding-top: 40px; }
+    .fun-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    /* stacked: card becomes a normal capped-height scroller */
+    .xp-col { min-height: 0; height: 440px; }
+    .xp-card { position: relative; height: 100%; }
+    .xp-fade { height: 74px; background: linear-gradient(transparent, var(--bg-panel) 45%); }
+  }
+
+  /* Small phones — down to 320px */
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    nav { padding: 12px 0; }
+    .nav-name { font-size: 14px; }
+    .nav-links { gap: 14px; font-size: 11px; }
+    .id-fields { padding: 18px 16px 16px; }
+    .id-contact-row { padding: 16px 16px 18px; }
+    .id-name { font-size: 19px; }
+    .id-role { font-size: 11px; }
+    .id-tagline { font-size: 13.5px; }
+    .section-label { font-size: 11.5px; padding-top: 40px; }
+    .row-head { grid-template-columns: 44px 1fr auto; gap: 12px; }
+    .row-thumb { width: 44px; height: 34px; }
+    .row-title { font-size: 17px; }
+    .row-org { font-size: 10px; }
+    .tag { font-size: 10.5px; padding: 4px 8px; }
+    .coords-row { gap: 14px; }
+    .dancers { font-size: 12px; gap: 16px; margin-top: 10px; }
+    .other-cta .oc-title { font-size: 18px; }
+    .hero-below { font-size: 11.5px; }
+    footer { flex-direction: column; gap: 10px; }
+    .about-grid { gap: 28px; }
+    .about-grid p { font-size: 15px; }
+    .xp-item { grid-template-columns: 1fr; gap: 3px; }
+    .xp-date { color: var(--muted); }
+    .fun-grid { grid-template-columns: 1fr; gap: 14px; padding-bottom: 40px; }
+    .fun .fun-media { aspect-ratio: 3/2; }
+  }
+
+  /* Mobile hardening — smallest iOS & Android screens */
+  body { -webkit-text-size-adjust: 100%; overflow-wrap: break-word; }
+  img, svg, video { max-width: 100%; height: auto; }
+  a, button { overflow-wrap: break-word; }
+  @supports (padding: max(0px)) {
+    .wrap { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+    footer#contact { padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 32px)); }
+  }
+  @media (max-width: 340px) {
+    .wrap { padding-left: 12px; padding-right: 12px; }
+    h1 { font-size: 23px; }
+    .nav-links { gap: 10px; font-size: 10px; }
+    .nav-name { font-size: 12.5px; }
+    .footer-cta { font-size: 20px; }
+    .footer-links a { font-size: 10.5px; padding: 7px 9px; }
   }
 </style>
 </head>
 <body>
 
 <div class="crt"></div>
-<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="grain-tex"></div>
 
 <nav>
   <div class="wrap">
-    <div class="nav-name">GENEVIEVE PUGLISSI</div>
-    <div class="nav-links"><a href="#work">WORK</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a></div>
+    <div class="nav-name">GEN PUG</div>
+    <div class="nav-links"><a href="#work">WORK</a><a href="sandbox.html">SANDBOX</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a></div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
     <div class="id-card">
-
-      <div class="id-header">
-        <div class="id-logo">
-          <span class="mark">▲▲</span>
-          <span class="wordmark">GEN PUG</span>
-          <span class="rule"></span>
-        </div>
-        <div class="id-hexes"><svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg><svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg><svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg></div>
+      <div class="id-stamp">
+        <div class="pl">NEW YORK, NEW YORK</div>
+        <div class="tm" id="localTime">—</div>
       </div>
 
       <div class="id-body">
@@ -272,10 +395,12 @@
         </div>
 
         <div class="id-fields">
-          <div class="id-name">GENEVIEVE PUGLISSI</div>
-          <div class="id-role">PRODUCT DESIGNER &amp; UX RESEARCHER</div>
-          <div class="id-callsign">CXO.SERIYOKU_ZENYO_LABS</div>
-          <p class="id-tagline">Exploring emerging technologies, storytelling, and human-centered design.</p>
+          <div class="id-ident">
+            <div class="id-name">GENEVIEVE PUGLISSI</div>
+            <div class="id-role">PRODUCT DESIGNER &amp; UX RESEARCHER</div>
+            <div class="id-callsign">DESIGN_CHIEF.SEIRYOKU_ZENYO_LABS</div>
+            <p class="id-tagline">Exploring emerging technologies, storytelling, and human-centered design.</p>
+          </div>
 
           <div class="id-divider"></div>
 
@@ -284,23 +409,25 @@
             <div>STATUS<b>BUILDING</b></div>
           </div>
 
-          <div class="id-coords">40.71 · 73.99</div>
-          <div class="id-hexcluster">
-            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
-            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
-            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
-            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
-            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
-            <svg class="hexdot" viewBox="0 0 20 20"><polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg>
+          <div class="coords-row">
+          <div class="dancers" aria-hidden="true">
+            <div class="dancer d1"><pre> \o
+ |\
+ &lt; \</pre><pre>  o/
+  |\
+ / &gt;</pre></div>
+            <div class="dancer d2"><pre> o)
+ (|
+ ))</pre><pre> (o
+ |)
+ ((</pre></div>
+            <div class="dancer d3"><pre> o/
+&lt;X
+/ \</pre><pre> \o
+ X&gt;
+/ \</pre></div>
           </div>
-        </div>
-      </div>
-
-      <div class="id-contact-row">
-        <div class="id-email">genpugdesign@gmail.com</div>
-        <div class="id-tags-row">
-          <div>&gt;GP<br>&gt;NYC<br>&gt;FIT '24</div>
-          <div class="right">&gt;ROLE.PRODUCT + RESEARCH<br>&gt;BASE.NEW YORK, NY</div>
+          </div>
         </div>
       </div>
 
@@ -318,10 +445,10 @@
     <div class="project-row">
       <div class="row-head" data-toggle>
         <div class="row-thumb">
-          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">A</text></svg>
+          <img src="assets/logos/magi.png" alt="Magi Vision medallion logo">
         </div>
         <div class="row-index">01</div>
-        <div><div class="row-title">Magi Vision</div><div class="row-org">SERIYOKU ZENYO LABS — CO-FOUNDER &amp; CXO</div></div>
+        <div><div class="row-title">Magi Vision</div><div class="row-org">SEIRYOKU ZENYO LABS — CO-FOUNDER &amp; DESIGN CHIEF</div></div>
         <div class="row-toggle">+</div>
       </div>
       <div class="row-body"><div class="row-body-inner">
@@ -336,15 +463,17 @@
     <div class="project-row">
       <div class="row-head" data-toggle>
         <div class="row-thumb">
-          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">B</text></svg>
+          <img src="assets/logos/medusa.png" alt="Medusa Solutions logo">
         </div>
         <div class="row-index">02</div>
         <div><div class="row-title">Medusa Solutions Inc.</div><div class="row-org">FOUNDING DESIGNER — SEP 2024–MAY 2025</div></div>
         <div class="row-toggle">+</div>
       </div>
       <div class="row-body"><div class="row-body-inner">
+        <p class="row-desc">Founding designer for a cannabis discovery startup — the iOS app and website redesign, from conception through the 4/20 launch.</p>
+        <ul class="row-list"><li>Designed the iOS app and website: personas, user journeys, low to high fidelity</li><li>Led brand, art direction, and shoots from NYC to Miami</li></ul>
         <div class="tags"><span class="tag">PRODUCT SCREENS</span><span class="tag">ART DIRECTION</span><span class="tag">RESEARCH</span></div>
-        <div class="case-link">Full case study — coming soon</div>
+        <div class="case-link"><a href="medusa-case-study.html" style="color:var(--accent);">View full case study →</a></div>
       </div></div>
     </div>
 
@@ -352,7 +481,7 @@
     <div class="project-row">
       <div class="row-head" data-toggle>
         <div class="row-thumb">
-          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">C</text></svg>
+          <img src="assets/logos/justworks.png" alt="Justworks logo">
         </div>
         <div class="row-index">03</div>
         <div><div class="row-title">PayApp</div><div class="row-org">JUSTWORKS — PRODUCT DESIGN INTERN — B2B</div></div>
@@ -362,7 +491,7 @@
         <p class="row-desc">An internal B2B fintech platform used across an 11-person cross-functional team.</p>
         <ul class="row-list"><li>Led end-to-end design: user flows, site maps, high-fidelity prototypes</li><li>Partnered with PMs to define MVP scope and evaluate future opportunities</li></ul>
         <div class="tags"><span class="tag">ENTERPRISE UX</span><span class="tag">FINTECH</span><span class="tag">DESIGN SYSTEMS</span></div>
-        <div class="case-link">Full case study — coming soon</div>
+        <div class="case-link"><a href="payapp-case-study.html" style="color:var(--accent);">View full case study →</a></div>
       </div></div>
     </div>
 
@@ -370,7 +499,7 @@
     <div class="project-row">
       <div class="row-head" data-toggle>
         <div class="row-thumb">
-          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">D</text></svg>
+          <img src="assets/logos/justworks.png" alt="Justworks logo">
         </div>
         <div class="row-index">04</div>
         <div><div class="row-title">New Payments Experience</div><div class="row-org">JUSTWORKS — PRODUCT DESIGN INTERN — B2C</div></div>
@@ -380,7 +509,7 @@
         <p class="row-desc">The consumer-facing counterpart to PayApp, built on the same underlying platform.</p>
         <ul class="row-list"><li>Redesigned UI and flow for a non-technical, self-serve audience</li><li>Extended the Milo Design System for a consistent cross-product experience</li></ul>
         <div class="tags"><span class="tag">B2C</span><span class="tag">UI DESIGN</span><span class="tag">DESIGN SYSTEMS</span></div>
-        <div class="case-link">Full case study — coming soon</div>
+        <div class="case-link"><a href="new-payments-experience-case-study.html" style="color:var(--accent);">View full case study →</a></div>
       </div></div>
     </div>
 
@@ -388,68 +517,205 @@
     <div class="project-row">
       <div class="row-head" data-toggle>
         <div class="row-thumb">
-          <svg viewBox="0 0 72 54"><rect x="1" y="1" width="70" height="52" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><line x1="36" y1="6" x2="36" y2="48" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><line x1="6" y1="27" x2="66" y2="27" stroke="var(--accent)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.5"/><path d="M6 8h6M6 8v6M66 46h-6M66 46v-6" stroke="var(--accent)" stroke-width="1"/><text x="10" y="47" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">E</text></svg>
+          <img src="assets/logos/lifecycle.png" alt="LIFECYCLE logo">
         </div>
         <div class="row-index">05</div>
         <div><div class="row-title">LIFECYCLE</div><div class="row-org">CASE STUDY — CREATIVE CONSCIENCE GOLD AWARD</div></div>
         <div class="row-toggle">+</div>
       </div>
       <div class="row-body"><div class="row-body-inner">
-        <p class="row-desc">[Placeholder — add the problem, your process, and what earned the Gold.]</p>
-        <div class="tags"><span class="tag">CASE STUDY</span><span class="tag">AWARD-WINNING</span></div>
-        <div class="case-link">Full case study — coming soon</div>
+        <p class="row-desc">A mental-health companion app built against toxic grind culture — three features that help people break bad habits, build a healthier relationship with food, and stay bonded to the people around them.</p>
+        <ul class="row-list"><li>Heuristic evaluation, empathy interviews, personas, and journey maps</li><li>Creative Conscience <b>Gold</b> — Digital &amp; Technology, Mental Health</li></ul>
+        <div class="tags"><span class="tag">CASE STUDY</span><span class="tag">MENTAL HEALTH</span><span class="tag">AWARD-WINNING</span></div>
+        <div class="case-link"><a href="lifecycle-case-study.html" style="color:var(--accent);">View full case study →</a> &nbsp;·&nbsp; <a href="https://www.creative-conscience.org.uk/winners/lifecycle-live-with-purpose" target="_blank" rel="noopener" style="color:var(--accent);">See the award ↗</a></div>
       </div></div>
     </div>
 
   </div>
 </section>
 
-<section class="drawer" id="other-drawer">
+<section id="other">
   <div class="wrap">
-    <button class="drawer-toggle" data-drawer><span>// OTHER WORK &amp; PROTOTYPES — TAP TO EXPAND</span><span class="plus mono">+</span></button>
-    <div class="drawer-content"><div class="drawer-inner">
-
-      <div class="drawer-group-label">OTHER PROJECTS</div>
-      <div class="card-grid">
-        <div class="mini-card">
-          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
-          <div><div class="mini-title">AIEdu</div><div class="mini-org">FIT CAPSTONE — ADVERTISING &amp; MOTION</div><p class="mini-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p></div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
-          <div><div class="mini-title">Compliance &amp; Packaging</div><div class="mini-org">HADDAD BRANDS — ASST. PACKAGING DESIGNER</div><p class="mini-desc">Re-engineered packaging systems for Levi's, Lacoste, Nike, Converse, Ralph Lauren, Abercrombie &amp; Hurley.</p></div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
-          <div><div class="mini-title">[Arduino project name]</div><div class="mini-org">HARDWARE PROTOTYPE</div><p class="mini-desc">[Placeholder — what it does, what it shows about your hardware/software thinking.]</p><span class="mini-tag">PROTOTYPE</span></div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-thumb"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" fill="none" stroke="var(--muted)" stroke-width="0.7" opacity="0.5"/><path d="M4 6h4M4 6v4M44 42h-4M44 42v-4" stroke="var(--accent)" stroke-width="1"/></svg></div>
-          <div><div class="mini-title">[3D print project name]</div><div class="mini-org">PHYSICAL PROTOTYPE</div><p class="mini-desc">[Placeholder — the object, the constraint, what it proves about tangible product thinking.]</p><span class="mini-tag">PROTOTYPE</span></div>
-        </div>
+    <a class="other-cta" href="sandbox.html">
+      <div>
+        <div class="oc-title">Sandbox</div>
+        <div class="oc-sub">ART DIRECTION · PACKAGING · MOTION DESIGN · BRANDING · DRAWING</div>
       </div>
-
-      <div class="drawer-group-label">ALSO WORKED WITH</div>
-      <div class="role-line"><b>Kano Martial Arts</b> — Logistics &amp; Media Manager, Jun 2025–Present<span class="mono">Marketing across social, print, and event channels — 34% visibility increase, 25% follower growth, $3,000+ in program enrollments secured.</span></div>
-
-    </div></div>
+      <span class="oc-arrow">→</span>
+    </a>
   </div>
 </section>
 
-<section id="about" class="about wrap">
-  <div>
-    <h2>// ABOUT</h2>
-    <p>Product design and UX research, with a pull toward emerging technology, storytelling, and human-centered work. Trained at FIT, freelancing since 2018, currently building Magi Vision as Co-Founder &amp; CXO of Seriyoku Zenyo Labs. Judo and BJJ outside of work — same approach either way: put in the reps, test against what you thought was possible.</p>
-  </div>
-  <div>
-    <h2>// TOOLS</h2>
-    <div class="about-tools">Figma · Adobe CC · Framer · Webflow<br>Miro · Notion · Jira<br>Basic HTML / CSS</div>
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <h3>// ABOUT</h3>
+        <p>I'm a designer based in New York who has been freelancing for nearly a decade, largely self-teaching across different mediums and constantly finding new things to learn. My experience spans sports, fintech, healthcare, life sciences, wellness, fashion, and e-commerce, giving me the chance to work across a wide range of people, problems, and creative disciplines.</p>
+        <p>Outside of design, I'm usually moving or making something. I love baseball and softball, surf, inline skate, ice skate, draw, and compete in judo, with plans to eventually compete in BJJ. I love being outdoors and around communities built through shared interests, movement, and competition.</p>
+        <p>I'm currently building something novel for grappling, bringing together my interests in design, technology, and the sports I love. My path has also included some less conventional roles, from being a US Open ball person and Chelsea Piers skate guard to working on commercial shoots and even shoveling snow with the NYC Department of Sanitation.</p>
+        <p>At the core, I'm curious by nature and enjoy learning through doing. I want to create beautiful, functional things for the world I live in. Oh yeah! I also have a cat with a very dog like personality named Donatello, of course after the Ninja Turtle.</p>
+        <a class="ig-link" href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">@GENPUGDESIGN ON INSTAGRAM ↗</a>
+      </div>
+      <div class="xp-col">
+       <div class="xp-card">
+        <div class="xp-scroll">
+        <div class="xp-block">
+          <h3>// NOW</h3>
+          <div class="xp-item">
+            <div><div class="xp-role">UX Research Assistant</div><div class="xp-org">SAGO — CONTRACT, NEW YORK</div></div>
+            <div class="xp-date">AUG 2026 —</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Co-Founder &amp; Design Chief</div><div class="xp-org">STEALTH STARTUP — GRAPPLING &amp; COMPUTER VISION</div></div>
+            <div class="xp-date">MAY 2026 —</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Product Validation Expert</div><div class="xp-org">MICRO1 — AI MODEL EVALUATION</div></div>
+            <div class="xp-date">MAR 2026 —</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Logistics &amp; Media Manager</div><div class="xp-org">KANO MARTIAL ARTS</div></div>
+            <div class="xp-date">JUN 2025 —</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Freelance Designer</div><div class="xp-org">GENPUGDESIGN</div></div>
+            <div class="xp-date">JAN 2018 —</div>
+          </div>
+        </div>
+
+        <div class="xp-block">
+          <h3>// PREVIOUSLY</h3>
+          <div class="xp-item">
+            <div><div class="xp-role">Asst. Packaging Designer</div><div class="xp-org">HADDAD BRANDS — LEVI'S, NIKE, RALPH LAUREN, LACOSTE</div></div>
+            <div class="xp-date">APR 2025 – MAR 2026</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Founding Designer</div><div class="xp-org">MEDUSA SOLUTIONS, INC.</div></div>
+            <div class="xp-date">SEP 2024 – MAY 2025</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Medical Assistant / Front Desk</div><div class="xp-org">MEDICAL OFFICE OF HOWARD BEACH</div></div>
+            <div class="xp-date">DEC 2024 – APR 2025</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Product Research / Design Intern</div><div class="xp-org">STREAMERSTAKES — REMOTE</div></div>
+            <div class="xp-date">OCT 2024 – APR 2025</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Product Design Intern — Payments</div><div class="xp-org">JUSTWORKS — PAYAPP &amp; NEW PAYMENTS</div></div>
+            <div class="xp-date">MAY – AUG 2024</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Graphic Design Fellow</div><div class="xp-org">ONE ATMOSPHERE 33 — FIT APPLIED ARTS RESEARCH LAB</div></div>
+            <div class="xp-date">MAR – MAY 2023</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Graphic Design Intern</div><div class="xp-org">THINK ROYLN</div></div>
+            <div class="xp-date">SEP 2022 – FEB 2023</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Social Media Marketing Intern</div><div class="xp-org">CYNTHIA GALE NEW YORK</div></div>
+            <div class="xp-date">MAY – AUG 2022</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Social Media Marketing Intern</div><div class="xp-org">CULTURE CRAFT BY IMANI</div></div>
+            <div class="xp-date">NOV 2021 – FEB 2022</div>
+          </div>
+        </div>
+
+        <div class="xp-block">
+          <h3>// IN PARALLEL</h3>
+          <div class="xp-item">
+            <div><div class="xp-role">Snow Removal Crew</div><div class="xp-org">NYC DEPT. OF SANITATION</div></div>
+            <div class="xp-date">WINTER 2026</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Head Skate Guard</div><div class="xp-org">CHELSEA PIERS — MANHATTAN · 3 YRS 8 MOS</div></div>
+            <div class="xp-date">DEC 2021 – JUL 2025</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Production Assistant</div><div class="xp-org">VAYNERMEDIA — COACH SPRING STYLING SERIES</div></div>
+            <div class="xp-date">FEB 2025</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">US Open Ballperson</div><div class="xp-org">USTA — QUEENS, NY</div></div>
+            <div class="xp-date">2018 – 2022</div>
+          </div>
+          <p class="xp-note">Held alongside design work — live broadcast pressure, public safety, and production sets. Different rooms, same instinct: keep moving, keep learning.</p>
+        </div>
+
+        <div class="xp-block">
+          <h3>// EDUCATION</h3>
+          <div class="xp-item">
+            <div><div class="xp-role">BFA, Advertising &amp; Digital Design</div><div class="xp-org">FASHION INSTITUTE OF TECHNOLOGY</div></div>
+            <div class="xp-date">2022 – 2024</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">AAS, Communication Design</div><div class="xp-org">FASHION INSTITUTE OF TECHNOLOGY</div></div>
+            <div class="xp-date">2020 – 2022</div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Vertebrae Anatomy &amp; Physiology</div><div class="xp-org">LAGUARDIA COMMUNITY COLLEGE</div></div>
+            <div class="xp-date">JAN – MAR 2025</div>
+          </div>
+        </div>
+
+        <div class="xp-block">
+          <h3>// HONORS</h3>
+          <div class="xp-item">
+            <div><div class="xp-role">Creative Conscience Gold</div><div class="xp-org">LIFECYCLE</div></div>
+            <div class="xp-date"></div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Scholastic Art &amp; Writing Award</div><div class="xp-org">GOLD KEY — EXHIBITED AT THE MET</div></div>
+            <div class="xp-date"></div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">Dean's List</div><div class="xp-org">FASHION INSTITUTE OF TECHNOLOGY — ×2</div></div>
+            <div class="xp-date"></div>
+          </div>
+          <div class="xp-item">
+            <div><div class="xp-role">NYC Council Merit Scholarship</div><div class="xp-org">NEW YORK CITY COUNCIL</div></div>
+            <div class="xp-date"></div>
+          </div>
+        </div>
+        </div>
+        <div class="xp-fade"></div>
+        <div class="xp-hint">SCROLL FOR FULL HISTORY ↓</div>
+       </div>
+      </div>
+    </div>
+
+    <div class="fun-grid">
+      <div class="fun">
+        <div class="fun-media"><img src="assets/about/judo-dojo.jpg" alt="Genevieve and a training partner in judo pants on the dojo mats" loading="lazy"></div>
+        <div class="fun-cap"><div class="t">On the mat</div><div class="s">JUDO — TRAINING &amp; COMPETING</div></div>
+      </div>
+      <div class="fun">
+        <div class="fun-media"><img src="assets/about/tea.jpg" alt="Genevieve drinking tea from a floral teacup on a porch" loading="lazy"></div>
+        <div class="fun-cap"><div class="t">Off the clock</div><div class="s">I LOVE JASMINE TEA!</div></div>
+      </div>
+      <div class="fun">
+        <div class="fun-media"><img src="assets/about/donatello.jpg" alt="Donatello, a grey tabby cat, sitting upright on a leather couch" loading="lazy"></div>
+        <div class="fun-cap"><div class="t">Donatello</div><div class="s">VERY DOG-LIKE CAT, NAMED AFTER THE NINJA TURTLE</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<footer id="contact" class="wrap">
-  <div class="nav-name">GENEVIEVE PUGLISSI</div>
-  <div><a href="#">LINKEDIN</a> &nbsp;·&nbsp; <a href="#">EMAIL</a></div>
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-cta">let's chat more! ^.^</div>
+      <div class="footer-sub">Always up for talking design, sports tech, or a good problem worth solving.</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:genpugdesign@gmail.com">EMAIL</a>
+      <a href="https://www.linkedin.com/in/gen-pug/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">INSTAGRAM</a>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -461,9 +727,25 @@
       row.classList.toggle('open', !isOpen);
     });
   });
-  document.querySelectorAll('[data-drawer]').forEach(function(btn){
-    btn.addEventListener('click', function(){ btn.closest('.drawer').classList.toggle('open'); });
-  });
+
+  // live New York time in the card stamp
+  (function(){
+    var el = document.getElementById('localTime');
+    if (!el) return;
+    function tick(){
+      try {
+        var t = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/New_York',
+          hour: 'numeric', minute: '2-digit'
+        }).format(new Date());
+        el.textContent = t + ' EST';
+      } catch (e) {
+        el.textContent = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + ' EST';
+      }
+    }
+    tick();
+    setInterval(tick, 15000);
+  })();
 
   function fitAsciiToBox(){
     var fit = document.getElementById('asciiFit');
@@ -472,9 +754,9 @@
     var fitRect = fit.getBoundingClientRect();
     var boxRect = box.getBoundingClientRect();
     if (fitRect.width === 0 || fitRect.height === 0) return;
-    var sx = boxRect.width / fitRect.width;
-    var sy = boxRect.height / fitRect.height;
-    fit.style.transform = 'scale(' + sx + ',' + sy + ')';
+    // one uniform factor sized to fill the frame edge to edge — never stretched, cropped instead
+    var s = Math.max(boxRect.width / fitRect.width, boxRect.height / fitRect.height);
+    fit.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
   }
   fitAsciiToBox();
   window.addEventListener('resize', fitAsciiToBox);

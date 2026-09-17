@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>New Payments Experience — Genevieve Puglissi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
@@ -12,7 +12,27 @@
     --accent-soft: rgba(143,214,255,0.10); --line: #1F2B35; --muted: #64737D;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { background: var(--bg); }
+  html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 90px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Floating stage nav */
+  .stage-nav { position: fixed; left: 18px; top: 50%; transform: translateY(-50%); z-index: 35; display: flex; flex-direction: column; gap: 2px; max-height: 76vh; overflow-y: auto; padding: 10px 0; }
+  .stage-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; padding: 5px 10px 5px 14px; border-left: 2px solid var(--line); white-space: nowrap; max-width: 190px; overflow: hidden; text-overflow: clip; transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease; }
+  .stage-nav a:hover { color: var(--accent); border-left-color: var(--accent); padding-left: 18px; }
+  .stage-nav a.on { color: var(--accent); border-left-color: var(--accent); }
+  .stage-nav a.sub { padding-left: 24px; font-size: 10px; opacity: 0.85; }
+  .stage-nav a.sub:hover { padding-left: 28px; }
+  @media (max-width: 1240px) { .stage-nav { display: none; } }
+
+  /* Global footer */
+  footer#contact { border-top: 1px solid var(--line); margin-top: 20px; padding: 56px 0 64px; }
+  footer#contact .footer-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .footer-cta { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; color: var(--ink); letter-spacing: -0.01em; }
+  .footer-sub { font-size: 15px; color: #AEBBC4; margin-top: 8px; max-width: 46ch; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; }
+  .footer-links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 400px) { .footer-cta { font-size: 23px; } footer#contact { padding: 40px 0 48px; } }
   body { background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
   .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
@@ -21,11 +41,17 @@
   .head { font-family: 'Space Grotesk', sans-serif; }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
 
-  nav { border-bottom: 1px solid var(--line); padding: 20px 0; }
-  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; }
-  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; }
-  .back-link { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); text-decoration: none; }
-  .back-link:hover { color: var(--accent); }
+  nav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); padding: 16px 0; background: rgba(8,11,16,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .nav-links a { color: var(--muted); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.on { color: var(--accent); }
+  @media (max-width: 400px) {
+    nav { padding: 12px 0; }
+    .nav-name { font-size: 14px; }
+    .nav-links { gap: 13px; font-size: 11px; }
+  }
 
   header.proj-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
   .proj-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
@@ -82,6 +108,8 @@
   .next-proj a { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: var(--ink); text-decoration: none; }
   .next-proj a:hover { color: var(--accent); }
   .next-proj .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); display: block; margin-bottom: 6px; }
+  .prev-proj { display: block; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); text-decoration: none; }
+  .prev-proj:hover { color: var(--accent); }
 
   @media (max-width: 700px) {
     .wrap { padding: 0 20px; }
@@ -94,6 +122,23 @@
     .methodology { gap: 6px; }
     .method-arrow { display: none; }
   }
+
+  /* Mobile hardening — smallest iOS & Android screens */
+  body { -webkit-text-size-adjust: 100%; overflow-wrap: break-word; }
+  img, svg, video { max-width: 100%; height: auto; }
+  a, button { overflow-wrap: break-word; }
+  @supports (padding: max(0px)) {
+    .wrap { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+    footer#contact { padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 32px)); }
+  }
+  @media (max-width: 340px) {
+    .wrap { padding-left: 12px; padding-right: 12px; }
+    h1 { font-size: 23px; }
+    .nav-links { gap: 10px; font-size: 10px; }
+    .nav-name { font-size: 12.5px; }
+    .footer-cta { font-size: 20px; }
+    .footer-links a { font-size: 10.5px; padding: 7px 9px; }
+  }
 </style>
 </head>
 <body>
@@ -102,8 +147,13 @@
 
 <nav>
   <div class="wrap">
-    <div class="nav-name">GENEVIEVE PUGLISSI</div>
-    <a class="back-link" href="portfolio-crt-landing.html">← ALL WORK</a>
+    <a class="nav-name" href="portfolio-crt-landing.html">GEN PUG</a>
+    <div class="nav-links">
+      <a href="portfolio-crt-landing.html#work" class="on">WORK</a>
+      <a href="sandbox.html">SANDBOX</a>
+      <a href="portfolio-crt-landing.html#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
   </div>
 </nav>
 
@@ -155,7 +205,7 @@
   <div class="wrap">
     <div class="block-label">// METHODOLOGY</div>
     <div class="methodology">
-      <div class="method-step active">Discover</div><div class="method-arrow">→</div>
+      <div class="method-step">Discover</div><div class="method-arrow">→</div>
       <div class="method-step">Define</div><div class="method-arrow">→</div>
       <div class="method-step">Ideate</div><div class="method-arrow">→</div>
       <div class="method-step">Design &amp; Development</div><div class="method-arrow">→</div>
@@ -203,16 +253,58 @@
   </div>
 </section>
 
-<div class="closing-quote">
-  <p class="head">"Whimsy is the magic that turns the ordinary into the extraordinary."</p>
-</div>
-
 <div class="wrap">
   <div class="next-proj">
-    <div><span class="lbl mono">NEXT PROJECT</span><a href="lifecycle-case-study.html">LIFECYCLE →</a></div>
+    <div><span class="lbl mono">NEXT PROJECT</span><a href="lifecycle-case-study.html">LIFECYCLE →</a>
+      <a class="prev-proj" href="payapp-case-study.html">← Previous: PayApp</a></div>
     <a href="portfolio-crt-landing.html">All Work</a>
   </div>
 </div>
+
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-cta">let's chat more! ^.^</div>
+      <div class="footer-sub">Always up for talking design, sports tech, or a good problem worth solving.</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:genpugdesign@gmail.com">EMAIL</a>
+      <a href="https://www.linkedin.com/in/gen-pug/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">INSTAGRAM</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var items = [];
+  document.querySelectorAll('section.block').forEach(function(sec){
+    var lab = sec.querySelector('.block-label');
+    if (lab) items.push({ el: sec, text: lab.textContent.replace(/^\/\/\s*/, ''), sub: false });
+    sec.querySelectorAll('h3').forEach(function(h){ items.push({ el: h, text: h.textContent, sub: true }); });
+  });
+  if (items.length < 3) return;
+  var nav = document.createElement('nav');
+  nav.className = 'stage-nav';
+  items.forEach(function(it, i){
+    if (!it.el.id) it.el.id = 'sec-' + i;
+    var a = document.createElement('a');
+    a.href = '#' + it.el.id;
+    a.textContent = it.text;
+    if (it.sub) a.className = 'sub';
+    nav.appendChild(a);
+    it.link = a;
+  });
+  document.body.appendChild(nav);
+  function sync(){
+    var y = window.scrollY + 140, cur = items[0];
+    items.forEach(function(it){ if (it.el.offsetTop <= y) cur = it; });
+    items.forEach(function(it){ it.link.classList.toggle('on', it === cur); });
+  }
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+})();
+</script>
 
 </body>
 </html>

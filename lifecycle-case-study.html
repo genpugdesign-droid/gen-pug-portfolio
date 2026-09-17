@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>PayApp — Genevieve Puglissi</title>
+<title>LIFECYCLE — Genevieve Puglissi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
 <style>
@@ -82,24 +82,18 @@
   .block ul li { font-size: 16px; color: #AEBBC4; padding-left: 20px; position: relative; margin-bottom: 8px; max-width: 60ch; }
   .block ul li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
 
-  .img-block.wide { aspect-ratio: 16/8; }
-  .img-block.tall { aspect-ratio: 4/3; }
   .img-block.free { aspect-ratio: auto; }
   .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
-  .img-block + .hero-caption, .img-grid + .hero-caption { margin-bottom: 20px; }
 
-  /* Methodology stepper */
   .methodology { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 8px 0 30px; }
   .method-step { border: 1px solid var(--line); background: var(--bg-panel); padding: 10px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink); white-space: nowrap; }
   .method-step.active { border-color: var(--accent); color: var(--accent); }
   .method-arrow { color: var(--accent); padding: 0 10px; font-family: 'IBM Plex Mono', monospace; }
 
-  /* Two-column challenge/solution */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 8px; }
   .two-col h4 { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 8px; }
   .two-col p { font-size: 15px; margin-bottom: 0; }
 
-  /* Persona cards */
   .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
   .persona-card { border: 1px solid var(--line); padding: 18px; }
   .persona-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--bg-panel); border: 1px solid var(--line); margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--accent); font-size: 16px; }
@@ -110,10 +104,20 @@
   .persona-needs li { padding-left: 14px; position: relative; margin-bottom: 4px; }
   .persona-needs li::before { content: "·"; position: absolute; left: 0; color: var(--accent); }
 
-  /* HMW grid */
   .hmw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
   .hmw-card { border: 1px solid var(--line); background: var(--accent-soft); padding: 14px 16px; font-size: 13px; color: #C7D2D9; }
   .hmw-card b { color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; display: block; margin-bottom: 6px; letter-spacing: 0.04em; }
+
+  .insight-box { border: 1px solid var(--accent); background: var(--accent-soft); padding: 20px 26px; margin: 24px 0; text-align: center; }
+  .insight-box .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.06em; display: block; margin-bottom: 10px; }
+  .insight-box p { margin: 0 auto; color: var(--ink); font-size: 15.5px; max-width: 56ch; }
+
+  .feature-block { display: grid; grid-template-columns: 1.9fr 1fr; gap: 28px; align-items: center; margin: 32px 0; border: 1px solid var(--line); padding: 24px; }
+  .feature-block img { width: 100%; height: auto; display: block; border: 1px solid var(--line); background: var(--bg-panel); }
+  .feature-block img { width: 100%; border-radius: 4px; display: block; }
+  .feature-block .flbl { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 6px; }
+  .feature-block h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; margin-bottom: 8px; }
+  .feature-block p { font-size: 14.5px; margin: 0; }
 
   .stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 8px; }
   .stat { border: 1px solid var(--line); padding: 20px; }
@@ -139,9 +143,18 @@
     .two-col { grid-template-columns: 1fr; gap: 14px; }
     .persona-grid { grid-template-columns: 1fr; }
     .hmw-grid { grid-template-columns: 1fr; }
+    .feature-block { grid-template-columns: 1fr; }
     .methodology { gap: 6px; }
     .method-arrow { display: none; }
   }
+
+  /* Currently-building empty state */
+  .building { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; background: radial-gradient(ellipse at center, rgba(143,214,255,0.07), transparent 70%); }
+  .building svg { width: 34px; height: 34px; filter: drop-shadow(0 0 8px rgba(143,214,255,0.65)); animation: buildpulse 2.6s ease-in-out infinite; }
+  .building .bt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); text-shadow: 0 0 10px rgba(143,214,255,0.5); }
+  .building .bs { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); max-width: 30ch; line-height: 1.5; }
+  @keyframes buildpulse { 0%, 100% { opacity: 0.75; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+  @media (prefers-reduced-motion: reduce) { .building svg { animation: none; } }
 
   /* Mobile hardening — smallest iOS & Android screens */
   body { -webkit-text-size-adjust: 100%; overflow-wrap: break-word; }
@@ -179,34 +192,35 @@
 
 <header class="proj-hero">
   <div class="wrap">
-    <div class="proj-index">PROJECT 03 / 05 — SELECTED WORK</div>
-    <h1 class="head">PayApp</h1>
-    <div class="proj-role mono">Justworks — Product Design Intern · Internship / Deployed / Fintech</div>
+    <div class="proj-index">PROJECT 05 / 05 — SELECTED WORK</div>
+    <h1 class="head">LIFECYCLE</h1>
+    <div class="proj-role mono">Personal Project · Competition · Mobile</div>
 
     <div class="meta-row">
-      <div class="meta-item"><span class="mono label">DURATION</span><span class="value head">2 Months</span></div>
-      <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Product Designer, Researcher</span></div>
-      <div class="meta-item"><span class="mono label">PLATFORM</span><span class="value head">Web · B2B</span></div>
-      <div class="meta-item"><span class="mono label">STATUS</span><span class="value head">Deployed</span></div>
+      <div class="meta-item"><span class="mono label">DURATION</span><span class="value head">4 Months</span></div>
+      <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Designer, Researcher, Motion, Voice</span></div>
+      <div class="meta-item"><span class="mono label">PLATFORM</span><span class="value head">Mobile</span></div>
+      <div class="meta-item"><span class="mono label">AWARD</span><span class="value head">Creative Conscience Gold</span></div>
     </div>
 
     <div class="hero-visual">
+      <div class="hatch"></div>
       <div class="corner tl"></div><div class="corner br"></div>
-      <img src="assets/img_payapp_hero.png" alt="PayApp member management screen on a laptop">
+      <div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">original hero was a Vimeo-embedded city street video; swap for a real still or export a poster frame</div></div>
     </div>
-    <div class="hero-caption">PayApp's Member Management screen — roles and permissions for internal Justworks users.</div>
+    <div class="hero-caption">Original site used a looping street-crossing video here — not reproduced since it's third-party stock footage.</div>
   </div>
 </header>
 
 <section class="block">
   <div class="wrap">
-    <div class="block-label">// OVERVIEW</div>
-    <h2 class="head">An internal tool for Justworks</h2>
-    <p>PayApp is an internal tool that was deployed in 2025. The API is growing due to PayApp being added as an additional functionality for internal users. This led Justworks to needing the appropriate risks and controls to a select group due to the risk surrounded the money movement capabilities of the platform.</p>
+    <div class="block-label">// OVERVIEW · <a href="https://www.creative-conscience.org.uk/winners/lifecycle-live-with-purpose" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(143,214,255,0.4);">CREATIVE CONSCIENCE GOLD ↗</a></div>
+    <h2 class="head">A ground-up revamp of a life-management app</h2>
+    <p>LifeCycle is an app that needed to be revamped. The results from the heuristic evaluation of what needed to be improved ranged from the lack of hierarchy, no instructions, to a general "clunky" feeling when the user is going through the app.</p>
 
     <div class="two-col">
-      <div><h4>CHALLENGE</h4><p>PayApp currently allows full access to all users that are added to the platform. This creates risk of control on the platform which is increasing as more money movement capabilities are added.</p></div>
-      <div><h4>SOLUTION</h4><p>Build roles and permissions in a way that internal teams can manage their own provisioning through a ticketing service without needing PAY to intervene.</p></div>
+      <div><h4>CHALLENGE</h4><p>It is apparent that people have a difficult time managing their time in this day and age where everyone is easily accessible through their devices. Combining time-management with outside stressors is a recipe for disaster in the realm of today's "hustle culture."</p></div>
+      <div><h4>SOLUTION</h4><p>Completely overhaul the original interface and user experience of LifeCycle. The new intention of the app would be to not track how much time each user spends in a location — but to design for the user's intended habits and wellbeing instead.</p></div>
     </div>
   </div>
 </section>
@@ -216,8 +230,9 @@
     <div class="block-label">// MY ROLE</div>
     <ul>
       <li>Skills: Design Thinking, Data Analysis, Usability Testing, Empathy Interviewing, Competitor Analysis, Qualitative &amp; Quantitative Analysis</li>
-      <li>Team: 1 Product Designer, 1 Staff Product Designer, 2 Product Managers, 7 Software Engineers, 1 Content Designer</li>
+      <li>Role: Product Designer, Researcher, Motion Designer, Voice Actor</li>
     </ul>
+    <p class="hero-caption">Note: the original page's "Team" field listed the same roster as the PayApp case study (1 PD, 2 PMs, 7 engineers) — that looks like a leftover template default rather than LifeCycle's real team, since this was a personal/competition project. Flagging so you can correct it with the real team.</p>
   </div>
 </section>
 
@@ -225,73 +240,91 @@
   <div class="wrap">
     <div class="block-label">// METHODOLOGY</div>
     <div class="methodology">
-      <div class="method-step">Discover</div><div class="method-arrow">→</div>
+      <div class="method-step active">Discover</div><div class="method-arrow">→</div>
       <div class="method-step">Define</div><div class="method-arrow">→</div>
       <div class="method-step">Ideate</div><div class="method-arrow">→</div>
       <div class="method-step">Design &amp; Development</div><div class="method-arrow">→</div>
       <div class="method-step">Deliver!</div>
     </div>
-    <p>This project utilized a heuristic non-linear approach due to new information and changes actively happening within the company.</p>
 
     <h3>Discover</h3>
-    <p>Going through this phase meant listening to many different perspectives within PayOps and IT to get a general grasp on their day-to-day tasks along with interruptions and how they sit with themselves. This also included a competitive analysis of how other FinTech companies were provisioning roles and permissions for users to have access to finances where large sums of money are involved. I was unfamiliar with the financial world but made it my mission to understand all moving parts from ACH to Plaid and even penny tests.</p>
-    <p>I became proficient in understanding the perspective of the Justworks employees' workflows by organizing unstructured interviews to allow the conversation to flow. Starting off without a rigid interview script allowed the interviewees to speak more openly and freely about their work which not only offered me technical insight into their day-to-days but emotional as well. This allowed me to observe which tasks they found the most joy in and which duties were not as enjoyable.</p>
-    <p>The Project Manager, Staff Product Designer, Software Engineers, and I sat in on a demo of the competitor Modern Treasury to see how they provision roles and permissions access as well as for whom. This showed us their internal UI perspective which utilizes drawers and modals to maintain a simplified process.</p>
+    <p>Many insights were gained during this period due to conducting multiple empathy interviews, desk research on the target audience, app map iterations, and a competitor analysis on other life-improvement apps.</p>
+    <p>We did extensive research to get a thorough understanding of our target audience — this ranged from burnt-out doctors, to smoking addicts, to a self-conscious college student. Research on other lifestyle apps was also conducted for heuristic evaluation.</p>
+    <p><strong>App Map Iterations:</strong> LifeCycle's original app map did not provide a clear end goal for the user. With this in mind, we sought to make this complex flow as simplistic as possible — essential for users who are likely already stressed out from their offline world.</p>
+    <p><strong>Competitor Analysis:</strong> These apps (Fabulous, Flora, Structured) all have their own unique features, ranging from making self-care a game to a more list-like approach. Some had a decent range of options targeting various aspects of life improvement, but not a user-centered method — this is where we sought to find a solution.</p>
 
-    <h3>Site Map Iterations</h3>
-    <div class="img-block free"><img src="assets/img_payapp_sitemap2.png" alt="PayApp permissions and roles sitemap iterations"></div>
-    <p>Multiple site maps were created simultaneously when wireframing to develop both the interface and users experience. This process also helped determine where the Roles and Permissions feature will reside within PayApp.</p>
-    <p>After the site map iterations were developed, user flows were generated alongside low and mid-fidelity wireframes.</p>
-
-    <h3>Qualitative Personas</h3>
+    <h3>Personas</h3>
     <div class="persona-grid">
       <div class="persona-card">
-        <div class="persona-avatar">LJ</div>
-        <div class="persona-name">Lady Jessica</div>
-        <div class="persona-meta">PRIMARY — JUSTWORKS I.T. · THE PROVISIONER</div>
-        <div class="persona-quote">"I can grant the power — but I have to be certain I'm granting the right one."</div>
-        <ul class="persona-needs">
-          <li>Add team members and assign roles without engineering</li>
-          <li>Create new roles from permission sets when none fit</li>
-          <li>Reduce risk on a platform moving large sums of money</li>
-          <li>Clear signifiers for where to click and what to enter</li>
-        </ul>
+        <div class="persona-avatar">TD</div>
+        <div class="persona-quote">"Your mood is super important. It affects how you react to those around you and vice versa."</div>
+        <div class="persona-name">The Health Nut</div>
+        <div class="persona-meta">TOMASH DEVENSHIEK, 26 — CARDIOLOGIST</div>
+        <ul class="persona-needs"><li>A good support group</li><li>Way to organize highs and lows</li><li>To learn good conversational skills</li><li>To learn how to have fun</li><li>To remember when to eat</li></ul>
       </div>
       <div class="persona-card">
-        <div class="persona-avatar">PA</div>
-        <div class="persona-name">Paul Atreides</div>
-        <div class="persona-meta">SECONDARY — JUSTWORKS FINANCE · THE RECIPIENT</div>
-        <div class="persona-quote">"I just need the right access, on the first try."</div>
-        <ul class="persona-needs">
-          <li>Be assigned the correct role quickly to start work</li>
-          <li>Clear visibility into what permissions he holds</li>
-          <li>Not be added without provisions — an unusable half-state</li>
-        </ul>
+        <div class="persona-avatar">NN</div>
+        <div class="persona-quote">"I would like to change but I probably won't."</div>
+        <div class="persona-name">The Tech Addict</div>
+        <div class="persona-meta">NHA NGUYEN, 18 — STUDENT / GAMER</div>
+        <ul class="persona-needs"><li>A way to get organized</li><li>To feel comfortable with himself</li><li>A way to quit smoking</li><li>To balance school and social life</li></ul>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar">KN</div>
+        <div class="persona-quote">"At the end of the day, it's your choice."</div>
+        <div class="persona-name">The Hyperaware</div>
+        <div class="persona-meta">KARAMYN NKENGLACK, 20 — OVERWORKED COLLEGE STUDENT</div>
+        <ul class="persona-needs"><li>To stop being hard on herself</li><li>Not stress about the future</li><li>Lighten up on herself</li><li>Give herself more credit</li></ul>
       </div>
     </div>
-    <p>The flow the personas drove: <strong>Lady Jessica grants Paul Atreides his rightful role.</strong> She can add him as an admin and dictate what he can reach — but she has to stay vigilant, because adding a member before granting permissions creates a user who exists in the system with no power to act. That constraint is why the drawer refuses to save a member against a role with no provisions: halting the task and re-verifying confirms the right role is going to the intended person.</p>
-    <p class="hero-caption" style="margin-top:-6px;">Persona names are a deliberate creative choice from the original research deck — kept here as a stand-in for real portraits.</p>
+    <p class="hero-caption" style="margin-top:-6px;">Persona portraits are placeholders — swapped out from the original photos for this rebuild.</p>
 
-    <h3>MVPs</h3>
-    <div class="two-col">
-      <div><h4>ADD TEAM MEMBER WITH ROLES</h4><p>The member list will never be created in an empty state because a Justworks I.T. user will be the first user manually added by engineering.</p></div>
-      <div><h4>CREATE NEW ROLES</h4><p>Justworks I.T. and admins should be able to create roles encompassing a set of permissions. These roles can then be assigned to users to provide them with the appropriate access.</p></div>
+    <h3>MVP</h3>
+    <p>We concluded that users needed to find recipes depending on what is available, and a way to track the habit being perpetuated.</p>
+
+    <div class="insight-box">
+      <span class="lbl">KEY INSIGHT</span>
+      <p>From our findings based on our user research and affinity maps, we noticed that everyone knows what the right thing to do is — but they lack the resources to achieve it.</p>
     </div>
-    <p>To add a user to the system, a role must be created with permission sets within first. If no currently added role fits the newly added member, a new role can be created from the "create new role" link. However, information added to the drawer will not be saved if a role without provisions is assigned — halting the task and re-verifying the information helps confirm that the user is assigning the correct role to the intended member.</p>
 
-    <h3>Ideate — Sketches</h3>
-    <p>In conjunction with performing empathy interviews and gaining insight, low-fidelity sketches were drafted to explore possible user flows and screens with a clear end goal of the user being able to add a role while consistently questioning other design solutions.</p>
+    <h3>HMW</h3>
+    <div class="hmw-grid">
+      <div class="hmw-card"><b>HMW</b>Make quitting bad habits feel like a game.</div>
+      <div class="hmw-card"><b>HMW</b>Make productivity feel less like a measure of self-worth.</div>
+      <div class="hmw-card"><b>HMW</b>Help him focus, and make sure he eats.</div>
+      <div class="hmw-card"><b>HMW</b>Make mentally draining activities a source of prideful relaxation.</div>
+      <div class="hmw-card"><b>HMW</b>Make positive thoughts come more naturally.</div>
+    </div>
+    <p>Major insights from our findings with the user personas, journey maps, and HMWs led us to conclude that LifeCycle's user experience and interface needed an overhaul. The heuristic evaluation confirmed it was difficult for users to navigate and didn't cater directly to the specific needs of the app's users. Three specific features were designed for each persona's specified needs: <strong>Nutrition, Affirmations,</strong> and <strong>Habit Tracking.</strong></p>
 
-    <h3>Wireframe Iterations</h3>
-    <p>Low to mid-fidelity wireframes was an exploratory and iterative process. There were consistent touch bases with cross-functional stakeholders and the software engineering team to gain feedback and have visibility as early as possible.</p>
+    <h3>Ideate — Wireframe Sketches</h3>
+    <p>My team and I created various sketches of the user interface to get a feel for what the layout would display. Detailed sketches were kept to a minimum in order to fully grasp whether the flow could be usable.</p>
+    <p>The mid-fidelity prototype was created simultaneously as user testing was conducted — live in-person observational testing as well as non-observational feedback through a survey after the user completed the flows. The demographic of testers ranged from children (age 12) to college students (18–21), millennials (35), and boomers (58–66).</p>
+    <p>Design motif, typefaces, and overall UI design were heavily explored during this step to create not only a usable but also a delightful experience for LifeCycle's features.</p>
 
-    <h3>Design &amp; Development — High Fidelity</h3>
-    <p>High-fidelity prototypes were presented to the affected stakeholders in PayOps and IT to gather feedback. This was not the first time that they had seen these screens. Throughout the scope of this project, the team and I had regular check-ins with the users to continue gathering quantitative and qualitative data to ensure PayApp will be a scalable product. The software engineering team was also present to give comments to remain active within the design process from the ground up.</p>
-    <p>This then led to the flow of Lady Jessica giving Paul Atredies his rightful role.</p>
+    <h3>Design &amp; Development</h3>
+    <p><strong>Heuristic Design:</strong> The goal of LifeCycle is to help people, so we needed to make it more people-friendly while also aesthetically pleasing.</p>
+    <p><strong>Design Principles:</strong></p>
+    <ul>
+      <li><strong>Communication</strong> — Can reach out to friends.</li>
+      <li><strong>Modularity</strong> — Each section is part of a larger system.</li>
+      <li><strong>Intuitiveness</strong> — Color-coding and navigation systems that are seamless.</li>
+      <li><strong>Inclusivity</strong> — Keeping people of different backgrounds and needs in mind.</li>
+    </ul>
 
-    <h3>Deliver — Prototypes and Handoff</h3>
-    <p>Lady Jessica has the power to not only add a new admin but to dictate their role within the internal tool of PayApp. But she must remain vigilant and make sure not to add a member without first granting their role within the system.</p>
-    <div class="img-block free"><img src="assets/img_payapp_deliver3.png" alt="Add member and Create New Role flows in PayApp"></div>
+    <h3>Deliver — The Features</h3>
+    <div class="feature-block">
+      <img src="assets/img_lc_feature1.png" alt="Habits feature screens">
+      <div><div class="flbl">FEATURE 1</div><h4>Habits</h4><p>Habits can either make or break you. This feature helps you track your progress and stay motivated to quit unhealthy habits.</p></div>
+    </div>
+    <div class="feature-block">
+      <img src="assets/img_lc_feature2.png" alt="Nutrition feature screens">
+      <div><div class="flbl">FEATURE 2</div><h4>Nutrition</h4><p>This feature helps you learn how to eat more consistently and fiscally — including an ingredient scanner to build recipes from what's already in the fridge.</p></div>
+    </div>
+    <div class="feature-block">
+      <img src="assets/img_lc_feature3.png" alt="Affirm feature screens">
+      <div><div class="flbl">FEATURE 3</div><h4>Affirm</h4><p>Use this feature to connect with yourself through journaling and affirmation exercises — including sending your own written support to friends.</p></div>
+    </div>
   </div>
 </section>
 
@@ -299,16 +332,16 @@
   <div class="wrap">
     <div class="block-label">// OUTCOME</div>
     <div class="stat-row">
-      <div class="stat"><span class="lbl-top">OUTCOMES</span><p>It was a fulfilling project to be able to go from 0 to 1 with a hard-stop deadline — and being notified after handoff that it was deployed.</p></div>
-      <div class="stat"><span class="lbl-top">REFLECTION</span><p>A feature added to allow only specific users to be able to transfer a certain amount of money would be beneficial to track both internal and external transfers.</p></div>
+      <div class="stat"><span class="lbl-top">OUTCOMES</span><p>We were proud that we could design and research an app, each with features we are passionate about.</p></div>
+      <div class="stat"><span class="lbl-top">REFLECTION</span><p>Using HMW and MVPs was a great method to use because it provided us with insight on how to continue the design system and purpose of the app.</p></div>
     </div>
   </div>
 </section>
 
 <div class="wrap">
   <div class="next-proj">
-    <div><span class="lbl mono">NEXT PROJECT</span><a href="new-payments-experience-case-study.html">New Payments Experience →</a>
-      <a class="prev-proj" href="medusa-case-study.html">← Previous: Medusa Solutions Inc.</a></div>
+    <div><span class="lbl mono">NEXT PROJECT</span><a href="magi-vision-case-study.html">Magi Vision →</a>
+      <a class="prev-proj" href="new-payments-experience-case-study.html">← Previous: New Payments Experience</a></div>
     <a href="portfolio-crt-landing.html">All Work</a>
   </div>
 </div>

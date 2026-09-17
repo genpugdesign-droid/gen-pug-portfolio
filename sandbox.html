@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sandbox — Genevieve Puglissi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080B10; --bg-panel: #0D131A; --ink: #DCE6ED; --accent: #8FD6FF;
+    --accent-soft: rgba(143,214,255,0.10); --line: #1F2B35; --muted: #64737D;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 90px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { max-width: 100%; }
+  .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+  .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
+  .crt::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 120%); }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  nav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); padding: 16px 0; background: rgba(8,11,16,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; text-decoration: none; color: var(--ink); }
+  .nav-links { display: flex; gap: 22px; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .nav-links a { color: var(--muted); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.on { color: var(--accent); }
+
+  header.page-head { padding: 48px 0 12px; }
+  .page-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 14px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 42px; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .page-intro { font-size: 16.5px; color: #C7D2D9; max-width: 62ch; }
+
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; padding: 26px 0 8px; }
+  .chip { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.04em; color: var(--muted); background: none; border: 1px solid var(--line); padding: 7px 13px; cursor: pointer; transition: transform 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .chip:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  .chip.on { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+  .group { padding: 34px 0 10px; }
+  .group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 22px; flex-wrap: wrap; }
+  .group-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; }
+  .group-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); }
+  .group-note { font-size: 14.5px; color: #AEBBC4; max-width: 64ch; margin-bottom: 18px; }
+  .ext-link { display: inline-block; margin-bottom: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 6px 11px; }
+  .ext-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+  .tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+  .tile { display: block; width: 100%; text-align: left; font: inherit; color: inherit; border: 1px solid var(--line); background: var(--bg-panel); position: relative; cursor: pointer; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; }
+  .tile:hover { transform: translateY(-5px) rotate(-0.35deg); border-color: var(--accent); box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+  .tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .tile .corner { position: absolute; width: 14px; height: 14px; border: 1.5px solid var(--accent); opacity: 0; transition: opacity 0.18s ease; z-index: 2; }
+  .tile:hover .corner { opacity: 0.8; }
+  .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .tile-media { aspect-ratio: 4/3; overflow: hidden; background: #05080B; position: relative; }
+  .tile-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tile-media.contain img { object-fit: contain; background: #fff; }
+  .tile-media .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.06) 0, rgba(143,214,255,0.06) 1px, transparent 1px, transparent 9px); }
+  .tile-info { padding: 14px 16px 18px; }
+  .t-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16.5px; }
+  .t-org { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin: 4px 0 8px; letter-spacing: 0.03em; }
+  .t-desc { font-size: 13.5px; color: #AEBBC4; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.05em; color: var(--accent); border: 1px solid var(--line); background: var(--accent-soft); padding: 3px 7px; white-space: nowrap; }
+  .tile:hover .t-title { color: var(--accent); }
+
+  /* Currently-building empty state */
+  .building { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; background: radial-gradient(ellipse at center, rgba(143,214,255,0.07), transparent 70%); }
+  .building svg { width: 34px; height: 34px; filter: drop-shadow(0 0 8px rgba(143,214,255,0.65)); animation: buildpulse 2.6s ease-in-out infinite; }
+  .building .bt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); text-shadow: 0 0 10px rgba(143,214,255,0.5); }
+  .building .bs { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); max-width: 30ch; line-height: 1.5; }
+  @keyframes buildpulse { 0%, 100% { opacity: 0.75; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+  @media (prefers-reduced-motion: reduce) { .building svg { animation: none; } }
+
+  /* Lightbox */
+  .lb { position: fixed; inset: 0; z-index: 90; display: none; background: rgba(4,6,10,0.94); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .lb.open { display: flex; flex-direction: column; height: 100%; }
+  /* height:0 + flex-basis:0 gives the stage a definite height, so the percentage
+     heights below actually resolve and the image scales instead of overflowing */
+  .lb-stage { position: relative; flex: 1 1 0; height: 0; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 48px 72px 12px; overflow: hidden; }
+  .lb-stage #lbMedia { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .lb-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; border: 1px solid var(--line); background: #05080B; }
+  .lb-panel { flex: 0 0 auto; }
+  .lb-stage .lb-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1px dashed var(--line); background: var(--bg-panel); padding: 70px 50px; }
+  .lb-stage .lb-empty svg { width: 42px; height: 42px; filter: drop-shadow(0 0 8px rgba(143,214,255,0.65)); }
+  .lb-stage .lb-empty .bt { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--accent); }
+  .lb-panel { border-top: 1px solid var(--line); background: rgba(8,11,16,0.92); padding: 18px 28px 26px; }
+  .lb-panel .inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .lb-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; }
+  .lb-org { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin: 4px 0 8px; letter-spacing: 0.04em; }
+  .lb-desc { font-size: 14.5px; color: #C7D2D9; max-width: 68ch; }
+  .lb-count { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); background: rgba(8,11,16,0.75); color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 20px; cursor: pointer; transition: border-color 0.18s ease, background 0.18s ease; }
+  .lb-nav:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .lb-prev { left: 14px; }
+  .lb-next { right: 14px; }
+  .lb-close { position: absolute; top: 12px; right: 14px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); background: rgba(8,11,16,0.75); color: var(--ink); font-family: 'IBM Plex Mono', monospace; font-size: 17px; cursor: pointer; z-index: 3; }
+  .lb-close:hover { border-color: var(--accent); color: var(--accent); }
+  body.lb-lock { overflow: hidden; }
+
+  footer#contact { border-top: 1px solid var(--line); margin-top: 30px; padding: 56px 0 64px; }
+  footer#contact .footer-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .footer-cta { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; color: var(--ink); letter-spacing: -0.01em; }
+  .footer-sub { font-size: 15px; color: #AEBBC4; margin-top: 8px; max-width: 46ch; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; }
+  .footer-links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 0 20px; }
+    h1 { font-size: 32px; }
+    .lb-stage { padding: 44px 16px 10px; }
+    .lb-nav { width: 38px; height: 38px; font-size: 17px; }
+    .lb-prev { left: 6px; }
+    .lb-next { right: 6px; }
+    .lb-panel { padding: 14px 18px 22px; }
+    .lb-title { font-size: 17px; }
+    .lb-desc { font-size: 13.5px; }
+  }
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    nav { padding: 12px 0; }
+    .nav-name { font-size: 14px; }
+    .nav-links { gap: 13px; font-size: 11px; }
+    h1 { font-size: 26px; }
+    .page-intro { font-size: 15px; }
+    .tile-grid { grid-template-columns: 1fr; gap: 16px; }
+    .group-name { font-size: 17px; }
+    .chip { font-size: 10.5px; padding: 6px 10px; }
+  }
+
+  /* Mobile hardening — smallest iOS & Android screens */
+  body { -webkit-text-size-adjust: 100%; overflow-wrap: break-word; }
+  img, svg, video { max-width: 100%; height: auto; }
+  a, button { overflow-wrap: break-word; }
+  @supports (padding: max(0px)) {
+    .wrap { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+    footer#contact { padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 32px)); }
+  }
+  @media (max-width: 340px) {
+    .wrap { padding-left: 12px; padding-right: 12px; }
+    h1 { font-size: 23px; }
+    .nav-links { gap: 10px; font-size: 10px; }
+    .nav-name { font-size: 12.5px; }
+    .footer-cta { font-size: 20px; }
+    .footer-links a { font-size: 10.5px; padding: 7px 9px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="crt"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="nav-name" href="portfolio-crt-landing.html">GEN PUG</a>
+    <div class="nav-links">
+      <a href="portfolio-crt-landing.html#work">WORK</a>
+      <a href="sandbox.html" class="on">SANDBOX</a>
+      <a href="portfolio-crt-landing.html#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <div class="page-kicker">// SANDBOX</div>
+    <h1>Everything else I've been building</h1>
+    <p class="page-intro">Art direction, packaging, motion, brand and drawing work — across martial arts, fashion, and things I made just to see if I could.</p>
+    <div class="filter-bar" id="filters">
+      <button class="chip on" data-filter="all">ALL</button>
+      <button class="chip" data-filter="art">ART DIRECTION</button>
+      <button class="chip" data-filter="packaging">PACKAGING</button>
+      <button class="chip" data-filter="motion">MOTION DESIGN</button>
+      <button class="chip" data-filter="branding">BRANDING</button>
+      <button class="chip" data-filter="drawing">DRAWING</button>
+    </div>
+  </div>
+</header>
+
+<section class="group" data-cat="art">
+  <div class="wrap">
+    <div class="group-head">
+      <div class="group-name">Art Direction</div>
+      <div class="group-meta">SHOOTS · CAMPAIGNS · STYLING</div>
+    </div>
+    <div class="tile-grid">
+      <button class="tile" type="button" data-full="assets/kano/kano-kids-2026.jpg">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><img src="assets/kano/kano-kids-2026.jpg" alt="Kano Kids 2026–2027 poster: judo kids classes are back September 15th" loading="lazy"></div>
+        <div class="tile-info"><div class="t-title">Kano Kids 2026–27</div><div class="t-org">KANO MARTIAL ARTS — ENROLLMENT CAMPAIGN</div><p class="t-desc">Registration poster for the fall kids judo season.</p><div class="badges"><span class="badge">MARTIAL ARTS</span></div></div>
+      </button>
+      <button class="tile" type="button" data-full="assets/kano/get-your-grips.jpg">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><img src="assets/kano/get-your-grips.jpg" alt="Get your grips, control the chaos: black-and-white judo poster with red grip detail" loading="lazy"></div>
+        <div class="tile-info"><div class="t-title">Get Your Grips</div><div class="t-org">KANO MARTIAL ARTS — BRAND CAMPAIGN</div><p class="t-desc">High-contrast mat photography with a single red accent.</p><div class="badges"><span class="badge">MARTIAL ARTS</span></div></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="group" data-cat="packaging">
+  <div class="wrap">
+    <div class="group-head">
+      <div class="group-name">Packaging</div>
+      <div class="group-meta">STRUCTURAL · COMPLIANCE · PHYSICAL PROTOTYPES</div>
+    </div>
+    <div class="tile-grid">
+      <button class="tile" type="button">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">packaging system or compliance artwork</div></div></div>
+        <div class="tile-info"><div class="t-title">Compliance &amp; Packaging</div><div class="t-org">HADDAD BRANDS — ASST. PACKAGING DESIGNER</div><p class="t-desc">Re-engineered packaging systems for Levi's, Lacoste, Nike, Converse, Ralph Lauren, Abercrombie and Hurley.</p><div class="badges"><span class="badge">FASHION</span></div></div>
+      </button>
+      <button class="tile" type="button">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">3D print photo</div></div></div>
+        <div class="tile-info"><div class="t-title">[3D print project name]</div><div class="t-org">PHYSICAL PROTOTYPE</div><p class="t-desc">[Placeholder — the object, the constraint, what it proves about tangible product thinking.]</p><div class="badges"><span class="badge">PROTOTYPE</span><span class="badge">3D PRINTING</span></div></div>
+      </button>
+      <button class="tile" type="button">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">Arduino build photo</div></div></div>
+        <div class="tile-info"><div class="t-title">[Arduino project name]</div><div class="t-org">HARDWARE PROTOTYPE</div><p class="t-desc">[Placeholder — what it does, and what it shows about your hardware and software thinking.]</p><div class="badges"><span class="badge">PROTOTYPE</span><span class="badge">ARDUINO</span></div></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="group" data-cat="motion">
+  <div class="wrap">
+    <div class="group-head">
+      <div class="group-name">Motion Design</div>
+      <div class="group-meta">CAMPAIGN MOTION · ANIMATION</div>
+    </div>
+    <div class="tile-grid">
+      <button class="tile" type="button">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">AIEdu motion frame or campaign still</div></div></div>
+        <div class="tile-info"><div class="t-title">AIEdu</div><div class="t-org">FIT CAPSTONE — ADVERTISING &amp; MOTION</div><p class="t-desc">Advertising capstone campaign built around AI literacy, featuring original motion design work.</p><div class="badges"><span class="badge">CASE STUDY</span></div></div>
+      </button>
+      <button class="tile" type="button">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">motion reel still</div></div></div>
+        <div class="tile-info"><div class="t-title">[Motion reel name]</div><div class="t-org">SELF-DIRECTED</div><p class="t-desc">[Placeholder — a short motion piece you want to show, and what it was made for.]</p><div class="badges"><span class="badge">PROTOTYPE</span></div></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="group" data-cat="branding">
+  <div class="wrap">
+    <div class="group-head">
+      <div class="group-name">Branding</div>
+      <div class="group-meta">IDENTITY · APPAREL · ENVIRONMENTAL</div>
+    </div>
+    <div class="tile-grid">
+      <button class="tile" type="button" data-full="assets/kano/kano-storefront-sign.jpg">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><img src="assets/kano/kano-storefront-sign.jpg" alt="Kano Martial Arts storefront window sign mockup at 149 W 27th St" loading="lazy"></div>
+        <div class="tile-info"><div class="t-title">Storefront Sign</div><div class="t-org">KANO MARTIAL ARTS — 149 W 27TH ST</div><p class="t-desc">Window signage for the Manhattan dojo.</p><div class="badges"><span class="badge">MARTIAL ARTS</span></div></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="group" data-cat="drawing">
+  <div class="wrap">
+    <div class="group-head">
+      <div class="group-name">Drawing</div>
+      <div class="group-meta">ILLUSTRATION · SKETCHBOOK · PERSONAL</div>
+    </div>
+    <p class="group-note">The thread that runs through everything else — drawing came first and still feeds the rest of the work.</p>
+    <a class="ext-link" href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">@GENPUGDESIGN ON INSTAGRAM ↗</a>
+    <div class="tile-grid">
+      <button class="tile" type="button" data-full="assets/playground/good-omens-gold-key.jpg">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><img src="assets/playground/good-omens-gold-key.jpg" alt="Good Omens: graphite drawing of two kingfishers, one tagged, rendered in fine detail" loading="lazy"></div>
+        <div class="tile-info"><div class="t-title">Good Omens</div><div class="t-org">SCHOLASTIC ART &amp; WRITING — GOLD KEY, EXHIBITED AT THE MET</div><p class="t-desc">Graphite study of two kingfishers, one tagged like a specimen. Awarded a Scholastic Gold Key and exhibited at the Metropolitan Museum of Art.</p><div class="badges"><span class="badge">ILLUSTRATION</span><span class="badge">AWARD</span></div></div>
+      </button>
+      <button class="tile" type="button">
+        <div class="corner tl"></div><div class="corner br"></div>
+        <div class="tile-media"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">sketchbook spread</div></div></div>
+        <div class="tile-info"><div class="t-title">[Sketchbook series]</div><div class="t-org">PERSONAL — ONGOING</div><p class="t-desc">[Placeholder — what you draw when nobody's briefing you.]</p><div class="badges"><span class="badge">ILLUSTRATION</span></div></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-cta">let's chat more! ^.^</div>
+      <div class="footer-sub">Always up for talking design, sports tech, or a good problem worth solving.</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:genpugdesign@gmail.com">EMAIL</a>
+      <a href="https://www.linkedin.com/in/gen-pug/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">INSTAGRAM</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Project viewer">
+  <div class="lb-stage">
+    <button class="lb-close" type="button" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-nav lb-prev" type="button" id="lbPrev" aria-label="Previous">‹</button>
+    <div id="lbMedia"></div>
+    <button class="lb-nav lb-next" type="button" id="lbNext" aria-label="Next">›</button>
+  </div>
+  <div class="lb-panel">
+    <div class="inner">
+      <div>
+        <div class="lb-title" id="lbTitle"></div>
+        <div class="lb-org" id="lbOrg"></div>
+        <p class="lb-desc" id="lbDesc"></p>
+      </div>
+      <div class="lb-count" id="lbCount"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // category filter
+  document.querySelectorAll('#filters .chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var f = chip.getAttribute('data-filter');
+      document.querySelectorAll('#filters .chip').forEach(function(c){ c.classList.toggle('on', c === chip); });
+      document.querySelectorAll('.group').forEach(function(g){
+        g.hidden = !(f === 'all' || g.getAttribute('data-cat') === f);
+      });
+    });
+  });
+
+  // lightbox — walks every visible tile, across section boundaries
+  (function(){
+    var lb = document.getElementById('lightbox');
+    var media = document.getElementById('lbMedia');
+    var elTitle = document.getElementById('lbTitle');
+    var elOrg = document.getElementById('lbOrg');
+    var elDesc = document.getElementById('lbDesc');
+    var elCount = document.getElementById('lbCount');
+    var idx = 0, items = [];
+
+    var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg>';
+
+    function visibleTiles(){
+      return Array.prototype.filter.call(document.querySelectorAll('.tile'), function(t){
+        var g = t.closest('.group');
+        return !(g && g.hidden);
+      });
+    }
+
+    function render(){
+      var t = items[idx];
+      if (!t) return;
+      var full = t.getAttribute('data-full');
+      var img = t.querySelector('.tile-media img');
+      if (full) {
+        media.innerHTML = '<img src="' + full + '" alt="' + (img ? img.getAttribute('alt') || '' : '') + '">';
+      } else {
+        media.innerHTML = '<div class="lb-empty">' + ICON + '<div class="bt">CURRENTLY BUILDING</div></div>';
+      }
+      elTitle.textContent = t.querySelector('.t-title').textContent;
+      elOrg.textContent = t.querySelector('.t-org').textContent;
+      elDesc.textContent = t.querySelector('.t-desc').textContent;
+      elCount.textContent = (idx + 1) + ' / ' + items.length;
+    }
+
+    function open(t){
+      items = visibleTiles();
+      idx = items.indexOf(t);
+      if (idx < 0) idx = 0;
+      render();
+      lb.classList.add('open');
+      document.body.classList.add('lb-lock');
+    }
+    function close(){
+      lb.classList.remove('open');
+      document.body.classList.remove('lb-lock');
+      media.innerHTML = '';
+    }
+    function step(n){
+      if (!items.length) return;
+      idx = (idx + n + items.length) % items.length;
+      render();
+    }
+
+    document.querySelectorAll('.tile').forEach(function(t){
+      t.addEventListener('click', function(){ open(t); });
+    });
+    document.getElementById('lbClose').addEventListener('click', close);
+    document.getElementById('lbPrev').addEventListener('click', function(){ step(-1); });
+    document.getElementById('lbNext').addEventListener('click', function(){ step(1); });
+    lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
+    document.addEventListener('keydown', function(e){
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') step(1);
+      else if (e.key === 'ArrowLeft') step(-1);
+    });
+  })();
+</script>
+
+</body>
+</html>
