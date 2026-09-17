@@ -1,14 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <style>
-    .m { fill: none; stroke: #080B10; stroke-width: 6.5;
-         stroke-linecap: round; stroke-linejoin: round; }
-    .d { fill: #080B10; }
-    @media (prefers-color-scheme: dark) {
-      .m { stroke: #8FD6FF; }
-      .d { fill: #8FD6FF; }
-    }
-  </style>
-  <path class="m" d="M7 33 L15 23 L23 33"/>
-  <path class="m" d="M41 33 L49 23 L57 33"/>
-  <circle class="d" cx="32" cy="43" r="4.2"/>
+  <g fill="none" stroke="#3BA9E0" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 33 L15 23 L23 33"/>
+    <path d="M41 33 L49 23 L57 33"/>
+  </g>
+  <circle cx="32" cy="43" r="4.2" fill="#3BA9E0"/>
 </svg>
