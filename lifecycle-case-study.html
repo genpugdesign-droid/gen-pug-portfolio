@@ -65,6 +65,19 @@
   .hero-visual, .img-block { border: 1px solid var(--line); background: var(--bg-panel); position: relative; overflow: hidden; }
   .hero-visual { aspect-ratio: 16/9; }
   .hero-visual iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  /* click-to-play poster: shows a thumbnail, then loads the player with sound + controls */
+  .video-facade { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: #05080B; cursor: pointer; display: block; }
+  .video-facade img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, opacity 0.3s ease; }
+  .video-facade:hover img { transform: scale(1.02); opacity: 0.9; }
+  .video-facade .play-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 74px; height: 74px; border-radius: 50%; border: 1px solid var(--accent); background: rgba(8,11,16,0.6); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); color: var(--accent); display: flex; align-items: center; justify-content: center; transition: background 0.25s ease, transform 0.25s ease; }
+  .video-facade .play-badge svg { width: 30px; height: 30px; margin-left: 3px; }
+  .video-facade:hover .play-badge { background: rgba(143,214,255,0.18); transform: translate(-50%, -50%) scale(1.06); }
+  .video-facade .play-label { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--accent); background: rgba(8,11,16,0.72); padding: 5px 11px; white-space: nowrap; }
+  @media (max-width: 480px) {
+    .video-facade .play-badge { width: 54px; height: 54px; }
+    .video-facade .play-badge svg { width: 22px; height: 22px; }
+    .video-facade .play-label { font-size: 9.5px; bottom: 12px; }
+  }
   .hero-visual img, .img-block img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .hero-visual .hatch, .img-block .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px); }
   .hero-visual .ph-label, .img-block .ph-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; padding: 20px; }
@@ -206,7 +219,11 @@
 
     <div class="hero-visual">
       <div class="corner tl"></div><div class="corner br"></div>
-      <iframe src="https://player.vimeo.com/video/934941627?title=0&byline=0&portrait=0&muted=1&autoplay=1&loop=1&background=1" title="LIFECYCLE hero film" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <button class="video-facade" type="button" data-vimeo="934941627" aria-label="Play the LIFECYCLE film with sound">
+        <img src="assets/video/lifecycle-poster.jpg" alt="LIFECYCLE — opening frame of the case study film">
+        <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <span class="play-label">PLAY FILM · SOUND ON</span>
+      </button>
     </div>
     <div class="hero-caption">LIFECYCLE — the opening film. <a href="https://vimeo.com/934941627" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Watch on Vimeo ↗</a></div>
   </div>
@@ -395,6 +412,23 @@
   sync();
   window.addEventListener('scroll', sync, { passive: true });
 })();
+</script>
+
+
+<script>
+  // poster -> real player, with sound and controls (the click is the gesture browsers require)
+  document.querySelectorAll('.video-facade').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-vimeo');
+      var f = document.createElement('iframe');
+      f.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&muted=0&title=0&byline=0&portrait=0';
+      f.title = 'Vimeo player';
+      f.setAttribute('frameborder','0');
+      f.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      btn.replaceWith(f);
+    });
+  });
 </script>
 
 </body>
