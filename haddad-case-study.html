@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Haddad Brands — Genevieve Puglissi</title>
+  <meta name="description" content="Packaging and production design for Levi's, Nike, Ralph Lauren and Lacoste: print-ready mechanicals, bilingual compliance, and factory-ready specs.">
+  <link rel="canonical" href="https://www.gen-pug.com/haddad-case-study.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Genevieve Puglissi">
+  <meta property="og:title" content="Haddad Brands — Genevieve Puglissi">
+  <meta property="og:description" content="Packaging and production design for Levi's, Nike, Ralph Lauren and Lacoste: print-ready mechanicals, bilingual compliance, and factory-ready specs.">
+  <meta property="og:url" content="https://www.gen-pug.com/haddad-case-study.html">
+  <meta property="og:image" content="https://www.gen-pug.com/assets/social/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Genevieve Puglissi — Product Designer and UX Researcher">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Haddad Brands — Genevieve Puglissi">
+  <meta name="twitter:description" content="Packaging and production design for Levi's, Nike, Ralph Lauren and Lacoste: print-ready mechanicals, bilingual compliance, and factory-ready specs.">
+  <meta name="twitter:image" content="https://www.gen-pug.com/assets/social/og-cover.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,500;0,8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080B10; --bg-panel: #0D131A; --ink: #DCE6ED; --accent: #8FD6FF;
+    --accent-soft: rgba(143,214,255,0.10); --line: #1F2B35; --muted: #64737D;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 90px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Floating stage nav */
+  .stage-nav { position: fixed; left: 18px; top: 50%; transform: translateY(-50%); z-index: 35; display: flex; flex-direction: column; gap: 2px; max-height: 76vh; overflow-y: auto; padding: 10px 0; }
+  .stage-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; padding: 5px 10px 5px 14px; border-left: 2px solid var(--line); white-space: nowrap; max-width: 190px; overflow: hidden; text-overflow: clip; transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease; }
+  .stage-nav a:hover { color: var(--accent); border-left-color: var(--accent); padding-left: 18px; }
+  .stage-nav a.on { color: var(--accent); border-left-color: var(--accent); }
+  .stage-nav a.sub { padding-left: 24px; font-size: 10px; opacity: 0.85; }
+  .stage-nav a.sub:hover { padding-left: 28px; }
+  @media (max-width: 1240px) { .stage-nav { display: none; } }
+
+  /* Global footer */
+  footer#contact { border-top: 1px solid var(--line); margin-top: 20px; padding: 56px 0 64px; }
+  footer#contact .footer-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .footer-cta { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; color: var(--ink); letter-spacing: -0.01em; }
+  .footer-sub { font-size: 15px; color: #AEBBC4; margin-top: 8px; max-width: 46ch; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 8px 12px; }
+  .footer-links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 400px) { .footer-cta { font-size: 23px; } footer#contact { padding: 40px 0 48px; } }
+  body { background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  .crt { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+  .crt::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(143,214,255,0.035) 0px, rgba(143,214,255,0.035) 1px, transparent 1px, transparent 3px); }
+  .crt::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 120%); }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .head { font-family: 'Space Grotesk', sans-serif; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+
+  nav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); padding: 16px 0; background: rgba(8,11,16,0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: nowrap; }
+  .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; flex-shrink: 0; white-space: nowrap; font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .nav-links a { color: var(--muted); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.on { color: var(--accent); }
+  @media (max-width: 400px) {
+    nav { padding: 12px 0; }
+    .nav-name { font-size: 14px; }
+    .nav-links { gap: 13px; font-size: 11px; }
+  }
+
+  header.proj-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+  .proj-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 46px; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .proj-role { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .site-link { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; border: 1px solid var(--line); padding: 7px 12px; margin-bottom: 28px; }
+  .site-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .block p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(143,214,255,0.35); }
+  .block p a:hover { border-bottom-color: var(--accent); }
+
+  .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; margin-bottom: 36px; }
+  .meta-item .mono.label { font-size: 10.5px; color: var(--muted); letter-spacing: 0.06em; display: block; margin-bottom: 5px; }
+  .meta-item .value { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; }
+
+  .hero-visual { border: 1px solid var(--line); background: var(--bg-panel); aspect-ratio: 16/9; position: relative; overflow: hidden; }
+  .hero-visual video, .img-block video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-visual .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.05) 0, rgba(143,214,255,0.05) 1px, transparent 1px, transparent 10px); }
+  .hero-visual .ph-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); text-align: center; }
+  .hero-visual .corner { position: absolute; width: 18px; height: 18px; border: 1.5px solid var(--accent); opacity: 0.6; }
+  .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .hero-caption { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 10px; }
+
+  section.block { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section.block:last-of-type { border-bottom: none; }
+  .block-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 16px; }
+  .block h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 27px; margin-bottom: 18px; max-width: 22ch; }
+  .block p { font-size: 17px; color: #C7D2D9; max-width: 66ch; margin-bottom: 16px; }
+  .block ul { list-style: none; margin-bottom: 16px; }
+  .block ul li { font-size: 16px; color: #AEBBC4; padding-left: 20px; position: relative; margin-bottom: 8px; max-width: 60ch; }
+  .block ul li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
+
+  .img-block { border: 1px solid var(--line); background: var(--bg-panel); position: relative; overflow: hidden; margin: 28px 0; }
+  .img-block.wide { aspect-ratio: 16/8; }
+  .img-block.tall { aspect-ratio: 4/3; }
+  .img-block .hatch { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(143,214,255,0.04) 0, rgba(143,214,255,0.04) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(143,214,255,0.04) 0, rgba(143,214,255,0.04) 1px, transparent 1px, transparent 10px); }
+  .img-block .ph-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; padding: 20px; }
+
+  .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
+  .stat { border: 1px solid var(--line); padding: 20px; }
+  .stat .num { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; color: var(--accent); }
+  .stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+
+  .swatch-row { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+  .swatch { width: 90px; }
+  .swatch .chip { height: 56px; border: 1px solid var(--line); }
+  .swatch .mono { font-size: 10.5px; color: var(--muted); margin-top: 6px; display: block; }
+
+  .next-proj { padding: 56px 0 60px; display: flex; justify-content: space-between; align-items: center; }
+  .next-proj a { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: var(--ink); text-decoration: none; }
+  .next-proj a:hover { color: var(--accent); }
+  .next-proj .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); display: block; margin-bottom: 6px; }
+  .prev-proj { display: block; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); text-decoration: none; }
+  .prev-proj:hover { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .wrap { padding: 0 20px; }
+    h1 { font-size: 32px; }
+    .meta-row { grid-template-columns: 1fr 1fr; row-gap: 16px; }
+    .img-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+  }
+
+  /* Desktop site mockup */
+  .site-mock { margin: 28px 0 10px; }
+  .browser { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #0c0c0e; box-shadow: 0 18px 40px rgba(0,0,0,0.5); }
+  .browser-bar { display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: #15171b; border-bottom: 1px solid var(--line); }
+  .browser-bar .dot { width: 9px; height: 9px; border-radius: 50%; background: #2c313a; flex-shrink: 0; }
+  .browser-url { flex: 1; margin-left: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); background: #0c0c0e; border: 1px solid var(--line); border-radius: 5px; padding: 4px 10px; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+  .browser img { display: block; width: 100%; height: auto; }
+  @media (max-width: 480px) { .browser-bar { padding: 7px 9px; } .browser-url { font-size: 9px; } }
+
+  /* Currently-building empty state */
+  .building { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; background: radial-gradient(ellipse at center, rgba(143,214,255,0.07), transparent 70%); }
+  .building svg { width: 34px; height: 34px; filter: drop-shadow(0 0 8px rgba(143,214,255,0.65)); animation: buildpulse 2.6s ease-in-out infinite; }
+  .building .bt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); text-shadow: 0 0 10px rgba(143,214,255,0.5); }
+  .building .bs { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); max-width: 30ch; line-height: 1.5; }
+  @keyframes buildpulse { 0%, 100% { opacity: 0.75; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+  @media (prefers-reduced-motion: reduce) { .building svg { animation: none; } }
+
+  /* Mobile hardening — smallest iOS & Android screens */
+  body { -webkit-text-size-adjust: 100%; overflow-wrap: break-word; }
+  img, svg, video { max-width: 100%; height: auto; }
+  a, button { overflow-wrap: break-word; }
+  @supports (padding: max(0px)) {
+    .wrap { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+    footer#contact { padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 32px)); }
+  }
+  @media (max-width: 340px) {
+    .wrap { padding-left: 12px; padding-right: 12px; }
+    h1 { font-size: 23px; }
+    .nav-links { gap: 10px; font-size: 10px; }
+    .nav-name { font-size: 12.5px; }
+    .footer-cta { font-size: 20px; }
+    .footer-links a { font-size: 10.5px; padding: 7px 9px; }
+  }
+
+  /* Packaging case study — proof panels, spec tables, five-step method */
+  .proof { --h: clamp(170px, 44vw, 380px); background: #ECEEF0; border: 1px solid var(--line); padding: 30px 20px 18px; display: flex; gap: clamp(10px, 3vw, 30px); justify-content: center; align-items: flex-end; position: relative; }
+  .proof figure { margin: 0; text-align: center; }
+  .proof img { display: block; height: var(--h); width: auto; max-width: none; margin: 0 auto; }
+  .proof img.scale-a { height: calc(var(--h) * 112 / 127); }
+  .proof figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #56626B; margin-top: 10px; }
+  .proof .corner { position: absolute; width: 18px; height: 18px; border: 1.5px solid var(--accent); opacity: 0.6; }
+
+  .sheet { border: 1px solid var(--line); background: #fff; margin: 22px 0 0; }
+  .sheet img { display: block; width: 100%; height: auto; }
+  .sheet-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: start; }
+
+  .method { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--line); margin-top: 26px; }
+  .method > div { padding: 14px 14px 16px; border-right: 1px solid var(--line); }
+  .method > div:last-child { border-right: none; }
+  .method .n { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.06em; }
+  .method .t { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; margin-top: 4px; }
+  .method .d { font-size: 13px; color: #8E9BA4; margin-top: 4px; line-height: 1.45; }
+
+  .example-title { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.06em; margin: -6px 0 26px; }
+  h3.step { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin: 44px 0 14px; padding-top: 18px; border-top: 1px dashed var(--line); }
+  h3.step:first-of-type { margin-top: 8px; border-top: none; padding-top: 0; }
+
+  .spec { display: grid; grid-template-columns: 170px 1fr; border-top: 1px solid var(--line); margin: 22px 0 6px; }
+  .spec dt, .spec dd { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .spec dt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding-top: 12px; }
+  .spec dd { font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: var(--ink); }
+  .spec dd span { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #8E9BA4; }
+
+  .foil-chip { background: linear-gradient(135deg, #8C939A 0%, #E9EDF0 38%, #A3AAB1 55%, #F4F6F7 72%, #7E858C 100%); }
+
+  @media (max-width: 700px) {
+    .method { grid-template-columns: 1fr 1fr; }
+    .method > div { border-bottom: 1px solid var(--line); }
+    .method > div:nth-child(2n) { border-right: none; }
+    .method > div:last-child { grid-column: 1 / -1; border-bottom: none; }
+    .sheet-grid { grid-template-columns: 1fr; }
+    .spec { grid-template-columns: 1fr; }
+    .spec dt { border-bottom: none; padding-bottom: 0; }
+    .proof { padding: 20px 10px 14px; }
+  }
+
+  .tri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 0; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0 0; }
+  .tri figure, .duo figure { margin: 0; }
+  .tri img, .duo img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: var(--bg-panel); }
+  .tri figcaption, .duo figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 8px; letter-spacing: 0.03em; }
+  .techpack { max-width: 560px; }
+  .my-part { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.06em; margin: 26px 0 10px; }
+  @media (max-width: 700px) { .tri { grid-template-columns: 1fr 1fr; } .duo { grid-template-columns: 1fr; } }
+</style>
+
+<body>
+
+<div class="crt"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="nav-name" href="index.html">GEN PUG</a>
+    <div class="nav-links">
+      <a href="index.html#work" class="on">WORK</a>
+      <a href="sandbox.html">SANDBOX</a>
+      <a href="index.html#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </div>
+</nav>
+
+<header class="proj-hero">
+  <div class="wrap">
+    <div class="proj-index">PROJECT 01 / 04 — SELECTED WORK</div>
+    <h1 class="head">Haddad Brands</h1>
+    <div class="proj-role mono">Packaging &amp; Production Design — Asst. Packaging Designer</div>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Asst. Packaging Designer</span></div>
+      <div class="meta-item"><span class="mono label">TIMELINE</span><span class="value head">Apr 2025 — Mar 2026</span></div>
+      <div class="meta-item"><span class="mono label">BRANDS</span><span class="value head">Levi's, Nike, Ralph Lauren, Lacoste</span></div>
+      <div class="meta-item"><span class="mono label">OUTPUT</span><span class="value head">Trim, packaging &amp; print-ready mechanicals</span></div>
+    </div>
+
+    <div class="proof">
+      <div class="corner tl"></div><div class="corner br"></div>
+      <figure><img class="scale-a" src="assets/haddad/flasher-2t7x-front.jpg" alt="Levi's boys belt loop flasher, 2T–7X front: model in a Levi's tee and 512 jeans, bilingual feature icons, red 512 Slim Taper band"><figcaption>2T–7X · FRONT</figcaption></figure>
+      <figure><img src="assets/haddad/flasher-820-front.jpg" alt="Levi's boys belt loop flasher, 8–20 front, same layout at the larger size"><figcaption>8–20 · FRONT</figcaption></figure>
+      <figure><img src="assets/haddad/flasher-820-rear.jpg" alt="Levi's boys belt loop flasher rear: solid red with copyright, RN and CA numbers, country of origin and recycling marks"><figcaption>8–20 · REAR</figcaption></figure>
+    </div>
+    <div class="hero-caption">Levi's Boys SP26 belt loop flasher for Canada, shown at true relative size. Guide lines are from the production mechanical.</div>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// OVERVIEW</div>
+    <h2 class="head">Getting the design ready for the factory</h2>
+    <p>At Haddad Brands I designed and prepared trim and packaging for apparel programs across Levi's, Nike, Ralph Lauren and Lacoste. That covers the flashers, tags and labels that ship on the garment, and the mechanicals a factory prints them from.</p>
+    <p>On this kind of work the design has to look right on the shelf and also print correctly in another country, read correctly in two languages, and leave nothing for the printer to guess. Each example below is shown in the same order:</p>
+    <div class="method">
+      <div><div class="n">01</div><div class="t">Final result</div><div class="d">The piece as it ships</div></div>
+      <div><div class="n">02</div><div class="t">Design execution</div><div class="d">Layout, type, graphics</div></div>
+      <div><div class="n">03</div><div class="t">Production detail</div><div class="d">Dielines, specs, plates</div></div>
+      <div><div class="n">04</div><div class="t">My contribution</div><div class="d">What I did myself</div></div>
+      <div><div class="n">05</div><div class="t">Outcome</div><div class="d">Scope and requirements met</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-label">// EXAMPLE 01 — LEVI'S BELT LOOP FLASHER</div>
+    <h2 class="head">Levi's Boys Performance belt loop flasher, Canada</h2>
+    <div class="example-title">REF P6972 · SP26 · APPAREL · EN / FR</div>
+
+    <h3 class="step">01 / FINAL RESULT</h3>
+    <p>A flasher that hangs from the belt loop of Levi's boys' 512 Slim Taper Performance jeans. The front pairs a lifestyle photo with a column of feature icons. A red band at the bottom carries the fit name in silver foil, and the rear holds the legal and origin copy. It comes in two sizes, one for 2T–7X and one for 8–20, and every word on it appears in both English and French.</p>
+
+    <h3 class="step">02 / DESIGN EXECUTION</h3>
+    <p>The layout puts the information in the order a shopper reads it: brand, then what the jeans do, then which fit they are. The left column holds the feature icons, each in a hexagon with a short English label and its French translation underneath. The photo fills the right column under the Levi's batwing. The 512 fit name and "Performance | Performant" sit in silver foil on a PMS 187 C band, so the fit is the first thing to catch the light on a crowded fixture.</p>
+    <p>Both sizes share one layout system, so the larger 8–20 version is the same design re-proportioned for a bigger card rather than a separate one.</p>
+    <div class="swatch-row">
+      <div class="swatch"><div class="chip" style="background:#A6192E;"></div><span class="mono">PMS 187 C</span></div>
+      <div class="swatch"><div class="chip foil-chip"></div><span class="mono">SILVER FOIL</span></div>
+      <div class="swatch"><div class="chip" style="background:linear-gradient(90deg,#00AEEF 0 25%,#EC008C 25% 50%,#FFF200 50% 75%,#231F20 75%);"></div><span class="mono">4-COLOR PROCESS</span></div>
+      <div class="swatch"><div class="chip" style="background:#C9C5BF;"></div><span class="mono">PHOTO GROUND</span></div>
+    </div>
+
+    <h3 class="step">03 / PRODUCTION DETAIL</h3>
+    <p>The file sent to the factory is a 4-page mechanical. It has a title block on every page, front and rear mechanicals for each size, a feature-variable matrix, and a separate plate for the silver foil.</p>
+    <dl class="spec">
+      <dt>SUBSTRATE</dt><dd>18.9 pt C1S</dd>
+      <dt>PRINT</dt><dd>4-color process + PMS 187 C</dd>
+      <dt>SPECIALTY</dt><dd>Silver foil on its own plate <span>· front only</span></dd>
+      <dt>NON-PRINTING</dt><dd>Dieline / fold, sewn tacks</dd>
+      <dt>OPTION A · 2T–7X</dt><dd>57 × 112 mm</dd>
+      <dt>OPTION B · 8–20</dt><dd>64 × 127 mm</dd>
+      <dt>VARIABLES</dt><dd>16 feature-icon strips <span>· each drawn for both sizes</span></dd>
+      <dt>PER-RUN FIELDS</dt><dd>Copyright year and country of origin <span>· rules written into the file</span></dd>
+    </dl>
+    <div class="sheet"><img src="assets/haddad/beltloop-flasher-p2.jpg" alt="Mechanical page 2: Option B 8–20 front and rear with dimensions, live-area callouts and notes on the copyright-year and country-of-origin variables" loading="lazy"></div>
+    <div class="hero-caption">Page 2 of 4. Live areas are boxed, and the notes on the rear tell the printer how to fill the year and country fields on every reprint.</div>
+    <div class="sheet-grid">
+      <div><div class="sheet"><img src="assets/haddad/beltloop-flasher-p3.jpg" alt="Feature variable matrix: sixteen icon-strip combinations, A1 through H2, each drawn at both size options" loading="lazy"></div>
+      <div class="hero-caption">Page 3. Sixteen feature combinations, A1 through H2, so the factory can pick the right strip for each style.</div></div>
+      <div><div class="sheet"><img src="assets/haddad/beltloop-flasher-p4.jpg" alt="Front-side silver foil plate isolating the 512 Slim Taper lockup and Performance line" loading="lazy"></div>
+      <div class="hero-caption">Page 4. The silver foil separated onto its own plate.</div></div>
+    </div>
+
+    <h3 class="step">04 / MY CONTRIBUTION</h3>
+    <ul>
+      <li>Detailed the mechanicals on 07.31.25 and made the revisions on 08.18.25 (both credited to me in the title block)</li>
+      <li>Worked with the Haddad Brands Canada team so the English and French copy met Québec's Bill 96 French-language requirements</li>
+      <li>Built the 16-strip feature-variable system and drew every strip at both sizes</li>
+      <li>Labeled every dieline, live area, variable and per-run field so overseas factory teams and non-designers could read the file without having to ask</li>
+      <li>Split the silver foil onto its own plate and set the substrate, ink and non-printing specs</li>
+    </ul>
+
+    <h3 class="step">05 / OUTCOME</h3>
+    <p>The result was one design system covering two sizes and sixteen feature combinations, in two languages, delivered as a single mechanical a factory can print from.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="num">32</div><div class="lbl">FEATURE STRIPS SPECCED (16 × 2 SIZES)</div></div>
+      <div class="stat"><div class="num">EN / FR</div><div class="lbl">BILINGUAL COPY FOR BILL 96</div></div>
+      <div class="stat"><div class="num">4 PG</div><div class="lbl">MECHANICAL, INCLUDING FOIL PLATE</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="next-proj">
+    <div><span class="lbl mono">NEXT PROJECT</span><a href="freelance.html">Selected Visual Design →</a>
+      <a class="prev-proj" href="lifecycle-case-study.html">← Previous: LIFECYCLE</a></div>
+    <a href="index.html">All Work</a>
+  </div>
+</div>
+
+<div class="wrap"><p class="mono" style="padding-bottom:8px;font-size:10px;color:var(--muted);letter-spacing:0.04em;">Artwork © Haddad Apparel Group, Ltd. and Levi Strauss &amp; Co. Shown as a portfolio sample.</p></div>
+
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-cta">let's chat more! ^.^</div>
+      <div class="footer-sub">Always up for talking design, sports tech, or a good problem worth solving.</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:genpugdesign@gmail.com">EMAIL</a>
+      <a href="https://www.linkedin.com/in/gen-pug/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="https://www.instagram.com/genpugdesign" target="_blank" rel="noopener">INSTAGRAM</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var items = [];
+  document.querySelectorAll('section.block').forEach(function(sec){
+    function shorten(s){
+      s = s.replace(/^\/\/\s*/, '').replace(/\s*↗\s*$/, '').trim();
+      s = s.split(/\s+[—–]\s+/)[0];        // drop the clause after an em dash
+      s = s.split(/\s+·\s+/)[0];           // drop the clause after a middot
+      return s.trim();
+    }
+    var lab = sec.querySelector('.block-label');
+    if (lab) items.push({ el: sec, text: shorten(lab.textContent), sub: false });
+    sec.querySelectorAll('h3').forEach(function(h){ items.push({ el: h, text: shorten(h.textContent), sub: true }); });
+  });
+  if (items.length < 3) return;
+  var nav = document.createElement('nav');
+  nav.className = 'stage-nav';
+  items.forEach(function(it, i){
+    if (!it.el.id) it.el.id = 'sec-' + i;
+    var a = document.createElement('a');
+    a.href = '#' + it.el.id;
+    a.textContent = it.text;
+    if (it.sub) a.className = 'sub';
+    nav.appendChild(a);
+    it.link = a;
+  });
+  document.body.appendChild(nav);
+  function sync(){
+    var y = window.scrollY + 140, cur = items[0];
+    items.forEach(function(it){ if (it.el.offsetTop <= y) cur = it; });
+    items.forEach(function(it){ it.link.classList.toggle('on', it === cur); });
+  }
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+})();
+</script>
+
+</body>
+</html>

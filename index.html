@@ -225,6 +225,11 @@
     .project-row.open .row-body { max-height: 760px; }
   }
 
+  .more-cs { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .more-cs span { color: var(--muted); letter-spacing: 0.05em; font-size: 11px; }
+  .more-cs a { color: var(--accent); text-decoration: none; }
+  .more-cs a:hover { text-decoration: underline; }
+
   /* Other work — link card through to its own page */
   .other-cta { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; transition: padding-left 0.2s ease; }
   .other-cta:hover { padding-left: 8px; }
@@ -460,15 +465,51 @@
 
 <section id="work">
   <div class="wrap">
-    <div class="section-label"><span>// SELECTED WORK — TAP TO EXPAND</span><span>05 PROJECTS</span></div>
+    <div class="section-label"><span>// SELECTED WORK — TAP TO EXPAND</span><span>04 PROJECTS</span></div>
 
-    <!-- 01 Magi Vision -->
+    <!-- 01 Haddad Brands -->
+    <div class="project-row">
+      <div class="row-head" data-toggle>
+        <div class="row-thumb">
+          <img src="assets/haddad/thumb-flasher.png" alt="Levi's belt loop flasher thumbnail">
+        </div>
+        <div class="row-index">01</div>
+        <div><div class="row-title">Haddad Brands</div><div class="row-org">PACKAGING &amp; PRODUCTION DESIGN — LEVI'S, NIKE, RALPH LAUREN, LACOSTE</div></div>
+        <div class="row-toggle">+</div>
+      </div>
+      <div class="row-body"><div class="row-body-inner">
+        <p class="row-desc">Trim and packaging for major apparel brands, taken from layout through to the print-ready mechanical a factory works from.</p>
+        <ul class="row-list"><li>Levi's Boys belt loop flasher for Canada: 2 sizes, 16 feature variables, English and French copy for Bill 96</li><li>Dielines, live areas, foil plates and per-run fields labeled so overseas factories could print without guesswork</li></ul>
+        <div class="tags"><span class="tag">PACKAGING</span><span class="tag">PRODUCTION FILES</span><span class="tag">COMPLIANCE</span></div>
+        <div class="case-link"><a href="haddad-case-study.html" style="color:var(--accent);">View full case study →</a></div>
+      </div></div>
+    </div>
+
+    <!-- 02 Selected Visual Design -->
+    <div class="project-row">
+      <div class="row-head" data-toggle>
+        <div class="row-thumb">
+          <img src="favicon.svg" alt="GENPUGDESIGN mark">
+        </div>
+        <div class="row-index">02</div>
+        <div><div class="row-title">Selected Visual Design</div><div class="row-org">GENPUGDESIGN — FREELANCE — PACKAGING, PRINT, BRAND</div></div>
+        <div class="row-toggle">+</div>
+      </div>
+      <div class="row-body"><div class="row-body-inner">
+        <p class="row-desc">Freelance packaging, posters, signage and apparel graphics: physical work made at real size for real audiences.</p>
+        <ul class="row-list"><li>Medusa rolling paper booklet: artwork, dielines and a manufacturer tech pack</li><li>Campaign posters for Medusa, plus print and window signage for Kano Martial Arts</li></ul>
+        <div class="tags"><span class="tag">PACKAGING</span><span class="tag">PRINT</span><span class="tag">BRAND ASSETS</span></div>
+        <div class="case-link"><a href="freelance.html" style="color:var(--accent);">View selected work →</a></div>
+      </div></div>
+    </div>
+
+    <!-- 03 Magi Vision -->
     <div class="project-row">
       <div class="row-head" data-toggle>
         <div class="row-thumb">
           <img src="assets/logos/magi.png" alt="Magi Vision medallion logo">
         </div>
-        <div class="row-index">01</div>
+        <div class="row-index">03</div>
         <div><div class="row-title">Magi Vision</div><div class="row-org">SEIRYOKU ZENYO LABS — CO-FOUNDER &amp; DESIGN CHIEF</div></div>
         <div class="row-toggle">+</div>
       </div>
@@ -480,31 +521,13 @@
       </div></div>
     </div>
 
-    <!-- 02 Medusa -->
-    <div class="project-row">
-      <div class="row-head" data-toggle>
-        <div class="row-thumb">
-          <img src="assets/logos/medusa.png" alt="Medusa Solutions logo">
-        </div>
-        <div class="row-index">02</div>
-        <div><div class="row-title">Turn to Stone</div><div class="row-org">MEDUSA SOLUTIONS INC. — FOUNDING DESIGNER — B2C SAAS</div></div>
-        <div class="row-toggle">+</div>
-      </div>
-      <div class="row-body"><div class="row-body-inner">
-        <p class="row-desc">Founding designer for a cannabis discovery startup — the iOS app and website redesign, from conception through launch.</p>
-        <ul class="row-list"><li>Designed the iOS app and website: personas, user journeys, low to high fidelity</li><li>Led brand, art direction, and shoots from NYC to Miami</li></ul>
-        <div class="tags"><span class="tag">PRODUCT SCREENS</span><span class="tag">ART DIRECTION</span><span class="tag">RESEARCH</span></div>
-        <div class="case-link"><a href="medusa-case-study.html" style="color:var(--accent);">View full case study →</a></div>
-      </div></div>
-    </div>
-
-    <!-- 03 PayApp -->
+    <!-- 04 PayApp -->
     <div class="project-row">
       <div class="row-head" data-toggle>
         <div class="row-thumb">
           <img src="assets/logos/justworks.png" alt="Justworks logo">
         </div>
-        <div class="row-index">03</div>
+        <div class="row-index">04</div>
         <div><div class="row-title">PayApp</div><div class="row-org">JUSTWORKS — PRODUCT DESIGN INTERN — B2B</div></div>
         <div class="row-toggle">+</div>
       </div>
@@ -516,41 +539,7 @@
       </div></div>
     </div>
 
-    <!-- 04 New Payments Experience -->
-    <div class="project-row">
-      <div class="row-head" data-toggle>
-        <div class="row-thumb">
-          <img src="assets/logos/justworks.png" alt="Justworks logo">
-        </div>
-        <div class="row-index">04</div>
-        <div><div class="row-title">New Payments Experience</div><div class="row-org">JUSTWORKS — PRODUCT DESIGN INTERN — B2C</div></div>
-        <div class="row-toggle">+</div>
-      </div>
-      <div class="row-body"><div class="row-body-inner">
-        <p class="row-desc">The consumer-facing counterpart to PayApp, built on the same underlying platform.</p>
-        <ul class="row-list"><li>Redesigned UI and flow for a non-technical, self-serve audience</li><li>Extended the Milo Design System for a consistent cross-product experience</li></ul>
-        <div class="tags"><span class="tag">B2C</span><span class="tag">UI DESIGN</span><span class="tag">DESIGN SYSTEMS</span></div>
-        <div class="case-link"><a href="new-payments-experience-case-study.html" style="color:var(--accent);">View full case study →</a></div>
-      </div></div>
-    </div>
-
-    <!-- 05 LIFECYCLE -->
-    <div class="project-row">
-      <div class="row-head" data-toggle>
-        <div class="row-thumb">
-          <img src="assets/logos/lifecycle.png" alt="LIFECYCLE logo">
-        </div>
-        <div class="row-index">05</div>
-        <div><div class="row-title">LIFECYCLE</div><div class="row-org">CASE STUDY — CREATIVE CONSCIENCE GOLD AWARD</div></div>
-        <div class="row-toggle">+</div>
-      </div>
-      <div class="row-body"><div class="row-body-inner">
-        <p class="row-desc">A mental-health companion app built against toxic grind culture — three features that help people break bad habits, build a healthier relationship with food, and stay bonded to the people around them.</p>
-        <ul class="row-list"><li>Heuristic evaluation, empathy interviews, personas, and journey maps</li><li>Creative Conscience <b>Gold</b> — Digital &amp; Technology, Mental Health</li></ul>
-        <div class="tags"><span class="tag">CASE STUDY</span><span class="tag">MENTAL HEALTH</span><span class="tag">AWARD-WINNING</span></div>
-        <div class="case-link"><a href="lifecycle-case-study.html" style="color:var(--accent);">View full case study →</a> &nbsp;·&nbsp; <a href="https://www.creative-conscience.org.uk/winners/lifecycle-live-with-purpose" target="_blank" rel="noopener" style="color:var(--accent);">See the award ↗</a></div>
-      </div></div>
-    </div>
+    <div class="more-cs"><span>MORE CASE STUDIES</span><a href="medusa-case-study.html">Turn to Stone</a><a href="new-payments-experience-case-study.html">New Payments Experience</a><a href="lifecycle-case-study.html">LIFECYCLE</a></div>
 
   </div>
 </section>
