@@ -189,6 +189,22 @@
   .method .t { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; margin-top: 4px; }
   .method .d { font-size: 13px; color: #8E9BA4; margin-top: 4px; line-height: 1.45; }
 
+  .title-row { display: flex; align-items: center; gap: 18px; margin-bottom: 12px; }
+  .title-row h1 { margin-bottom: 0; }
+  .brand-mark { width: 58px; height: 58px; display: block; flex-shrink: 0; border: 1px solid var(--line); }
+
+  .brand-list { list-style: none; border-top: 1px solid var(--line); margin-top: 8px; }
+  .block .brand-list li { max-width: none; padding: 0; margin: 0; }
+  .block .brand-list li::before { content: none; }
+  .brand-list a, .brand-list .row { display: grid; grid-template-columns: 44px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+  .brand-list a:hover .bn { color: var(--accent); }
+  .brand-list .ix { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--accent); }
+  .brand-list .bn { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px; transition: color 0.2s ease; }
+  .brand-list .bd { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.04em; margin-top: 3px; }
+  .brand-list .go { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em; color: var(--accent); border: 1px solid var(--line); padding: 5px 9px; white-space: nowrap; }
+  .brand-list .go.muted { color: var(--muted); }
+  @media (max-width: 480px) { .brand-list a, .brand-list .row { grid-template-columns: 30px 1fr; } .brand-list .go { grid-column: 2; justify-self: start; } }
+
   .example-title { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.06em; margin: -6px 0 26px; }
   h3.step { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin: 44px 0 14px; padding-top: 18px; border-top: 1px dashed var(--line); }
   h3.step:first-of-type { margin-top: 8px; border-top: none; padding-top: 0; }
@@ -241,13 +257,13 @@
 <header class="proj-hero">
   <div class="wrap">
     <div class="proj-index">PROJECT 01 / 04 — SELECTED WORK</div>
-    <h1 class="head">Haddad Brands</h1>
+    <div class="title-row"><img class="brand-mark" src="assets/logos/haddad.png" alt="Haddad Brands logo"><h1 class="head">Haddad Brands</h1></div>
     <div class="proj-role mono">Packaging &amp; Production Design — Asst. Packaging Designer</div>
 
     <div class="meta-row">
       <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Asst. Packaging Designer</span></div>
       <div class="meta-item"><span class="mono label">TIMELINE</span><span class="value head">Apr 2025 — Mar 2026</span></div>
-      <div class="meta-item"><span class="mono label">BRANDS</span><span class="value head">Levi's, Nike, Ralph Lauren, Lacoste</span></div>
+      <div class="meta-item"><span class="mono label">BRANDS</span><span class="value head">Levi's, Lacoste, Nike, Ralph Lauren</span></div>
       <div class="meta-item"><span class="mono label">OUTPUT</span><span class="value head">Trim, packaging &amp; print-ready mechanicals</span></div>
     </div>
 
@@ -257,7 +273,7 @@
       <figure><img src="assets/haddad/flasher-820-front.jpg" alt="Levi's boys belt loop flasher, 8–20 front, same layout at the larger size"><figcaption>8–20 · FRONT</figcaption></figure>
       <figure><img src="assets/haddad/flasher-820-rear.jpg" alt="Levi's boys belt loop flasher rear: solid red with copyright, RN and CA numbers, country of origin and recycling marks"><figcaption>8–20 · REAR</figcaption></figure>
     </div>
-    <div class="hero-caption">Levi's Boys SP26 belt loop flasher for Canada, shown at true relative size. Guide lines are from the production mechanical.</div>
+    <div class="hero-caption">Levi's Signature Red collection: SP26 boys' belt loop flasher for Canada, shown at true relative size. Guide lines are from the production mechanical.</div>
   </div>
 </header>
 
@@ -265,7 +281,7 @@
   <div class="wrap">
     <div class="block-label">// OVERVIEW</div>
     <h2 class="head">Getting the design ready for the factory</h2>
-    <p>At Haddad Brands I designed and prepared trim and packaging for apparel programs across Levi's, Nike, Ralph Lauren and Lacoste. That covers the flashers, tags and labels that ship on the garment, and the mechanicals a factory prints them from.</p>
+    <p>At Haddad Brands I designed and prepared trim and packaging for apparel programs across Levi's, Lacoste, Nike and Ralph Lauren. That covers the flashers, tags and labels that ship on the garment, and the mechanicals a factory prints them from.</p>
     <p>On this kind of work the design has to look right on the shelf and also print correctly in another country, read correctly in two languages, and leave nothing for the printer to guess. Each example below is shown in the same order:</p>
     <div class="method">
       <div><div class="n">01</div><div class="t">Final result</div><div class="d">The piece as it ships</div></div>
@@ -279,9 +295,23 @@
 
 <section class="block">
   <div class="wrap">
-    <div class="block-label">// EXAMPLE 01 — LEVI'S BELT LOOP FLASHER</div>
+    <div class="block-label">// BRANDS</div>
+    <h2 class="head">The brands I designed for</h2>
+    <ul class="brand-list">
+      <li><a href="#levis"><span class="ix">01</span><span><div class="bn">Levi's</div><div class="bd">SIGNATURE RED COLLECTION · FLASHERS &amp; TRIM</div></span><span class="go">EXAMPLE 01 ↓</span></a></li>
+      <li><a href="#lacoste"><span class="ix">02</span><span><div class="bn">Lacoste Kids</div><div class="bd">PACKAGING · 3D CONSTRUCTIONS</div></span><span class="go">EXAMPLE 02 ↓</span></a></li>
+      <li><a href="#lacoste"><span class="ix">03</span><span><div class="bn">Lacoste Baby</div><div class="bd">PACKAGING · 3D CONSTRUCTIONS</div></span><span class="go">EXAMPLE 02 ↓</span></a></li>
+      <li><div class="row"><span class="ix">04</span><span><div class="bn">Nike</div><div class="bd">TRIM &amp; PACKAGING</div></span><span class="go muted">COMING SOON</span></div></li>
+      <li><div class="row"><span class="ix">05</span><span><div class="bn">Ralph Lauren</div><div class="bd">TRIM &amp; PACKAGING</div></span><span class="go muted">COMING SOON</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" id="levis">
+  <div class="wrap">
+    <div class="block-label">// EXAMPLE 01 — LEVI'S SIGNATURE RED</div>
     <h2 class="head">Levi's Boys Performance belt loop flasher, Canada</h2>
-    <div class="example-title">REF P6972 · SP26 · APPAREL · EN / FR</div>
+    <div class="example-title">LEVI'S · SIGNATURE RED COLLECTION · REF P6972 · SP26 · EN / FR</div>
 
     <h3 class="step">01 / FINAL RESULT</h3>
     <p>A flasher that hangs from the belt loop of Levi's boys' 512 Slim Taper Performance jeans. The front pairs a lifestyle photo with a column of feature icons. A red band at the bottom carries the fit name in silver foil, and the rear holds the legal and origin copy. It comes in two sizes, one for 2T–7X and one for 8–20, and every word on it appears in both English and French.</p>
@@ -336,6 +366,19 @@
   </div>
 </section>
 
+<section class="block" id="lacoste">
+  <div class="wrap">
+    <div class="block-label">// EXAMPLE 02 — LACOSTE KIDS &amp; BABY</div>
+    <h2 class="head">Lacoste Kids &amp; Lacoste Baby packaging</h2>
+    <div class="example-title">LACOSTE KIDS · LACOSTE BABY · 3D CONSTRUCTIONS</div>
+    <p>A large share of my time at Haddad went to Lacoste Kids and Lacoste Baby. This work was structural: I built 3D constructions of the packaging so the team could check fold, fit and how the artwork wraps the form before anything was sampled.</p>
+    <div class="img-grid">
+      <div class="img-block tall"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">Lacoste Kids — 3D construction</div></div></div>
+      <div class="img-block tall"><div class="hatch"></div><div class="building"><svg viewBox="0 0 24 24" fill="none" stroke="#8FD6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l8-5 8 5v10"/><path d="M9 20v-5h6v5"/><path d="M12 5V2"/></svg><div class="bt">CURRENTLY BUILDING</div><div class="bs">Lacoste Baby — 3D construction</div></div></div>
+    </div>
+  </div>
+</section>
+
 <div class="wrap">
   <div class="next-proj">
     <div><span class="lbl mono">NEXT PROJECT</span><a href="freelance.html">Selected Visual Design →</a>
@@ -344,7 +387,7 @@
   </div>
 </div>
 
-<div class="wrap"><p class="mono" style="padding-bottom:8px;font-size:10px;color:var(--muted);letter-spacing:0.04em;">Artwork © Haddad Apparel Group, Ltd. and Levi Strauss &amp; Co. Shown as a portfolio sample.</p></div>
+<div class="wrap"><p class="mono" style="padding-bottom:8px;font-size:10px;color:var(--muted);letter-spacing:0.04em;">Artwork © Haddad Apparel Group, Ltd. and its brand partners. Shown as a portfolio sample.</p></div>
 
 <footer id="contact">
   <div class="wrap footer-inner">
