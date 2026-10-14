@@ -200,8 +200,6 @@
   .row-thumb img { max-width: 62%; max-height: 72%; width: auto; height: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.25s ease, transform 0.25s ease; }
   .project-row.open .row-thumb img, .row-head:hover .row-thumb img { opacity: 1; transform: scale(1.06); }
   .project-row.open .row-thumb { border-color: var(--accent); }
-  .row-thumb.fill img { max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: cover; opacity: 1; }
-  .project-row.open .row-thumb.fill img, .row-head:hover .row-thumb.fill img { transform: none; }
   .row-index { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent); }
   .row-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; }
   .row-org { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
@@ -472,7 +470,7 @@
     <!-- 01 Haddad Brands -->
     <div class="project-row">
       <div class="row-head" data-toggle>
-        <div class="row-thumb fill">
+        <div class="row-thumb">
           <img src="assets/logos/haddad.png" alt="Haddad Brands logo">
         </div>
         <div class="row-index">01</div>
