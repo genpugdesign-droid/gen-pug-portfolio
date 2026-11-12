@@ -37,8 +37,10 @@ if (cfg.check) {
   catch { console.error('NDA_PASSWORD does not match the one the pages were locked with'); process.exit(1); }
 }
 
-async function seal(bytes) {
-  const iv = crypto.getRandomValues(new Uint8Array(12));
+// assets get an IV derived from their content, so an unchanged file encrypts to the same bytes on every run
+// (no churn in git); identical plaintext is the only thing that repeats
+async function seal(bytes, stable = false) {
+  const iv = stable ? new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)).slice(0, 12) : crypto.getRandomValues(new Uint8Array(12));
   const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, bytes));
   const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12);
   return Buffer.from(out);
@@ -47,7 +49,7 @@ if (!cfg.check) {
   cfg.check = (await seal(new TextEncoder().encode('nda-ok'))).toString('base64');
   fs.writeFileSync(CONFIG, JSON.stringify(cfg) + '\n');
 }
-const TYPES = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.mp4': 'video/mp4' };
+const TYPES = { '.webm': 'video/webm', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.mp4': 'video/mp4' };
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const sha = async s => Buffer.from(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))).toString('hex').slice(0, 16);
 
@@ -62,14 +64,16 @@ for (const f of pages) {
   const parts = []; let last = 0, m, n = 0;
   while ((m = re.exec(html))) {
     let [all, title, org, kind, body] = m;
-    const refs = [...body.matchAll(/(src|poster)="(assets\/[^"]+)"/g)];
-    for (const [, , rel] of refs) {
+    // src → data-nda-src, poster → data-nda-poster, data-src (loaded on demand) → data-nda-lazy
+    const refs = [...body.matchAll(/(?<![\w-])(src|poster|data-src)="(assets\/[^"]+)"/g)];
+    for (const [whole, attr, rel] of refs) {
       const file = assetFile(rel);
       if (!file) throw new Error(`${f}: missing ${rel}`);
       const id = await sha(rel);
-      fs.writeFileSync(path.join(OUT_ASSETS, id + '.bin'), await seal(fs.readFileSync(file)));
+      fs.writeFileSync(path.join(OUT_ASSETS, id + '.bin'), await seal(fs.readFileSync(file), true));
       const type = TYPES[path.extname(rel).toLowerCase()] || 'application/octet-stream';
-      body = body.split(`="${rel}"`).join(`="" data-nda-src="assets/nda/${id}.bin" data-nda-type="${type}"`);
+      const k = { src: 'src', poster: 'poster', 'data-src': 'lazy' }[attr];
+      body = body.split(whole).join(`${attr}="" data-nda-${k}="assets/nda/${id}.bin|${type}"`);
       lockedAssets.add(rel);
     }
     const payload = (await seal(new TextEncoder().encode(body))).toString('base64');

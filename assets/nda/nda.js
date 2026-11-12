@@ -19,6 +19,26 @@
   }
   const open = (key, bytes) => crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes.subarray(0, 12) }, key, bytes.subarray(12));
 
+  // "assets/nda/x.bin|image/png" → a blob URL of the decrypted file
+  let openKey = null;
+  const cache = new Map();
+  function media(spec) {
+    if (!cache.has(spec)) {
+      const [url, type] = spec.split('|');
+      cache.set(spec, fetch(url).then(r => r.arrayBuffer())
+        .then(buf => open(openKey, new Uint8Array(buf)))
+        .then(plain => URL.createObjectURL(new Blob([plain], { type }))));
+    }
+    return cache.get(spec);
+  }
+  // for media a page loads on demand (data-src): ndaMedia(el) decrypts and sets el.src
+  window.ndaMedia = el => {
+    if (!openKey || !el.dataset.ndaLazy || el.dataset.ndaBusy) return false;
+    el.dataset.ndaBusy = '1';
+    media(el.dataset.ndaLazy).then(u => { el.src = u; if (el.autoplay || el.dataset.ndaPlay) el.play && el.play().catch(() => {}); }).catch(() => {});
+    return true;
+  };
+
   async function unlockAll(key) {
     const done = [];
     for (const el of locks) {
@@ -30,17 +50,21 @@
       el.replaceWith(t.content);
       done.push(...nodes);
     }
+    openKey = key;
     for (const n of done) {
       if (n.nodeType !== 1) continue;
-      for (const img of [n, ...n.querySelectorAll('[data-nda-src]')].filter(x => x.dataset && x.dataset.ndaSrc)) {
-        fetch(img.dataset.ndaSrc).then(r => r.arrayBuffer())
-          .then(buf => open(key, new Uint8Array(buf)))
-          .then(plain => { img.src = URL.createObjectURL(new Blob([plain], { type: img.dataset.ndaType })); })
-          .catch(() => { img.alt = img.alt || 'Image unavailable'; });
+      const all = [n, ...n.querySelectorAll('[data-nda-src],[data-nda-poster]')];
+      for (const el of all) {
+        if (el.dataset.ndaSrc) media(el.dataset.ndaSrc).then(u => { el.src = u; }).catch(() => {});
+        if (el.dataset.ndaPoster) media(el.dataset.ndaPoster).then(u => { el.poster = u; }).catch(() => {});
       }
     }
     document.documentElement.classList.add('nda-open');
     document.dispatchEvent(new Event('nda:unlocked'));
+    // a link to a section (e.g. #booklet) can only land once the section exists
+    const id = location.hash.slice(1).split('&')[0];
+    const target = id && document.getElementById(id);
+    if (target) requestAnimationFrame(() => target.scrollIntoView());
   }
 
   const LOCK_SVG = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4.5" y="10.5" width="15" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
