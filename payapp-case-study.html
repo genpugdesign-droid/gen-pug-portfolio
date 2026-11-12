@@ -179,6 +179,8 @@
     .footer-links a { font-size: 10.5px; padding: 7px 9px; }
   }
 </style>
+<link rel="stylesheet" href="assets/nda/nda.css">
+<script src="assets/nda/nda.js" defer></script>
 </head>
 <body>
 
@@ -195,142 +197,7 @@
     </div>
   </div>
 </nav>
-
-<header class="proj-hero">
-  <div class="wrap">
-    <div class="proj-index">PROJECT 03 / 05 — PRODUCT &amp; UX</div>
-    <h1 class="head">PayApp</h1>
-    <div class="proj-role mono">Justworks — Product Design Intern · Internship / Deployed / Fintech</div>
-
-    <div class="meta-row">
-      <div class="meta-item"><span class="mono label">DURATION</span><span class="value head">2 Months</span></div>
-      <div class="meta-item"><span class="mono label">ROLE</span><span class="value head">Product Designer, Researcher</span></div>
-      <div class="meta-item"><span class="mono label">PLATFORM</span><span class="value head">Web · B2B</span></div>
-      <div class="meta-item"><span class="mono label">STATUS</span><span class="value head">Deployed</span></div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="corner tl"></div><div class="corner br"></div>
-      <img src="assets/img_payapp_hero.png" alt="PayApp member management screen on a laptop">
-    </div>
-    <div class="hero-caption">PayApp's Member Management screen — roles and permissions for internal Justworks users.</div>
-  </div>
-</header>
-
-<section class="block">
-  <div class="wrap">
-    <div class="block-label">// OVERVIEW</div>
-    <h2 class="head">An internal tool for Justworks</h2>
-    <p>PayApp is an internal tool that was deployed in 2025. The API is growing due to PayApp being added as an additional functionality for internal users. This led Justworks to needing the appropriate risks and controls to a select group due to the risk surrounded the money movement capabilities of the platform.</p>
-
-    <div class="two-col">
-      <div><h4>CHALLENGE</h4><p>PayApp currently allows full access to all users that are added to the platform. This creates risk of control on the platform which is increasing as more money movement capabilities are added.</p></div>
-      <div><h4>SOLUTION</h4><p>Build roles and permissions in a way that internal teams can manage their own provisioning through a ticketing service without needing PAY to intervene.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="wrap">
-    <div class="block-label">// MY ROLE</div>
-    <ul>
-      <li>Skills: Design Thinking, Data Analysis, Usability Testing, Empathy Interviewing, Competitor Analysis, Qualitative &amp; Quantitative Analysis</li>
-      <li>Team: 1 Product Designer, 1 Staff Product Designer, 2 Product Managers, 7 Software Engineers, 1 Content Designer</li>
-    </ul>
-  </div>
-</section>
-
-<section class="block">
-  <div class="wrap">
-    <div class="block-label">// METHODOLOGY</div>
-    <div class="methodology">
-      <div class="method-step">Discover</div><div class="method-arrow">→</div>
-      <div class="method-step">Define</div><div class="method-arrow">→</div>
-      <div class="method-step">Ideate</div><div class="method-arrow">→</div>
-      <div class="method-step">Design &amp; Development</div><div class="method-arrow">→</div>
-      <div class="method-step">Deliver!</div>
-    </div>
-    <p>This project utilized a heuristic non-linear approach due to new information and changes actively happening within the company.</p>
-
-    <h3>Discover</h3>
-    <p>Going through this phase meant listening to many different perspectives within PayOps and IT to get a general grasp on their day-to-day tasks along with interruptions and how they sit with themselves. This also included a competitive analysis of how other FinTech companies were provisioning roles and permissions for users to have access to finances where large sums of money are involved. I was unfamiliar with the financial world but made it my mission to understand all moving parts from ACH to Plaid and even penny tests.</p>
-    <p>I became proficient in understanding the perspective of the Justworks employees' workflows by organizing unstructured interviews to allow the conversation to flow. Starting off without a rigid interview script allowed the interviewees to speak more openly and freely about their work which not only offered me technical insight into their day-to-days but emotional as well. This allowed me to observe which tasks they found the most joy in and which duties were not as enjoyable.</p>
-    <p>The Project Manager, Staff Product Designer, Software Engineers, and I sat in on a demo of the competitor Modern Treasury to see how they provision roles and permissions access as well as for whom. This showed us their internal UI perspective which utilizes drawers and modals to maintain a simplified process.</p>
-
-    <h3>Site Map Iterations</h3>
-    <div class="img-block free"><img src="assets/img_payapp_sitemap2.png" alt="PayApp permissions and roles sitemap iterations"></div>
-    <p>Multiple site maps were created simultaneously when wireframing to develop both the interface and users experience. This process also helped determine where the Roles and Permissions feature will reside within PayApp.</p>
-    <p>After the site map iterations were developed, user flows were generated alongside low and mid-fidelity wireframes.</p>
-
-    <h3>Qualitative Personas</h3>
-    <div class="persona-grid">
-      <div class="persona-card">
-        <div class="persona-avatar">LJ</div>
-        <div class="persona-name">Lady Jessica</div>
-        <div class="persona-meta">PRIMARY — JUSTWORKS I.T. · THE PROVISIONER</div>
-        <div class="persona-quote">"I can grant the power — but I have to be certain I'm granting the right one."</div>
-        <ul class="persona-needs">
-          <li>Add team members and assign roles without engineering</li>
-          <li>Create new roles from permission sets when none fit</li>
-          <li>Reduce risk on a platform moving large sums of money</li>
-          <li>Clear signifiers for where to click and what to enter</li>
-        </ul>
-      </div>
-      <div class="persona-card">
-        <div class="persona-avatar">PA</div>
-        <div class="persona-name">Paul Atreides</div>
-        <div class="persona-meta">SECONDARY — JUSTWORKS FINANCE · THE RECIPIENT</div>
-        <div class="persona-quote">"I just need the right access, on the first try."</div>
-        <ul class="persona-needs">
-          <li>Be assigned the correct role quickly to start work</li>
-          <li>Clear visibility into what permissions he holds</li>
-          <li>Not be added without provisions — an unusable half-state</li>
-        </ul>
-      </div>
-    </div>
-    <p>The flow the personas drove: <strong>Lady Jessica grants Paul Atreides his rightful role.</strong> She can add him as an admin and dictate what he can reach — but she has to stay vigilant, because adding a member before granting permissions creates a user who exists in the system with no power to act. That constraint is why the drawer refuses to save a member against a role with no provisions: halting the task and re-verifying confirms the right role is going to the intended person.</p>
-    <p class="hero-caption" style="margin-top:-6px;">Persona names are a deliberate creative choice from the original research deck — kept here as a stand-in for real portraits.</p>
-
-    <h3>MVPs</h3>
-    <div class="two-col">
-      <div><h4>ADD TEAM MEMBER WITH ROLES</h4><p>The member list will never be created in an empty state because a Justworks I.T. user will be the first user manually added by engineering.</p></div>
-      <div><h4>CREATE NEW ROLES</h4><p>Justworks I.T. and admins should be able to create roles encompassing a set of permissions. These roles can then be assigned to users to provide them with the appropriate access.</p></div>
-    </div>
-    <p>To add a user to the system, a role must be created with permission sets within first. If no currently added role fits the newly added member, a new role can be created from the "create new role" link. However, information added to the drawer will not be saved if a role without provisions is assigned — halting the task and re-verifying the information helps confirm that the user is assigning the correct role to the intended member.</p>
-
-    <h3>Ideate — Sketches</h3>
-    <p>In conjunction with performing empathy interviews and gaining insight, low-fidelity sketches were drafted to explore possible user flows and screens with a clear end goal of the user being able to add a role while consistently questioning other design solutions.</p>
-
-    <h3>Wireframe Iterations</h3>
-    <p>Low to mid-fidelity wireframes was an exploratory and iterative process. There were consistent touch bases with cross-functional stakeholders and the software engineering team to gain feedback and have visibility as early as possible.</p>
-
-    <h3>Design &amp; Development — High Fidelity</h3>
-    <p>High-fidelity prototypes were presented to the affected stakeholders in PayOps and IT to gather feedback. This was not the first time that they had seen these screens. Throughout the scope of this project, the team and I had regular check-ins with the users to continue gathering quantitative and qualitative data to ensure PayApp will be a scalable product. The software engineering team was also present to give comments to remain active within the design process from the ground up.</p>
-    <p>This then led to the flow of Lady Jessica giving Paul Atredies his rightful role.</p>
-
-    <h3>Deliver — Prototypes and Handoff</h3>
-    <p>Lady Jessica has the power to not only add a new admin but to dictate their role within the internal tool of PayApp. But she must remain vigilant and make sure not to add a member without first granting their role within the system.</p>
-    <div class="img-block free"><img src="assets/img_payapp_deliver3.png" alt="Add member and Create New Role flows in PayApp"></div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="wrap">
-    <div class="block-label">// OUTCOME</div>
-    <div class="stat-row">
-      <div class="stat"><span class="lbl-top">OUTCOMES</span><p>It was a fulfilling project to be able to go from 0 to 1 with a hard-stop deadline — and being notified after handoff that it was deployed.</p></div>
-      <div class="stat"><span class="lbl-top">REFLECTION</span><p>A feature added to allow only specific users to be able to transfer a certain amount of money would be beneficial to track both internal and external transfers.</p></div>
-    </div>
-  </div>
-</section>
-
-<div class="wrap">
-  <div class="next-proj">
-    <div><span class="lbl mono">NEXT PROJECT</span><a href="medusa-case-study.html">Turn to Stone →</a>
-      <a class="prev-proj" href="new-payments-experience-case-study.html">← Previous: New Payments Experience</a></div>
-    <a href="index.html">All Work</a>
-  </div>
-</div>
+<div class="nda-lock nda-page" data-nda="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" data-title="PayApp" data-org="Justworks"></div>
 
 <footer id="contact">
   <div class="wrap footer-inner">
@@ -347,7 +214,8 @@
 </footer>
 
 <script>
-(function(){
+function buildStageNav(){
+  var old = document.querySelector('nav.stage-nav'); if (old) old.remove();
   var items = [];
   document.querySelectorAll('section.block').forEach(function(sec){
     function shorten(s){
@@ -380,7 +248,9 @@
   }
   sync();
   window.addEventListener('scroll', sync, { passive: true });
-})();
+}
+buildStageNav();
+document.addEventListener('nda:unlocked', buildStageNav);
 </script>
 
 </body>

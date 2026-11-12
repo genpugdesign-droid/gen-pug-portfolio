@@ -1,0 +1,31 @@
+/* NDA password gate (see assets/nda/nda.js). Uses the site's tokens: --bg-panel, --ink, --accent, --line, --muted. */
+.nda-page { min-height: 62vh; display: flex; align-items: center; }
+.nda-page .nda-gate { padding-top: 120px; padding-bottom: 96px; max-width: 640px; }
+.nda-inline .nda-gate { margin: 18px 0 6px; padding: 26px 24px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-panel); }
+.nda-icon { width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center;
+  color: var(--accent); background: var(--accent-soft); margin-bottom: 18px; }
+.nda-inline .nda-icon { width: 38px; height: 38px; margin-bottom: 14px; }
+.nda-tag { font-size: 11.5px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px; }
+.nda-title { font-size: clamp(34px, 6vw, 56px); line-height: 1.02; color: var(--ink); margin: 0 0 14px; font-weight: 700; }
+.nda-inline .nda-title { display: none; }
+.nda-copy { color: var(--muted); font-size: 16px; line-height: 1.55; max-width: 46ch; margin: 0 0 22px; }
+.nda-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; max-width: 440px; }
+.nda-form input { flex: 1 1 220px; min-width: 0; height: 44px; padding: 0 14px; border-radius: 6px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--ink); font: 15px 'IBM Plex Mono', monospace; }
+.nda-form input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.nda-form button { height: 44px; padding: 0 18px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent);
+  color: var(--bg); font-size: 12.5px; letter-spacing: 0.08em; font-weight: 500; cursor: pointer; }
+.nda-form button:disabled { opacity: 0.6; cursor: progress; }
+.nda-msg { flex-basis: 100%; min-height: 18px; font-size: 12px; color: var(--muted); }
+.nda-form .nda-msg { color: #FF8F8F; }
+.nda-ask { margin: 26px 0 0; font-size: 11.5px; letter-spacing: 0.06em; color: var(--muted); }
+.nda-ask a { color: var(--accent); }
+.nda-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.nda-shake { animation: nda-shake 0.36s; }
+@keyframes nda-shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .nda-shake { animation: none; } }
+/* NDA marker on the home page rows */
+.nda-badge { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; padding: 2px 7px; border: 1px solid var(--accent);
+  border-radius: 4px; color: var(--accent); font: 10.5px 'IBM Plex Mono', monospace; letter-spacing: 0.06em; vertical-align: 1px; }
+.nda-badge svg { width: 11px; height: 11px; }

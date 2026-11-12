@@ -1,1 +1,3 @@
 .DS_Store
+# plain sources of the password-locked (NDA) pages; never commit
+_nda_src/
